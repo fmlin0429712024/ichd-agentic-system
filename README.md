@@ -77,30 +77,47 @@ operable across a chain of centers. The primary cloud value proposition is
 **fleet management at enterprise scale**—not remote clinical control.
 
 ```mermaid
-flowchart LR
-    subgraph POC[POC today · one virtual center]
-        direction BT
-        VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Atlas"]
-        VA --> VM["🧠 Virtual Mira"]
-        VM --> VH["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>demo workspace"]
-    end
+%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "curve": "linear"}}}%%
+flowchart TB
+    subgraph COMPARISON[" "]
+        direction LR
 
-    subgraph FUTURE[Future vision · physical sites + enterprise]
-        direction BT
-        RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Atlas AGV<br/>Jetson AGX Orin-class"]
-        AR <--> SE["🧠 Mira site edge gateway<br/>IGX Orin-class"]
-        SE --> HS["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>on-site human authority"]
-        SE <--> EC["☁️ Enterprise cloud<br/>fleet management across centers"]
+        subgraph POC[" "]
+            direction BT
+            VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Atlas"]
+            VA --> VM["🧠 Virtual Mira"]
+            VM --> VH["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>demo workspace"]
+            VH ~~~ PH["VIRTUAL POC<br/>ONE SIMULATED CENTER"]
+        end
+
+        subgraph FUTURE[" "]
+            direction BT
+            RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Atlas AGV<br/>Jetson AGX Orin-class"]
+            AR <--> SE["🧠 Mira site edge gateway<br/>IGX Orin-class"]
+            SE --> HS["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>on-site human authority"]
+            SE <--> EC["☁️ Enterprise cloud<br/>fleet management across centers"]
+            HS ~~~ FH["REAL-WORLD VISION<br/>PHYSICAL SITES + ENTERPRISE FLEET"]
+            EC ~~~ FH
+        end
+
+        POC ~~~ FUTURE
     end
 
     classDef source fill:#FEF3C7,stroke:#D97706,color:#422006
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef cloud fill:#EDE9FE,stroke:#7C3AED,color:#2E1065
+    classDef pocHeader fill:#0F766E,stroke:#0F766E,color:#FFFFFF,font-size:18px,font-weight:bold
+    classDef futureHeader fill:#1D4ED8,stroke:#1D4ED8,color:#FFFFFF,font-size:18px,font-weight:bold
     class VP,RS source
     class VA,VM,AR,SE digital
     class VH,HS human
     class EC cloud
+    class PH pocHeader
+    class FH futureHeader
+    style POC fill:#F0FDFA,stroke:#0F766E,stroke-width:2px
+    style FUTURE fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px
+    style COMPARISON fill:transparent,stroke:transparent
 ```
 
 **Read bottom to top:** patient and treatment data begin at the chair; digital
