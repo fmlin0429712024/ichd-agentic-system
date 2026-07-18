@@ -69,6 +69,37 @@ escalation card. The demo will make the two evidence streams visible:
 - **Chairside observation:** Atlas's manual recheck, patient report, and
   scripted physical observations.
 
+## From virtual POC to fleet-ready vision
+
+The POC validates the CareLoop collaboration model in a virtual center. The
+future vision keeps that model, places it at the care site, and makes it
+operable across a chain of centers. The primary cloud value proposition is
+**fleet management at enterprise scale**—not remote clinical control.
+
+```mermaid
+flowchart LR
+    subgraph POC[POC today · one virtual center]
+        direction TB
+        VP["Virtual patients +<br/>simulated treatment data"] --> VA["Virtual Atlas"]
+        VA --> VM["Virtual Mira"]
+        VM --> VH["Jordan + Casey<br/>demo workspace"]
+    end
+
+    VM -. "same CareLoop roles,<br/>events, and authority boundaries" .-> SE
+
+    subgraph FUTURE[Future vision · physical sites + enterprise]
+        direction TB
+        RS["On-site devices +<br/>local safety boundary"] --> AR["Atlas robot edge<br/>Jetson AGX Orin-class"]
+        AR <--> SE["Mira site edge gateway<br/>industrial-grade · IGX Orin-class"]
+        SE --> HS["Jordan, RN + Casey, PCT<br/>on-site human authority"]
+        SE <--> EC["Enterprise cloud<br/>fleet management across centers"]
+    end
+```
+
+**The simple deployment story:** Atlas acts locally at the chair; Mira
+coordinates at the site; the enterprise cloud manages the fleet across many
+centers. Jordan Lee, RN remains the final clinical decision-maker at the site.
+
 ## Explore the project
 
 - [POC PRD](docs/PRD.md) — detailed product source of truth
