@@ -51,9 +51,9 @@ behavior, refactor while green, and run the relevant suite before completion.
 
 ## Formal A2A seam
 
-- [ ] `A2A-01` Select and pin an official A2A SDK and protocol binding.
+- [x] `A2A-01` Select and pin an official A2A SDK and protocol binding.
   **Validate:** decision and version are recorded in the Technical Spec.
-- [ ] `A2A-A01` Implement the thin Atlas A2A server and publish its Agent Card.
+- [x] `A2A-A01` Implement the thin Atlas A2A server and publish its Agent Card.
   **Depends on:** `A2A-01`, `CONTRACT-A01`, `CONTRACT-A02`.
   **Validate:** discovery works from a separate process.
 - [ ] `A2A-M01` Implement the thin Mira A2A client and capability discovery.
@@ -65,6 +65,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [ ] `A2A-03` Test input-required, cancellation, failure, malformed payload,
   unsupported capability, and duplicate request behavior. **Depends on:**
   `A2A-02`. **Validate:** every case is traceable and fails safely.
+- [x] `A2A-VS01` Demonstrate a schema-valid Daniel coffee task from a simulated
+  Mira browser client through official A2A and replay the verified artifact as
+  Atlas movement. **Validate:** discovery, completed task, provenance, route,
+  and event trace are visible; this does not complete the Mira role tasks.
 
 ## Simulator foundation
 

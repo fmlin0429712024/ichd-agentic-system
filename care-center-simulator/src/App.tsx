@@ -2,6 +2,7 @@ import { useCallback, useMemo, useReducer, useRef, useState } from "react";
 import { CareFloor } from "./components/CareFloor";
 import { atlasReducer, createInitialAtlasState, createPatrolRoute, type CarryItem } from "./domain/atlas-machine";
 import { floorLayout, type WaypointId } from "./domain/floor-layout";
+import { dispatchDanielCoffee, type AtlasProviderArtifact } from "./integration/atlas-a2a-client";
 import "./styles.css";
 
 type TimelineEvent = { id: number; time: string; actor: string; message: string; tone: "system" | "atlas" | "attention" };
@@ -20,6 +21,8 @@ export default function App() {
   const [selectedChair, setSelectedChair] = useState<string | null>(null);
   const [events, setEvents] = useState(initialEvents);
   const [patrol, setPatrol] = useState<WaypointId[]>([]);
+  const [a2aArtifact, setA2aArtifact] = useState<AtlasProviderArtifact | null>(null);
+  const [a2aStatus, setA2aStatus] = useState<"ready" | "dispatching" | "executing" | "error">("ready");
   const eventId = useRef(3);
 
   const log = useCallback((actor: string, message: string, tone: TimelineEvent["tone"] = "system") => {
@@ -36,13 +39,37 @@ export default function App() {
     const destination = atlas.destination;
     dispatch({ type: "arrive" });
     if (destination) log("ATLAS", `Arrived at ${destination === "nurse-station" ? "operations center" : destination.replace("chair-0", "Chair ")}`, "atlas");
+    if (a2aArtifact && destination === a2aArtifact.chairId) {
+      dispatch({ type: "deliver" });
+      log("ATLAS", `A2A task completed · ${a2aArtifact.evidenceRefs[0]}`, "atlas");
+      setA2aArtifact(null);
+      setA2aStatus("ready");
+    }
     setPatrol((route) => {
       if (route.length <= 1) return [];
       const next = route.slice(1);
       window.setTimeout(() => dispatch({ type: "move", destination: next[0] }), 500);
       return next;
     });
-  }, [atlas.destination, log]);
+  }, [a2aArtifact, atlas.destination, log]);
+
+  const runA2aDemo = async () => {
+    setPatrol([]);
+    setSelectedChair("chair-01");
+    setA2aStatus("dispatching");
+    log("MIRA", "Dispatching schema-valid coffee task through A2A", "attention");
+    try {
+      const artifact = await dispatchDanielCoffee();
+      setA2aArtifact(artifact);
+      setA2aStatus("executing");
+      log("A2A", `Atlas accepted ${artifact.taskId} · replaying verified execution`, "system");
+      dispatch({ type: "carry", item: "coffee" });
+      window.setTimeout(() => dispatch({ type: "move", destination: artifact.chairId }), 250);
+    } catch (error) {
+      setA2aStatus("error");
+      log("A2A", error instanceof Error ? error.message : "Atlas service unavailable", "attention");
+    }
+  };
 
   const startPatrol = () => {
     const route = createPatrolRoute(42);
@@ -105,6 +132,14 @@ export default function App() {
 
         <aside className="control-panel">
           <div className="panel-title"><div><span>ATLAS PLAYGROUND</span><h2>Field controls</h2></div><div className={`status-pill ${atlas.status}`}><i />{atlas.status}</div></div>
+
+          <section className="a2a-demo">
+            <span>END-TO-END A2A JOURNEY</span>
+            <strong>Daniel requests coffee</strong>
+            <button disabled={a2aStatus === "dispatching" || a2aStatus === "executing"} onClick={runA2aDemo}>
+              {a2aStatus === "dispatching" ? "Mira is dispatching…" : a2aStatus === "executing" ? "Atlas is delivering…" : a2aStatus === "error" ? "Retry A2A demo" : "Run Mira → Atlas"}
+            </button>
+          </section>
 
           <section className="control-section">
             <label>DESTINATION</label>

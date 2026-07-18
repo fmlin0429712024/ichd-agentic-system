@@ -14,8 +14,9 @@ reports to Mira and makes no medical judgment.
 | A2A discovery and declared capability | Atlas Agent Card | `aide-agv-agent/contracts/agent-card.json` |
 | Executable business payloads | Atlas JSON Schemas | `aide-agv-agent/contracts/` |
 
-The future thin A2A server will host these assets and invoke the Atlas role. It
-will not contain a second copy of Atlas policy.
+The thin A2A server hosts the Agent Card and invokes a deterministic POC
+capability adapter after contract validation. It does not contain a second copy
+of Atlas role policy or any robot internals.
 
 ## Declared A2A skills
 
@@ -43,7 +44,7 @@ Mira request
 
 Atlas artifact
   status: completed
-  evidenceRef: sim-event-delivery-001
+  evidenceRef: sim-event-task-deliver-coffee-001
   provenance: atlas-simulator / simulated
 ```
 
@@ -69,12 +70,13 @@ python3 /path/to/skill-creator/scripts/quick_validate.py \
 ```
 
 Current scope validates one accepted coffee-delivery request, rejection of a
-clinical action, one valid completion artifact, missing-provenance rejection,
-Agent Card role boundaries, and Codex Skill structure.
+clinical action, a discoverable A2A server, one valid completion artifact,
+missing-provenance rejection, Agent Card role boundaries, and Codex Skill
+structure.
 
 ## Standards basis
 
-The Agent Card uses the official A2A 1.0 `supportedInterfaces` model with an
-`HTTP+JSON` binding. The endpoint is a localhost POC placeholder until the thin
-A2A server task begins. See the
+The Agent Card uses the official A2A 1.0 `supportedInterfaces` model with a
+`JSONRPC` binding. The server pins `@a2a-js/sdk@1.0.0-beta.0` and publishes its
+localhost endpoint at `http://127.0.0.1:8043`. See the
 [official A2A specification](https://a2a-protocol.org/latest/specification/).

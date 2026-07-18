@@ -3,7 +3,15 @@
 > A human-in-the-loop, multi-agent simulation for a fictional in-center
 > hemodialysis treatment pod.
 
-## Try the simulator playground
+## Run the first end-to-end journey
+
+```bash
+cd aide-agv-agent
+npm install
+npm start
+```
+
+In a second terminal:
 
 ```bash
 cd care-center-simulator
@@ -11,8 +19,11 @@ npm install
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/` to explore the fixed-view four-chair treatment
-floor and manually test Atlas movement, delivery, patrol, stop, and reset.
+Open `http://127.0.0.1:5173/` and select **Run Mira → Atlas**. The simulated
+Mira client discovers Atlas through its Agent Card, sends Daniel's coffee task
+through official A2A v1.0 JSON-RPC, validates the returned provider artifact,
+and replays the verified Atlas delivery on the treatment floor. Manual movement,
+delivery, patrol, stop, and reset remain available as playground controls.
 
 See [Frontend Design](docs/FRONTEND_DESIGN.md) for the simulator layout,
 deterministic routes, rendering boundary, and progressive role strategy.
@@ -83,11 +94,12 @@ Patients and humans use formal names; the two digital employees use short fixed
 nicknames. The interface uses simple labels such as `Emma · Chair 3` and
 `Mira · Nurse AI` so the story is easy to scan.
 
-## Planned interactive demo
+## Interactive demo
 
-The browser experience will combine a top-down treatment-floor view, live KPI
-overlays, Atlas movement, a conversation/event timeline, and a prominent RN
-escalation card. The demo will make the two evidence streams visible:
+The current browser experience combines a fixed 2.5D treatment-floor view,
+patient KPIs, routed Atlas movement, and an A2A event trace. Daniel's routine
+coffee journey is operational; the RN escalation stories remain planned. The
+complete demo will make two evidence streams visible:
 
 - **Simulated IoT data:** current treatment values and trends.
 - **Chairside observation:** Atlas's manual recheck, patient report, and

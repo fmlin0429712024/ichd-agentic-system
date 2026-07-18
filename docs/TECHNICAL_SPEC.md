@@ -99,6 +99,12 @@ Mira is the coordinating A2A client. Atlas is the bounded A2A server/worker.
 Atlas publishes an Agent Card describing its identity, endpoint, supported
 content types, authentication mode, and available skills.
 
+The POC pins the official JavaScript SDK `@a2a-js/sdk` at `1.0.0-beta.0`,
+implementing A2A Protocol v1.0 over JSON-RPC. The beta is an explicit,
+reproducible choice because the stable JavaScript SDK line implements v0.3.
+The initial browser journey uses a simulated Mira client; the independent Mira
+Skill and client adapter remain separate follow-on work.
+
 Minimum POC operations:
 
 ```text
@@ -119,8 +125,9 @@ submitted → working → completed
           → input-required → working
 ```
 
-Use the A2A `contextId` as the CareLoop incident identifier. Use a distinct A2A
-`taskId` for each requested unit of work.
+Use the A2A `contextId` to correlate a CareLoop interaction. Provider-owned
+`incidentId` and `taskId` fields remain distinct inside the structured payload
+and artifact; the A2A server also generates its own protocol task ID.
 
 The project must use an official A2A SDK and protocol envelope. A custom HTTP or
 file-based JSON exchange must not be represented as A2A.

@@ -1,39 +1,46 @@
 {
   "name": "Atlas Aide AGV Agent",
-  "description": "Executes bounded routine support and chairside evidence collection for a fictional dialysis-center POC; Atlas makes no medical judgment.",
+  "description": "Executes bounded routine support for a fictional dialysis-center POC; Atlas makes no medical judgment.",
   "supportedInterfaces": [
     {
-      "url": "http://127.0.0.1:8043/a2a",
-      "protocolBinding": "HTTP+JSON",
-      "protocolVersion": "1.0"
+      "url": "http://127.0.0.1:8043/a2a/jsonrpc",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0",
+      "tenant": ""
     }
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "capabilities": {
     "streaming": false,
     "pushNotifications": false,
-    "extendedAgentCard": false
+    "extendedAgentCard": false,
+    "extensions": []
   },
-  "defaultInputModes": ["application/json", "text/plain"],
-  "defaultOutputModes": ["application/json", "text/plain"],
+  "securitySchemes": {},
+  "securityRequirements": [],
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"],
+  "signatures": [],
   "skills": [
     {
       "id": "routine-item-delivery",
       "name": "Routine Item Delivery",
-      "description": "Deliver a pre-approved water, coffee, or blanket item to a known treatment chair.",
+      "description": "Deliver pre-approved water, coffee, or blanket to a known treatment chair.",
       "tags": ["dialysis", "routine-support", "delivery"],
       "examples": ["Deliver the pre-approved coffee to Chair 1."],
-      "inputModes": ["application/json", "text/plain"],
-      "outputModes": ["application/json", "text/plain"]
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"],
+      "securityRequirements": []
     },
     {
       "id": "chairside-evidence-collection",
       "name": "Chairside Evidence Collection",
-      "description": "Ask a bounded question or collect simulator-provided vital signs and visible observations without clinical interpretation.",
+      "description": "Collect bounded simulator evidence without clinical interpretation.",
       "tags": ["dialysis", "chairside", "evidence"],
-      "examples": ["Ask the patient at Chair 3 whether they feel dizzy and report the exact statement."],
-      "inputModes": ["application/json", "text/plain"],
-      "outputModes": ["application/json", "text/plain"]
+      "examples": ["Collect the simulator-provided blood pressure at Chair 3."],
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"],
+      "securityRequirements": []
     }
   ]
 }

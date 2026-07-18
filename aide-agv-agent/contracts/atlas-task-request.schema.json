@@ -6,13 +6,13 @@
   "additionalProperties": false,
   "required": ["contractVersion", "taskId", "incidentId", "chairId", "capability", "priority", "parameters", "requestedEvidence", "requestedBy"],
   "properties": {
-    "contractVersion": { "const": "1.0" },
+    "contractVersion": { "type": "string", "const": "1.0" },
     "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
     "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
-    "chairId": { "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
-    "capability": { "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
-    "priority": { "enum": ["routine", "urgent"] },
-    "requestedBy": { "const": "mira" },
+    "chairId": { "type": "string", "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "capability": { "type": "string", "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
+    "priority": { "type": "string", "enum": ["routine", "urgent"] },
+    "requestedBy": { "type": "string", "const": "mira" },
     "requestedEvidence": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
     "contextText": { "type": "string", "maxLength": 500 },
     "parameters": {
@@ -29,8 +29,8 @@
             "additionalProperties": false,
             "required": ["item", "preApproved"],
             "properties": {
-              "item": { "enum": ["water", "coffee", "blanket"] },
-              "preApproved": { "const": true }
+              "item": { "type": "string", "enum": ["water", "coffee", "blanket"] },
+              "preApproved": { "type": "boolean", "const": true }
             }
           }
         }

@@ -6,12 +6,12 @@
   "additionalProperties": false,
   "required": ["contractVersion", "taskId", "incidentId", "chairId", "capability", "status", "observations", "patientStatements", "evidenceRefs", "completedAt", "provenance"],
   "properties": {
-    "contractVersion": { "const": "1.0" },
+    "contractVersion": { "type": "string", "const": "1.0" },
     "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
     "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
-    "chairId": { "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
-    "capability": { "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
-    "status": { "enum": ["completed", "unable", "human_help_required"] },
+    "chairId": { "type": "string", "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "capability": { "type": "string", "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
+    "status": { "type": "string", "enum": ["completed", "unable", "human_help_required"] },
     "summary": { "type": "string", "maxLength": 500 },
     "observations": { "type": "array", "items": { "type": "object" } },
     "patientStatements": { "type": "array", "items": { "type": "string" } },
@@ -22,8 +22,8 @@
       "additionalProperties": false,
       "required": ["source", "sourceType", "capturedAt"],
       "properties": {
-        "source": { "const": "atlas-simulator" },
-        "sourceType": { "const": "simulated" },
+        "source": { "type": "string", "const": "atlas-simulator" },
+        "sourceType": { "type": "string", "const": "simulated" },
         "capturedAt": { "type": "string", "format": "date-time" }
       }
     }
