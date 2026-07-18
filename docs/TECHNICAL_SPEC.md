@@ -22,6 +22,7 @@ does not implement either agent's physical-AI internals.
 | Business payloads | Versioned JSON Schema contracts carried by A2A messages |
 | Collaboration style | Structured task data plus optional natural-language context |
 | Treatment center | Browser-based Three.js simulation |
+| Visual approach | Fixed-camera 2.5D scene; renderer-independent domain state |
 | Runtime data | Static synthetic JSON; no database |
 | Repeatability | Deterministic scenarios and measurements |
 | Clinical authority | Human RN owns clinical and treatment decisions |
@@ -257,6 +258,8 @@ devices.
 
 ## 11. Verification strategy
 
+- Use Red → Green → Refactor for every implementation task. Record at least one
+  test that fails for the intended reason before adding production behavior.
 - Validate every Agent Card and CareLoop JSON Schema.
 - Test A2A discovery, success, clarification, cancellation, rejection, and
   failure flows across two independently running processes.

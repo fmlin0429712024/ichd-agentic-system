@@ -2,9 +2,14 @@
 
 ## Delivery principle
 
-Build the formal seams first: role boundaries, provider-owned contracts, and an
-actual A2A exchange. Then connect the browser simulation and patient stories.
-Each slice must remain demonstrable and preserve human authority.
+Build the simulator playground first as an independently testable visual stage.
+Build Skills, provider-owned contracts, and the formal A2A seam next, then
+replace playground commands with validated agent tasks. Each slice must remain
+demonstrable and preserve human authority.
+
+Every implementation task follows Red → Green → Refactor. Domain behavior must
+be tested independently from Three.js rendering; Chrome tests validate the
+integrated user experience.
 
 ## Slice 0 — Governance baseline
 
@@ -26,7 +31,27 @@ back into one application pretending to be multiple agents.
 - No shared custom agent runtime, robot internals, or OpenAI API dependency is
   part of the baseline.
 
-## Slice 1 — Contracts and independent Skills
+## Slice 1 — Simulator playground
+
+### Outcome
+
+The browser presents a fixed-camera 2.5D four-chair center where Atlas can move,
+carry an item, patrol deterministically, stop, reset, and produce an event trace.
+
+### Scope
+
+- Establish the test harness before production behavior.
+- Implement renderer-independent floor layout and Atlas movement state.
+- Render four chairs, operations center, Atlas, controls, and timeline.
+- Validate movement and delivery in Chrome without either agent runtime.
+
+### Exit criteria
+
+- Unit tests and production build pass.
+- A user can complete one manual delivery and deterministic patrol.
+- No agent, A2A, or robot-internal logic is embedded in Three.js.
+
+## Slice 2 — Contracts and independent Skills
 
 ### Outcome
 
@@ -47,7 +72,7 @@ and Atlas's external capability is machine-readable.
 - Valid examples pass; malformed, stale, and unsupported payloads fail closed.
 - Neither Skill contains runtime wiring or copied patient records.
 
-## Slice 2 — Minimal formal A2A seam
+## Slice 3 — Minimal formal A2A seam
 
 ### Outcome
 
@@ -68,7 +93,7 @@ Two independent local processes complete one Atlas task through official A2A.
   not contract changes.
 - No custom JSON transport is labeled A2A.
 
-## Slice 3 — Browser simulation foundation
+## Slice 4 — Treatment data and scenario state
 
 ### Outcome
 
@@ -87,7 +112,7 @@ The browser shows a deterministic four-chair treatment center and event stream.
 - Reset reproduces the same initial state.
 - The simulator is the sole source of synthetic measurements.
 
-## Slice 4 — Atlas capability demonstration
+## Slice 5 — Atlas capability integration
 
 ### Outcome
 
@@ -107,7 +132,7 @@ internals.
 - Every result is attributable to simulator evidence.
 - Human-assistance cases are routed to the PCT instead of Atlas.
 
-## Slice 5 — Mira coordination and human RN loop
+## Slice 6 — Mira coordination and human RN loop
 
 ### Outcome
 
@@ -128,7 +153,7 @@ human RN without making the RN's decision.
 - Only the RN can record clinical or treatment decisions.
 - The complete evidence chain is understandable without reading raw JSON.
 
-## Slice 6 — Four stories and showcase
+## Slice 7 — Four stories and showcase
 
 ### Outcome
 

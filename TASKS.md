@@ -1,8 +1,11 @@
 # In-Center Hemodialysis CareLoop POC — Task Queue
 
-Tasks are dependency ordered. Completing a task requires its validation to
-pass. Do not begin browser or scenario development before the formal agent seam
-is proven.
+Dependencies inside each track are ordered. The simulator playground is built
+first as the visual test stage; role Skills, contracts, and A2A follow before
+agent-controlled scenarios. Completing a task requires its validation to pass.
+
+For every implementation task: add a failing test first, implement the minimum
+behavior, refactor while green, and run the relevant suite before completion.
 
 ## Governance baseline
 
@@ -65,8 +68,12 @@ is proven.
 
 ## Simulator foundation
 
-- [ ] `SIM-FOUND-01` Initialize React, TypeScript, Vite, Three.js, and tests in
-  `care-center-simulator/`. **Validate:** local start, test, and production build.
+- [x] `SIM-TEST-01` Establish simulator unit and component test harness.
+  **Validate:** an intentional missing-behavior test fails before production
+  implementation begins.
+- [x] `SIM-FOUND-01` Initialize React, TypeScript, Vite, Three.js, and tests in
+  `care-center-simulator/`. **Depends on:** `SIM-TEST-01`. **Validate:** local
+  start, test, and production build.
 - [ ] `SIM-DATA-01` Define and validate simulator-owned profile, history,
   treatment-snapshot, and event contracts. **Depends on:** `SIM-FOUND-01`.
   **Validate:** four patients, four chairs, 144 treatments, four use cases.

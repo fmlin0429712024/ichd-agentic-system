@@ -3,6 +3,17 @@
 > A human-in-the-loop, multi-agent simulation for a fictional in-center
 > hemodialysis treatment pod.
 
+## Try the simulator playground
+
+```bash
+cd care-center-simulator
+npm install
+npm run dev
+```
+
+Open `http://127.0.0.1:5173/` to explore the fixed-view four-chair treatment
+floor and manually test Atlas movement, delivery, patrol, stop, and reset.
+
 **CareLoop Demo Center** is fully occupied: four fictional patients are in
 treatment, one human RN leads clinical decisions, one human PCT remains on the
 floor, and two digital employees help coordinate and support the work.

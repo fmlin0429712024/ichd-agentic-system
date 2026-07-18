@@ -41,6 +41,9 @@ top-level agent directory so it discovers only its local `.agents/skills/`.
 
 ## Working style
 
+- Use test-driven development for every implementation task: first add a test
+  that fails for the intended reason, then implement the minimum behavior,
+  refactor with tests green, and run the relevant suite before completion.
 - Follow `TASKS.md` dependency order and validate before marking work complete.
 - Preserve unrelated user changes.
 - Keep Skills concise; put details in one-level `references/` resources.
