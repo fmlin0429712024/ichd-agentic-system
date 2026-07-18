@@ -136,6 +136,10 @@ decision-maker at the site.
 ## Explore the project
 
 - [POC PRD](docs/PRD.md) — detailed product source of truth
+- [Technical specification](docs/TECHNICAL_SPEC.md) — runtime, Skills,
+  multi-agent contracts, state, and safety design
+- [Implementation plan](docs/IMPLEMENTATION_PLAN.md) — vertical delivery slices
+- [Task queue](TASKS.md) — dependency-ordered implementation checklist
 - [Four-patient story map](poc-reference/patient-scenarios.md) — roles,
   scenarios, communication model, and Atlas task boundary
 - [Data-to-use-case map](poc-reference/use-case-catalog.md) — how patient

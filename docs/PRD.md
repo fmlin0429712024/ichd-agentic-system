@@ -389,3 +389,7 @@ The POC is complete when:
   README, seed data, agent behavior, and future UI aligned.
 - **Data-to-use-case map** defines which patient, historical, current, and
   chairside evidence supports each visible scenario.
+- **Technical specification** defines the runtime, two role Skills, structured
+  handoffs, provider boundary, and deterministic safety controls.
+- **Implementation plan and task queue** translate the specification into
+  vertical slices and dependency-ordered work.
