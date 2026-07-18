@@ -70,6 +70,17 @@ export default function App() {
     log("ATLAS", `Picked up ${item} at operations center`, "atlas");
   };
 
+  const requestSupport = (item: CarryItem) => {
+    if (!selectedPatient) return;
+    setPatrol([]);
+    log("PATIENT", `${selectedPatient.patient} requested ${item}`, "system");
+    dispatch({ type: "carry", item });
+    window.setTimeout(() => {
+      dispatch({ type: "move", destination: selectedPatient.id });
+      log("ATLAS", `Accepted ${item} delivery to Chair ${selectedPatient.number}`, "atlas");
+    }, 120);
+  };
+
   const deliver = () => {
     if (!atlas.item || atlas.location === "nurse-station") return;
     log("ATLAS", `Delivered ${atlas.item} at ${atlas.location.replace("chair-0", "Chair ")}`, "atlas");
@@ -89,7 +100,7 @@ export default function App() {
       <section className="workspace">
         <div className="scene-panel">
           <div className="scene-heading"><div><span>LIVE TREATMENT FLOOR</span><strong>Four-chair care pod</strong></div><div className="legend"><span><i className="stable" />Stable</span><span><i className="watch" />Watch</span><span><i className="attention" />Attention</span></div></div>
-          <div className="canvas-wrap"><CareFloor atlas={atlas} selectedChair={selectedChair} onChairSelect={(id) => moveTo(id as WaypointId)} onAtlasArrive={onArrive} /><div className="view-label">FIXED 2.5D VIEW</div></div>
+          <div className="canvas-wrap"><CareFloor atlas={atlas} selectedChair={selectedChair} onChairSelect={setSelectedChair} onAtlasArrive={onArrive} /><div className="view-label">FIXED 2.5D VIEW</div></div>
         </div>
 
         <aside className="control-panel">
@@ -117,12 +128,12 @@ export default function App() {
             <button onClick={startPatrol}>↻ Start patrol</button><button onClick={stop}>■ Stop</button><button onClick={reset}>↺ Reset</button>
           </section>
 
-          {selectedPatient && <section className={`patient-focus ${selectedPatient.status}`}><span>SELECTED PATIENT</span><strong>{selectedPatient.patient}</strong><div><b>{selectedPatient.bp}</b><small>BP mmHg</small><b>{selectedPatient.heartRate}</b><small>Heart rate</small></div></section>}
+          {selectedPatient && <section className={`patient-focus ${selectedPatient.status}`}><span>PATIENT REQUEST</span><strong>{selectedPatient.patient} · Chair {selectedPatient.number}</strong><div><b>{selectedPatient.bp}</b><small>BP mmHg</small><b>{selectedPatient.heartRate}</b><small>Heart rate</small></div><div className="request-actions"><button onClick={() => requestSupport("water")}>Water</button><button onClick={() => requestSupport("coffee")}>Coffee</button><button onClick={() => requestSupport("blanket")}>Blanket</button></div></section>}
 
           <section className="timeline"><div className="timeline-heading"><span>LIVE EVENT TRACE</span><small>{events.length} events</small></div><div className="event-list">{events.map((event) => <div className={`event ${event.tone}`} key={event.id}><time>{event.time}</time><div><strong>{event.actor}</strong><p>{event.message}</p></div></div>)}</div></section>
         </aside>
       </section>
-      <footer><span>FICTIONAL · SYNTHETIC DATA · NON-CLINICAL POC</span><span>Atlas reports to Mira · Human RN retains clinical authority</span></footer>
+      <footer><span>FICTIONAL · SYNTHETIC DATA · NON-CLINICAL POC</span><span>PLAYGROUND MODE · ROUTINE SUPPORT</span></footer>
     </main>
   );
 }

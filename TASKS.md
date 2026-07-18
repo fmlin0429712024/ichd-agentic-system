@@ -74,6 +74,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [x] `SIM-FOUND-01` Initialize React, TypeScript, Vite, Three.js, and tests in
   `care-center-simulator/`. **Depends on:** `SIM-TEST-01`. **Validate:** local
   start, test, and production build.
+- [x] `SIM-PLAY-01` Build the central-hub four-chair playground, deterministic
+  route overlay, patient request flow, and stable Atlas movement layer.
+  **Depends on:** `SIM-FOUND-01`. **Validate:** route unit tests and the Daniel
+  coffee browser journey pass without clearing the static Three.js scene.
 - [ ] `SIM-DATA-01` Define and validate simulator-owned profile, history,
   treatment-snapshot, and event contracts. **Depends on:** `SIM-FOUND-01`.
   **Validate:** four patients, four chairs, 144 treatments, four use cases.

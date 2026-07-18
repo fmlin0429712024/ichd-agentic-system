@@ -20,4 +20,14 @@ describe("floor layout", () => {
       expect(floorLayout.waypoints.some((point) => point.id === chair.id)).toBe(true);
     }
   });
+
+  it("uses a central hub with four peripheral chair service points", () => {
+    expect(floorLayout.nurseStation.position).toEqual([0, 0]);
+    expect(floorLayout.chairs.map((chair) => chair.position)).toEqual([
+      [-5.6, -4.2],
+      [5.6, -4.2],
+      [-5.6, 4.2],
+      [5.6, 4.2]
+    ]);
+  });
 });

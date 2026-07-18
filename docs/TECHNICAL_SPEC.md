@@ -21,7 +21,7 @@ does not implement either agent's physical-AI internals.
 | Inter-agent protocol | Official A2A protocol and SDK |
 | Business payloads | Versioned JSON Schema contracts carried by A2A messages |
 | Collaboration style | Structured task data plus optional natural-language context |
-| Treatment center | Browser-based Three.js simulation |
+| Treatment center | Browser-based SVG/CSS simulation |
 | Visual approach | Fixed-camera 2.5D scene; renderer-independent domain state |
 | Runtime data | Static synthetic JSON; no database |
 | Repeatability | Deterministic scenarios and measurements |
@@ -30,6 +30,9 @@ does not implement either agent's physical-AI internals.
 
 No OpenAI API integration is assumed by this specification. Codex is the POC
 agent runtime and the browser is the visible simulation surface.
+
+The current visual implementation and staged interaction are defined in
+`docs/FRONTEND_DESIGN.md`.
 
 ## 3. System boundary
 

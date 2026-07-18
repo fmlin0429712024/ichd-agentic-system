@@ -14,6 +14,9 @@ npm run dev
 Open `http://127.0.0.1:5173/` to explore the fixed-view four-chair treatment
 floor and manually test Atlas movement, delivery, patrol, stop, and reset.
 
+See [Frontend Design](docs/FRONTEND_DESIGN.md) for the simulator layout,
+deterministic routes, rendering boundary, and progressive role strategy.
+
 **CareLoop Demo Center** is fully occupied: four fictional patients are in
 treatment, one human RN leads clinical decisions, one human PCT remains on the
 floor, and two digital employees help coordinate and support the work.
