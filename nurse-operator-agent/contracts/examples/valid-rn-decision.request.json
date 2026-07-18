@@ -1,0 +1,11 @@
+{
+  "contractVersion": "1.0",
+  "requestId": "rn-request-early-termination-001",
+  "incidentId": "incident-noah-early-termination-001",
+  "chairId": "chair-02",
+  "reason": "The patient requested early treatment termination.",
+  "decisionNeeded": "Record the human RN decision for the simulated treatment.",
+  "evidenceRefs": ["sim-patient-statement-002"],
+  "uncertainty": ["No human RN assessment has been recorded."],
+  "requestedBy": "mira"
+}

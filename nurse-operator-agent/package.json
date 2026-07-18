@@ -1,5 +1,5 @@
 {
-  "name": "careloop-atlas-agent",
+  "name": "careloop-mira-agent",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -10,10 +10,8 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
-    "express": "5.1.0"
-  },
-  "devDependencies": {
     "ajv": "8.20.0",
-    "ajv-formats": "^3.0.1"
+    "ajv-formats": "3.0.1",
+    "express": "5.1.0"
   }
 }

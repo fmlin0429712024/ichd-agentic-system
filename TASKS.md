@@ -18,10 +18,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 
 ## Role Skills
 
-- [ ] `SKILL-M01` Initialize the Mira Skill under
+- [x] `SKILL-M01` Initialize the Mira Skill under
   `nurse-operator-agent/.agents/skills/`. **Validate:** standard Skill structure
   and `agents/openai.yaml` exist.
-- [ ] `SKILL-M02` Implement concise Mira instructions and references.
+- [x] `SKILL-M02` Implement concise Mira instructions and references.
   **Depends on:** `SKILL-M01`. **Validate:** Codex Skill validation passes and a
   fresh role test respects RN authority.
 - [x] `SKILL-A01` Initialize the Atlas Skill under
@@ -30,7 +30,7 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [x] `SKILL-A02` Implement concise Atlas instructions and references.
   **Depends on:** `SKILL-A01`. **Validate:** Codex Skill validation passes and a
   fresh role test rejects medical judgment and unsupported physical work.
-- [ ] `SKILL-ISO1` Verify role discovery from each agent working directory.
+- [x] `SKILL-ISO1` Verify role discovery from each agent working directory.
   **Depends on:** `SKILL-M02`, `SKILL-A02`. **Validate:** neither terminal
   discovers the other role's local Skill.
 
@@ -42,10 +42,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [x] `CONTRACT-A02` Define Atlas task-request and result-artifact JSON Schemas
   with valid and invalid examples. **Validate:** required fields, enums, IDs,
   timestamps, units, version, and provenance fail closed.
-- [ ] `CONTRACT-M01` Define Mira event-input and RN-decision-request JSON Schemas
+- [x] `CONTRACT-M01` Define Mira event-input and RN-decision-request JSON Schemas
   with examples. **Validate:** only evidence presentation and human-owned
   decisions are expressible.
-- [ ] `CONTRACT-X01` Add deterministic validation commands for both contract
+- [x] `CONTRACT-X01` Add deterministic validation commands for both contract
   owners. **Depends on:** `CONTRACT-A02`, `CONTRACT-M01`. **Validate:** all valid
   examples pass and all invalid examples fail.
 
@@ -56,10 +56,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [x] `A2A-A01` Implement the thin Atlas A2A server and publish its Agent Card.
   **Depends on:** `A2A-01`, `CONTRACT-A01`, `CONTRACT-A02`.
   **Validate:** discovery works from a separate process.
-- [ ] `A2A-M01` Implement the thin Mira A2A client and capability discovery.
+- [x] `A2A-M01` Implement the thin Mira A2A client and capability discovery.
   **Depends on:** `A2A-A01`. **Validate:** Mira rejects an unavailable or
   incompatible capability before dispatch.
-- [ ] `A2A-02` Complete one schema-valid task through two independent processes.
+- [x] `A2A-02` Complete one schema-valid task through two independent processes.
   **Depends on:** `A2A-M01`. **Validate:** context/incident ID, task ID, status,
   and artifact remain correlated.
 - [ ] `A2A-03` Test input-required, cancellation, failure, malformed payload,

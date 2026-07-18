@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://careloop.example/contracts/mira-event-input/1.0",
+  "title": "Mira Simulator Event Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "eventId", "incidentId", "chairId", "eventType", "occurredAt", "source", "evidenceRefs", "routineSupport"],
+  "properties": {
+    "contractVersion": { "type": "string", "const": "1.0" },
+    "eventId": { "type": "string", "pattern": "^event-[a-z0-9-]+$" },
+    "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
+    "chairId": { "type": "string", "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "eventType": { "type": "string", "const": "routine_request" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "source": { "type": "string", "const": "care-center-simulator" },
+    "evidenceRefs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "routineSupport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item", "preApproved"],
+      "properties": {
+        "item": { "type": "string", "enum": ["water", "coffee", "blanket"] },
+        "preApproved": { "type": "boolean", "const": true }
+      }
+    }
+  }
+}

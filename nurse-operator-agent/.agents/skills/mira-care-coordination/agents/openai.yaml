@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mira Care Coordination"
+  short_description: "Coordinate bounded care operations and RN escalation."
+  default_prompt: "Use $mira-care-coordination to route a synthetic CareLoop event without crossing human RN authority."

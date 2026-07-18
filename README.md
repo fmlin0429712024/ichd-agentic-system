@@ -14,15 +14,24 @@ npm start
 In a second terminal:
 
 ```bash
+cd nurse-operator-agent
+npm install
+npm start
+```
+
+In a third terminal:
+
+```bash
 cd care-center-simulator
 npm install
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/` and select **Run Mira → Atlas**. The simulated
-Mira client discovers Atlas through its Agent Card, sends Daniel's coffee task
+Open `http://127.0.0.1:5173/` and select **Run Mira → Atlas**. The simulator
+sends Daniel's synthetic patient event to the independent Mira process. Mira
+validates it, discovers Atlas through its Agent Card, sends the coffee task
 through official A2A v1.0 JSON-RPC, validates the returned provider artifact,
-and replays the verified Atlas delivery on the treatment floor. Manual movement,
+and returns the trace to the simulator for visual replay. Manual movement,
 delivery, patrol, stop, and reset remain available as playground controls.
 
 See [Frontend Design](docs/FRONTEND_DESIGN.md) for the simulator layout,
@@ -30,6 +39,9 @@ deterministic routes, rendering boundary, and progressive role strategy.
 
 See [Atlas Agent](docs/ATLAS_AGENT.md) for the first role Skill, Agent Card,
 business contracts, authority boundary, and validation commands.
+
+See [Mira Agent](docs/MIRA_AGENT.md) for the coordinating Skill, simulator event
+contract, RN decision boundary, and independent Atlas A2A client.
 
 **CareLoop Demo Center** is fully occupied: four fictional patients are in
 treatment, one human RN leads clinical decisions, one human PCT remains on the

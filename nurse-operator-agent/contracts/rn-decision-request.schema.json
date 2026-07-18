@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://careloop.example/contracts/rn-decision-request/1.0",
+  "title": "Human RN Decision Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "requestId", "incidentId", "chairId", "reason", "decisionNeeded", "evidenceRefs", "uncertainty", "requestedBy"],
+  "properties": {
+    "contractVersion": { "type": "string", "const": "1.0" },
+    "requestId": { "type": "string", "pattern": "^rn-request-[a-z0-9-]+$" },
+    "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
+    "chairId": { "type": "string", "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "decisionNeeded": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "evidenceRefs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "requestedBy": { "type": "string", "const": "mira" }
+  }
+}

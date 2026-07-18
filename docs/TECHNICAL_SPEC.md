@@ -102,8 +102,10 @@ content types, authentication mode, and available skills.
 The POC pins the official JavaScript SDK `@a2a-js/sdk` at `1.0.0-beta.0`,
 implementing A2A Protocol v1.0 over JSON-RPC. The beta is an explicit,
 reproducible choice because the stable JavaScript SDK line implements v0.3.
-The initial browser journey uses a simulated Mira client; the independent Mira
-Skill and client adapter remain separate follow-on work.
+The browser sends a provider-owned simulator event to the independent Mira
+process on port `8042`. Mira owns Atlas discovery, capability compatibility,
+A2A dispatch, correlation, and consumer-side artifact validation. The
+simulator-to-Mira `/poc/events` adapter is not represented as A2A.
 
 Minimum POC operations:
 
@@ -244,11 +246,15 @@ ROS, navigation, hardware, or body-adapter package.
 
 ## 9. Runtime and demonstration
 
-The intended POC presentation uses three visible surfaces:
+The intended POC presentation uses three runtime processes:
 
-1. Mira Codex session launched from `nurse-operator-agent/`.
-2. Atlas Codex session launched from `aide-agv-agent/`.
-3. Browser simulation launched from `care-center-simulator/`.
+1. Atlas A2A server launched from `aide-agv-agent/` on port `8043`.
+2. Mira event adapter and A2A client launched from `nurse-operator-agent/` on
+   port `8042`.
+3. Browser simulation launched from `care-center-simulator/` on port `5173`.
+
+Fresh Codex sessions launched from each agent directory independently discover
+only their local role Skill and are used for role-boundary evaluation.
 
 The simulator produces deterministic events and measurements. Atlas treats it
 as the fictional physical environment but remains a black box to Mira. The A2A
