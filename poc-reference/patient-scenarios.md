@@ -4,11 +4,18 @@ CareLoop Demo Center is a fictional, fully occupied four-chair treatment pod in
 Chicago, Illinois. The city is a demo setting only; the center has no real
 operator, staff, patients, or affiliation.
 
+## Naming convention
+
+Patients and human staff use formal first-and-last names in records. The two
+digital employees use short fixed nicknames: Mira and Atlas. The main interface
+uses `first name + chair or role` (for example, `Emma · Chair 3` or `Jordan ·
+RN`) so the cast remains easy to scan.
+
 | Chair | Fictional patient | Patient context | Story state | Atlas task | Mira route | Human RN outcome |
 |---|---|---|---|---|---|---|
 | 1 | Daniel Kim | Stable treatment; AVF; prefers coffee during treatment | Normal | Deliver a fictional pre-approved coffee request | Close as routine support and log delivery | No interruption |
-| 2 | James Carter | Stable treatment; prefers clear explanations | Requests early termination because he feels anxious | Relay the exact request; do not change treatment | Read treatment progress and escalate the medical decision | Jordan decides and records the simulated outcome |
-| 3 | Alice Morgan | Diabetic kidney disease; simulated history of intradialytic hypotension | IoT BP drops to 85/48 with HR 58 | Move to chair, manually recheck BP/HR, observe symptoms and appearance, report to Mira | Fuse IoT and chairside evidence; immediately escalate critical incident | Jordan records the simulated response and follow-up plan |
+| 2 | Noah Carter | Stable treatment; prefers clear explanations | Requests early termination because he feels anxious | Relay the exact request; do not change treatment | Read treatment progress and escalate the medical decision | Jordan decides and records the simulated outcome |
+| 3 | Emma Morgan | Diabetic kidney disease; simulated history of intradialytic hypotension | IoT BP drops to 85/48 with HR 58 | Move to chair, manually recheck BP/HR, observe symptoms and appearance, report to Mira | Fuse IoT and chairside evidence; immediately escalate critical incident | Jordan records the simulated response and follow-up plan |
 | 4 | Priya Shah | AVG; simulated intermittent access-site discomfort | IoT values remain normal, but patient reports soreness | Observe access site and manually recheck vitals; report findings | State uncertainty and escalate for RN review | Jordan reviews the observation and records next step |
 
 ## Team and communication model
@@ -18,14 +25,18 @@ operator, staff, patients, or affiliation.
 | Human RN | Jordan Lee, RN | Final clinical decision and accountability |
 | Nurse AI | Mira | Central data fusion, operational coordination, and escalation |
 | Aide AGV | Atlas | Chairside observation, manual simulated rechecks, patient communication, and bounded support work |
+| Human PCT | Casey Torres, PCT | Human safety and physical-assistance backstop |
 
 ```text
 Patient → Atlas → Mira → Jordan Lee, RN
 Jordan Lee, RN → Mira → Atlas
+Atlas or Mira → Casey Torres, PCT (human assistance required)
 ```
 
 Jordan primarily collaborates with Mira. Atlas reports to Mira and does not
-make medical decisions. The complete chain remains visible in the event log.
+make medical decisions. Casey is not a primary chat participant; Casey appears
+only when the system requests human physical assistance. The complete chain
+remains visible in the event log.
 
 ## Atlas task boundary
 

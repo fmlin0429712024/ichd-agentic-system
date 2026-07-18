@@ -31,6 +31,13 @@
       "displayName": "Atlas",
       "role": "Aide AGV",
       "location": "operation center"
+    },
+    "humanPct": {
+      "id": "pct-casey-torres",
+      "displayName": "Casey Torres, PCT",
+      "role": "Human PCT",
+      "location": "treatment floor",
+      "availability": "available"
     }
   },
   "chairs": [
@@ -74,7 +81,7 @@
       "chairId": "chair-2",
       "patient": {
         "patientId": "demo-p002",
-        "displayName": "James Carter",
+        "displayName": "Noah Carter",
         "age": 64,
         "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
         "accessType": "AVF — right upper arm",
@@ -109,7 +116,7 @@
       "chairId": "chair-3",
       "patient": {
         "patientId": "demo-p003",
-        "displayName": "Alice Morgan",
+        "displayName": "Emma Morgan",
         "age": 65,
         "primaryCondition": "Diabetic kidney disease",
         "accessType": "AVF — left upper arm",

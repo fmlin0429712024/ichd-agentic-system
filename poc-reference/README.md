@@ -28,10 +28,10 @@ hemodialysis environment rather than any specific organization.
 
 ## Scenario focus
 
-1. Alice Morgan at Chair 3: critical signal, AGV observation, evidence fusion,
+1. Emma Morgan at Chair 3: critical signal, AGV observation, evidence fusion,
    RN escalation, and follow-up.
 2. Daniel Kim at Chair 1: a pre-approved coffee request completed by Atlas.
-3. James Carter at Chair 2: a request to end treatment early routed to the RN.
+3. Noah Carter at Chair 2: a request to end treatment early routed to the RN.
 4. Priya Shah at Chair 4: normal IoT data with a chairside access-site concern.
 
 The four chairs are fully occupied and support the all-chair status view.

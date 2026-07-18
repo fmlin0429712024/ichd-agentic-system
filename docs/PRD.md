@@ -79,6 +79,16 @@ The mobile observer and bounded execution layer.
 Atlas is PCT-like only as a product-story shorthand. Its simulated task list is
 not a claim about real PCT scope of practice.
 
+### Human PCT — Casey Torres, PCT
+
+The human safety and physical-assistance backstop.
+
+- Remains present in the fictional center; Atlas does not replace this role.
+- Receives a human-assistance request when a task requires physical help or an
+  urgent human response.
+- Is not a primary chat participant in the first POC.
+- Does not receive a dedicated fall or emergency workflow in the first POC.
+
 ### Patient
 
 The user may speak as a patient assigned to a selected chair.
@@ -112,7 +122,7 @@ visible until the RN records a decision.
 
 ### 5.1 Critical hypotension at Chair 3
 
-1. Alice Morgan, a fictional patient persona at Chair 3, begins with plausible
+1. Emma Morgan, a fictional patient persona at Chair 3, begins with plausible
    normal treatment values.
 2. The presenter triggers a simulated BP change to 85/48 with HR 58.
 3. A deterministic rule marks the chair critical and immediately alerts the RN.
@@ -140,7 +150,7 @@ preconfigures it as approved fictional support.
 
 ### 5.3 Request to end treatment early
 
-1. James Carter at Chair 2 says he feels anxious and requests early termination.
+1. Noah Carter at Chair 2 says he feels anxious and requests early termination.
 2. The Aide acknowledges and relays the exact request without acting on it.
 3. Nurse AI presents prescribed, elapsed, and remaining treatment time with the
    patient's reason.
@@ -242,6 +252,7 @@ The product maintains separate states:
 - Distinguish every actor by label, icon, and color.
 - Allow the user to speak as RN or as a selected patient.
 - Route patient messages to the Aide and RN messages to Nurse AI.
+- Show Casey only when a human-assistance handoff is created.
 
 ### Agents
 
@@ -250,6 +261,8 @@ The product maintains separate states:
 - Include bounded world state and relevant history in each call.
 - Validate every model action before it changes simulation state.
 - Keep API credentials outside browser code.
+- Allow Atlas or Mira to create `request_human_pct_assistance(reason)` without
+  assigning a clinical decision to Casey.
 
 ### Incidents and events
 

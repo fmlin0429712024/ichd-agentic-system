@@ -11,6 +11,13 @@ The story takes place at **CareLoop Demo Center**, a fictional, fully occupied
 four-chair treatment pod set in Chicago, Illinois. It has no real operator,
 staff, patients, or affiliation.
 
+## Demo cast
+
+- **Jordan Lee, RN** — human final decision-maker
+- **Mira** — Nurse AI coordinator
+- **Atlas** — Aide AGV for chairside support
+- **Casey Torres, PCT** — human safety and physical-assistance backstop
+
 The project is in early development. See the [POC PRD](docs/PRD.md) for the
 current product scope.
 
