@@ -1,159 +1,150 @@
-# Agentic CareLoop POC — Implementation Plan
+# In-Center Hemodialysis CareLoop POC — Implementation Plan
 
 ## Delivery principle
 
-Build the POC as vertical slices. Every slice must produce a browser-visible,
-testable improvement while preserving the PRD safety and authority boundaries.
+Build the formal seams first: role boundaries, provider-owned contracts, and an
+actual A2A exchange. Then connect the browser simulation and patient stories.
+Each slice must remain demonstrable and preserve human authority.
 
-## Slice 0 — Engineering foundation
+## Slice 0 — Governance baseline
 
 ### Outcome
 
-A reproducible TypeScript workspace with fixture validation and test commands.
+The repository structure itself prevents the implementation from collapsing
+back into one application pretending to be multiple agents.
 
 ### Scope
 
-- Initialize React, TypeScript, Vite, Three.js, Node server, and Vitest.
-- Add shared schemas for patient, treatment, event, action, and handoff data.
-- Load and validate the four public JSON fixtures.
-- Add one command that starts client and server together.
+- Establish the two self-contained agent directories and simulator directory.
+- Define black-box boundaries and contract ownership.
+- Align Technical Spec, `WORKFLOW.md`, root and role-level `AGENTS.md`, and tasks.
+- Keep Skill and A2A implementation directories as explicit placeholders.
 
 ### Exit criteria
 
-- Clean install and build succeed.
-- Fixture validation reports four patients and 144 historical treatments.
-- No browser or server code contains API credentials.
+- Every future file has one unambiguous owner.
+- No shared custom agent runtime, robot internals, or OpenAI API dependency is
+  part of the baseline.
 
-## Slice 1 — Static four-chair center
+## Slice 1 — Contracts and independent Skills
 
 ### Outcome
 
-The browser shows the fictional treatment floor and all four current patients.
+Mira and Atlas can be launched independently in Codex with different authority,
+and Atlas's external capability is machine-readable.
 
 ### Scope
 
-- Create the page shell and operations-panel layout.
-- Render a fixed Three.js floor with four chairs and one AGV home waypoint.
-- Render DOM chair cards from `clinic-seed.json`.
-- Display the cast and fictional/non-clinical label.
+- Create and validate the Mira and Atlas Codex Skills.
+- Define Atlas Agent Card.
+- Define Atlas task-request and result-artifact JSON Schemas with examples.
+- Define Mira event and RN-decision-request schemas with examples.
+- Add deterministic schema validation.
 
 ### Exit criteria
 
-- Four chairs match patient and treatment IDs in the fixture.
-- The layout remains readable at the target desktop viewport.
+- Each Codex session discovers only its local role Skill.
+- Valid examples pass; malformed, stale, and unsupported payloads fail closed.
+- Neither Skill contains runtime wiring or copied patient records.
 
-## Slice 2 — Deterministic treatment simulation
+## Slice 2 — Minimal formal A2A seam
 
 ### Outcome
 
-Treatment values progress, can pause/reset, and remain reproducible.
+Two independent local processes complete one Atlas task through official A2A.
 
 ### Scope
 
-- Implement simulation clock and reducer.
-- Update elapsed time, remaining time, UF removed, and display KPIs.
-- Add start, pause, speed, inject, and reset development controls.
-- Append every simulation change to the event store.
+- Use an official A2A SDK.
+- Serve Atlas Agent Card and bounded task capability.
+- Implement Mira discovery and client dispatch.
+- Support success, input-required, cancellation, failure, and rejection.
+- Preserve incident/context ID and task ID through the full exchange.
 
 ### Exit criteria
 
-- Reset reproduces the exact initial state.
-- Hard status rules are deterministic and independently tested.
+- The protocol exchange is inspectable and schema-valid.
+- Moving the two processes to different hosts requires configuration changes,
+  not contract changes.
+- No custom JSON transport is labeled A2A.
 
-## Slice 3 — Workflow engine and event timeline
+## Slice 3 — Browser simulation foundation
 
 ### Outcome
 
-The application can serialize handoffs and display one traceable workflow.
+The browser shows a deterministic four-chair treatment center and event stream.
 
 ### Scope
 
-- Implement event, incident, task, and decision state models.
-- Implement action validation and permission checks.
-- Render the unified timeline with actor and source labels.
-- Implement routine, awaiting-worker, awaiting-RN, and resolved states.
+- Initialize React, TypeScript, Vite, Three.js, and tests under the simulator.
+- Load and validate the synthetic data pack.
+- Render four chairs, current treatment cards, and Atlas presence.
+- Implement deterministic clock, scenario injection, reset, and event timeline.
 
 ### Exit criteria
 
-- Replaying an event sequence reproduces the same state.
-- Invalid and stale agent actions are rejected and logged.
+- Four patients, four chairs, and 144 historical treatments validate.
+- Reset reproduces the same initial state.
+- The simulator is the sole source of synthetic measurements.
 
-## Slice 4 — Aide AGV worker
+## Slice 4 — Atlas capability demonstration
 
 ### Outcome
 
-The AGV visibly executes bounded chairside tasks.
+Atlas visibly completes bounded operational tasks without exposing robot
+internals.
 
 ### Scope
 
-- Create `careloop-aide-agv` with the standard Codex Skill structure.
-- Implement waypoint movement and task queue.
-- Implement scripted patient question, manual BP/HR, observation, delivery, and
-  report actions.
-- Add the deterministic Aide provider behavior for all four use cases.
+- Connect Atlas A2A task handling to deterministic simulator capabilities.
+- Demonstrate item delivery, question, observation, and vital-sign collection.
+- Return structured artifacts with evidence provenance.
+- Reject clinical, unsupported, and human-contact tasks.
 
 ### Exit criteria
 
-- The AGV moves only after a valid dispatch.
-- Every observation is attributed to the chairside stream.
-- Unsupported physical or medical actions are rejected.
+- Atlas acts only after a validated task.
+- Every result is attributable to simulator evidence.
+- Human-assistance cases are routed to the PCT instead of Atlas.
 
-## Slice 5 — Nurse AI coordinator
+## Slice 5 — Mira coordination and human RN loop
 
 ### Outcome
 
-The Nurse AI assembles context, dispatches the AGV, and presents RN evidence.
+Mira assembles bounded context, coordinates Atlas, and presents evidence to the
+human RN without making the RN's decision.
 
 ### Scope
 
-- Create `careloop-nurse-ai` with the standard Codex Skill structure.
-- Implement bounded context assembly from the synthetic data pack.
-- Implement deterministic coordination for five use-case routes.
-- Implement the optional OpenAI provider behind the same action contract.
+- Assemble current event, treatment snapshot, profile summary, selected history,
+  Atlas artifact, and authority constraints.
+- Implement routine closure and RN escalation routes.
+- Render the RN evidence and decision interface.
+- Preserve one incident trace across both agents and the human decision.
 
 ### Exit criteria
 
-- Context never exceeds the summary plus three relevant historical treatments.
-- Provider substitution does not change permissions or state invariants.
-- Provider failure leaves the human interface and hard alerts operational.
+- Critical alerts do not wait for Atlas.
+- Only the RN can record clinical or treatment decisions.
+- The complete evidence chain is understandable without reading raw JSON.
 
-## Slice 6 — Human RN decision loop
-
-### Outcome
-
-The complete Emma incident can be demonstrated from signal to resolution.
-
-### Scope
-
-- Render the RN decision card.
-- Implement RN-owned decision actions.
-- Link signal, AGV observation, escalation, decision, and outcome under one
-  incident ID.
-- Keep critical status visible until the RN records a decision.
-
-### Exit criteria
-
-- Critical alert is immediate and cannot be delayed by AGV movement.
-- Neither digital employee can execute the RN action.
-- The full evidence chain is understandable without reading raw JSON.
-
-## Slice 7 — Four-story completion and showcase polish
+## Slice 6 — Four stories and showcase
 
 ### Outcome
 
-All four patients and the center summary form one interview-ready demonstration.
+The POC tells one cohesive, interview-ready story across all four patients.
 
 ### Scope
 
-- Complete coffee, early termination, hypotension, and access-concern routes.
-- Add the all-chair Nurse AI summary.
-- Add scripted demo reset and scenario selector.
-- Verify accessibility, reduced motion, empty/error states, and README entry
-  points.
+- Complete routine support, early termination, hypotension, and access-concern
+  routes.
+- Add the all-chair operational summary.
+- Add scripted reset and scenario selection.
+- Complete Chrome smoke testing, public-data scan, and README entry points.
 
 ### Exit criteria
 
 - Every PRD acceptance criterion has an automated or recorded manual check.
-- The deterministic demo works without network access.
-- No real client, patient, organization, or source-system information is
-  present in the public build.
+- The complete deterministic demo runs without external model APIs.
+- The public build contains no real client, patient, organization, or source
+  system information.

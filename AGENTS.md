@@ -1,45 +1,49 @@
-# Agentic CareLoop POC
+# In-Center Hemodialysis CareLoop POC
 
 ## Purpose
 
-Build a public-safe, synthetic browser POC for a fictional in-center
-hemodialysis treatment pod. The system demonstrates bounded coordination
-between a Nurse AI, an Aide AGV, a human RN, and a human PCT. It is not a
-clinical system.
+Build a public-safe, synthetic demonstration of operational collaboration
+between two independent digital employees: Mira, the Nurse Operator Agent, and
+Atlas, the Aide AGV Agent. The project is not a clinical system or robot-control
+implementation.
 
 ## Read before substantial work
 
 1. `docs/PRD.md` — product source of truth.
-2. `docs/TECHNICAL_SPEC.md` — runtime, Skills, contracts, and safety design.
-3. `WORKFLOW.md` — cross-role handoff and authority contract.
-4. `TASKS.md` — dependency-ordered execution queue.
+2. `docs/TECHNICAL_SPEC.md` — architecture, A2A, contracts, and exclusions.
+3. `WORKFLOW.md` — cross-role authority and collaboration contract.
+4. `docs/IMPLEMENTATION_PLAN.md` — dependency strategy.
+5. `TASKS.md` — ordered work queue and validation.
 
-## Skill boundaries
+## Ownership
 
-- `careloop-nurse-ai`: coordinator for context fusion, dispatch, explanation,
-  center summary, and human-RN escalation.
-- `careloop-aide-agv`: worker for bounded chairside movement, questions,
-  scripted measurement, observation, delivery, and reporting.
+- `nurse-operator-agent/`: Mira Skill, Mira-owned contracts, A2A client adapter.
+- `aide-agv-agent/`: Atlas Skill, Agent Card, Atlas-owned contracts, A2A server.
+- `care-center-simulator/`: synthetic environment, browser UI, scenarios, state.
+- `poc-reference/`: public-safe synthetic fixtures and source scenario notes.
 
-Repository-local Skills belong under `.agents/skills/<skill-name>/`. Keep
-domain behavior and handoff procedure in Skill Markdown. Keep tools, provider
-wiring, simulation state, action validation, and UI code in the application.
+Do not create a shared custom agent runtime. Launch each Codex role from its own
+top-level agent directory so it discovers only its local `.agents/skills/`.
 
 ## Non-negotiable controls
 
 - Use only fictional and synthetic data.
-- Never copy a real client, patient, facility, identifier, policy, or local
-  source path into the public repository.
-- The simulator owns measurements and hard status rules.
-- The Aide AGV reports to the Nurse AI and makes no medical judgment.
-- The human RN owns clinical and treatment decisions.
-- Every proposed agent action must pass schema, role, and state validation.
-- Keep API credentials server-side and outside version control.
+- Never publish a real client, patient, facility, identifier, policy, secret, or
+  local source path.
+- Treat Mira and Atlas as black boxes; do not implement robot internals.
+- Use official A2A for inter-agent communication; do not label custom JSON
+  exchange as A2A.
+- Keep provider-owned business schemas separate from the A2A protocol envelope.
+- The simulator owns measurements and hard alert rules.
+- Atlas reports to Mira and makes no medical judgment.
+- The human RN owns all clinical and treatment decisions.
+- Validate every structured task and artifact before it changes state.
 
 ## Working style
 
-- Implement one vertical slice at a time and update `TASKS.md` only when its
-  validation passes.
+- Follow `TASKS.md` dependency order and validate before marking work complete.
 - Preserve unrelated user changes.
-- Run the narrowest relevant tests after each change.
-- Keep the deterministic scripted demo operational without network access.
+- Keep Skills concise; put details in one-level `references/` resources.
+- Keep protocol adapters and schemas outside Skill folders.
+- Do not add ROS, DDS, navigation, hardware, body-adapter, or external model API
+  scope to the POC without revising the Technical Spec first.

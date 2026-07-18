@@ -1,67 +1,76 @@
-# CareLoop Multi-Agent Workflow Contract
+# CareLoop Agent Collaboration Contract
 
-This is the cross-role contract for the two digital employees in the POC. It is
-the source of truth for handoffs, authority, and event sequencing. Role-specific
-procedures belong in the Nurse AI and Aide AGV Skills.
+This document governs authority, cross-role sequencing, and communication. The
+two digital employees are independent black boxes. Role procedures belong in
+their local Skills; provider-owned payload schemas belong in their local
+`contracts/` directories.
 
-## Roles
+## Roles and ownership
 
-| Role | Workflow ownership |
-|---|---|
-| Nurse AI | Owns coordination, context assembly, explanation, and escalation |
-| Aide AGV | Executes bounded chairside tasks and reports evidence to Nurse AI |
-| Human RN | Owns clinical and treatment decisions |
-| Human PCT | Provides physical assistance outside the AGV boundary |
-| Simulator | Owns measurements, scenario injections, time, and deterministic status rules |
-
-## Standard loop
-
-```text
-1. Simulator or patient creates an event.
-2. Runtime applies hard status rules.
-3. Nurse AI receives bounded context.
-4. Nurse AI closes routine work, dispatches Aide AGV, or escalates to human RN.
-5. Aide AGV executes one bounded task and reports structured evidence.
-6. Nurse AI updates the same incident and, when required, requests an RN decision.
-7. Human RN records the decision.
-8. Runtime applies only the approved simulated follow-up and records the outcome.
-```
+| Role | Owns | Does not own |
+|---|---|---|
+| Mira | Operational coordination, Atlas dispatch, context summary, RN escalation | Clinical decisions or chairside facts not received |
+| Atlas | Declared chairside capabilities and evidence artifacts | Medical judgment or human-contact assistance |
+| Human RN | Clinical and treatment decisions | Atlas implementation |
+| Human PCT | Physical assistance outside Atlas capability | RN decisions |
+| Simulator | Synthetic measurements, time, scenarios, visible floor state | Agent judgment |
 
 ## Communication topology
 
 ```text
-Patient → Aide AGV → Nurse AI → Human RN
-Human RN → Nurse AI → Aide AGV
-Aide AGV or Nurse AI → Human PCT when physical help is required
+Simulator / patient event → Mira
+Mira ── official A2A task ──► Atlas
+Mira ◄── A2A status/artifact ─ Atlas
+Mira ── evidence/request ────► Human RN
+Mira or Atlas ───────────────► Human PCT when physical help is required
 ```
 
-The Aide AGV does not make or communicate a medical decision. The Nurse AI does
-not claim chairside observation. The human PCT does not replace RN authority.
+Atlas normally reports to Mira, not directly to the human RN. Mira does not
+impersonate Atlas or claim direct observation.
 
-## Five use-case routes
+## Standard loop
+
+1. The simulator or patient produces an event.
+2. Deterministic hard-alert rules run immediately.
+3. Mira receives bounded context and determines whether evidence is missing.
+4. Mira may close routine work, send a schema-valid A2A task to Atlas, or
+   present evidence to the human RN.
+5. Atlas accepts, requests clarification, rejects, or executes one declared
+   capability and returns an A2A artifact.
+6. Mira correlates the artifact to the same incident and updates the RN view.
+7. The human RN records any clinical or treatment decision.
+8. The simulator applies only the authorized fictional follow-up and records
+   the outcome.
+
+## Message rule
+
+A2A supplies the formal envelope and lifecycle. CareLoop JSON Schemas supply the
+business contract. Structured data determines who, what, where, status, units,
+and evidence provenance. Natural language may explain context, uncertainty, or
+failure but cannot independently authorize an action.
+
+Use A2A `contextId` as `incidentId`; assign one A2A `taskId` per unit of Atlas
+work. Validate every structured payload before it changes state.
+
+## Five routes
 
 | Use case | Required route | Terminal condition |
 |---|---|---|
-| Routine support | Patient → Aide AGV → Nurse AI | Pre-approved task completed and logged |
-| Early termination | Patient → Aide AGV → Nurse AI → Human RN | RN decision recorded |
-| Critical hypotension | Simulator → Nurse AI + immediate RN alert; Nurse AI → Aide AGV in parallel | RN decision and follow-up recorded |
-| Access concern | Patient → Aide AGV → Nurse AI → Human RN | RN review recorded |
-| Center summary | Human RN → Nurse AI | Traceable four-chair summary returned |
-
-## Serialization rule
-
-Only the runtime appends state-changing events. Agent output is a proposal until
-it passes schema, permission, and current-state validation. Process one accepted
-action at a time. A rejected or stale action is logged and has no side effect.
+| Routine support | Event → Mira → Atlas → Mira | Pre-approved task completed and logged |
+| Early termination | Patient → Atlas/Mira → Mira → Human RN | RN decision recorded |
+| Critical hypotension | Simulator → immediate RN alert + Mira; Mira → Atlas in parallel | RN decision and follow-up recorded |
+| Access concern | Patient → Atlas → Mira → Human RN | RN review recorded |
+| Center summary | Human RN → Mira | Traceable four-chair summary returned |
 
 ## Critical-event rule
 
 For the fictional Chair 3 scenario, simulated systolic BP below 90 immediately
-creates the RN alert. The Aide AGV task runs to enrich the incident, never as a
+creates the RN alert. Atlas evidence enriches the incident and is never a
 prerequisite for escalation.
 
-## Required traceability
+## Black-box rule
 
-Keep one `incidentId` across detection, context assembly, dispatch, movement,
-observation, escalation, RN decision, follow-up, and resolution. Preserve
-evidence references and source-stream labels on every event.
+The POC does not inspect or implement either agent's physical-AI internals.
+Robot navigation, actuators, sensors, middleware, and safety control are outside
+the project. A future implementation may use ROS 2/DDS internally without
+changing the operational A2A contract.
