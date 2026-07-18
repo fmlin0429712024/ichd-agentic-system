@@ -5,9 +5,10 @@ concept demo.
 
 ## Fictional setting
 
-**CareLoop Demo Center** is a fictional eight-chair in-center hemodialysis
-clinic. It has no real-world location, operator, staff, or patients. The setting
-exists only to make the interaction story easy to follow.
+**CareLoop Demo Center** is a fictional, fully occupied four-chair in-center
+hemodialysis treatment pod set in Chicago, Illinois. It has no real operator,
+staff, patients, or affiliation. The setting exists only to make the interaction
+story easy to follow.
 
 The collaboration pattern is intended to represent a general in-center
 hemodialysis environment rather than any specific organization.
@@ -20,18 +21,20 @@ hemodialysis environment rather than any specific organization.
 
 ## Contents
 
-- `data/clinic-seed.json` — synthetic seed data for eight chairs.
+- `data/clinic-seed.json` — synthetic seed data for four chairs.
 - `data-model.md` — the deliberately small POC data model.
+- `patient-scenarios.md` — the four-patient story map and team roles.
 - `workflows/realtime-response-chain.md` — the product response workflow.
 
 ## Scenario focus
 
 1. Alice Morgan at Chair 3: critical signal, AGV observation, evidence fusion,
    RN escalation, and follow-up.
-2. Chair 4: a non-medical comfort request completed without RN interruption.
-3. Chair 2: a request to end treatment early routed to the RN.
+2. Daniel Kim at Chair 1: a pre-approved coffee request completed by Atlas.
+3. James Carter at Chair 2: a request to end treatment early routed to the RN.
+4. Priya Shah at Chair 4: normal IoT data with a chairside access-site concern.
 
-The other chairs provide center context and support the all-chair status view.
+The four chairs are fully occupied and support the all-chair status view.
 
 All people, values, events, and organizations in the demo are fictional and
 synthetic. Named patient personas make the story concrete but do not represent

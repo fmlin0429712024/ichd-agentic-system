@@ -9,8 +9,8 @@ protocol or standard operating procedure.
    or a patient request requiring professional judgment.
 2. **Contextualize** — Nurse AI reads the fictional patient profile,
    prescription, progress, and recent trend.
-3. **Observe** — when physical context is missing, Nurse AI dispatches the Aide
-   AGV for a bounded chairside observation.
+3. **Observe** — when physical context is missing, Mira dispatches Atlas for a
+   bounded chairside observation or scripted manual BP/HR recheck.
 4. **Fuse** — Nurse AI keeps the two evidence streams distinct, then combines:
    - IoT evidence: simulated measurements and machine state.
    - On-site evidence: appearance, alertness, patient report, and access site.
@@ -25,9 +25,9 @@ protocol or standard operating procedure.
 
 | Situation | Owner | Demo behavior |
 |---|---|---|
-| Normal monitoring | Nurse AI | Summarize without RN interruption |
-| Non-medical comfort request | Aide AGV | Fulfill and log |
-| Missing chairside context | Nurse AI | Dispatch the Aide; do not guess |
+| Normal monitoring | Mira | Summarize without RN interruption |
+| Pre-approved support request | Atlas | Deliver and log; make no dietary decision |
+| Missing chairside context | Mira | Dispatch Atlas; do not guess |
 | Configured critical trigger | Human RN | Alert immediately; observation may run in parallel |
 | Ambiguous or conflicting evidence | Human RN | Escalate with uncertainty stated |
 | Request to end treatment early | Human RN | Present treatment progress and patient reason |
@@ -49,7 +49,7 @@ The RN escalation card contains:
 - `critical_vital`: configured critical simulated value
 - `needs_observation`: missing fresh chairside context
 - `medical_request`: request to shorten or end treatment
-- `routine_request`: predefined non-medical comfort request
+- `routine_request`: predefined, pre-approved support request
 - `rn_override`: RN changes the AI's interpretation or next step
 
 ## Incident lifecycle

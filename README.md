@@ -7,8 +7,9 @@ The simulation combines live treatment data with chairside observations from a
 mobile Aide AGV. A Nurse AI coordinates routine activity and escalates critical
 or judgment-dependent situations to a human RN.
 
-The story takes place at **CareLoop Demo Center**, a fictional eight-chair
-clinic with no real-world location, operator, staff, or patients.
+The story takes place at **CareLoop Demo Center**, a fictional, fully occupied
+four-chair treatment pod set in Chicago, Illinois. It has no real operator,
+staff, patients, or affiliation.
 
 The project is in early development. See the [POC PRD](docs/PRD.md) for the
 current product scope.

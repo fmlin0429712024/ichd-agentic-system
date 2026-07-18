@@ -23,10 +23,10 @@ The POC makes one idea tangible:
 This is a synthetic simulation, not a clinical product, medical device, or
 workflow replacement.
 
-The story takes place at **CareLoop Demo Center**, a fictional eight-chair
-clinic with no real-world location, operator, staff, or patients. The product
-concept is intended to represent a general in-center hemodialysis environment,
-not any specific organization.
+The story takes place at **CareLoop Demo Center**, a fictional, fully occupied
+four-chair treatment pod set in Chicago, Illinois. It has no real operator,
+staff, patients, or affiliation. The product concept is intended to represent a
+general in-center hemodialysis environment, not any specific organization.
 
 The demo uses named fictional patient personas and clinically plausible
 synthetic values so the story remains concrete and human without representing
@@ -45,7 +45,7 @@ any real person or record.
 
 ## 3. Participants
 
-### Human RN
+### Human RN — Jordan Lee, RN
 
 The user and final decision owner.
 
@@ -54,7 +54,7 @@ The user and final decision owner.
 - Can request a center-wide status summary.
 - Can override or correct Nurse AI.
 
-### Nurse AI
+### Nurse AI — Mira
 
 The stationary coordinator and reasoning layer.
 
@@ -65,15 +65,19 @@ The stationary coordinator and reasoning layer.
 - Escalates critical, uncertain, and medical-decision situations.
 - Never claims to have directly observed a patient.
 
-### Aide AGV
+### Aide AGV — Atlas
 
 The mobile observer and bounded execution layer.
 
 - Moves between the nurse station, supply point, and chairs.
 - Observes appearance, alertness, patient-reported symptoms, and access site.
+- Performs scripted manual BP/HR rechecks as chairside simulation data.
 - Relays observations and patient requests to Nurse AI.
-- Performs predefined non-medical comfort actions.
+- Delivers only pre-approved fictional support items.
 - Does not interpret clinical data or make treatment decisions.
+
+Atlas is PCT-like only as a product-story shorthand. Its simulated task list is
+not a claim about real PCT scope of practice.
 
 ### Patient
 
@@ -85,9 +89,9 @@ The user may speak as a patient assigned to a selected chair.
 
 ## 4. Product experience
 
-The application presents an eight-chair dialysis center in a top-down browser
-view. Each chair displays a compact live treatment summary. A single Aide AGV
-moves through the center as directed by structured agent actions.
+The application presents a fully occupied four-chair treatment pod in a
+top-down browser view. Each chair displays a compact live treatment summary. A
+single Aide AGV moves through the center as directed by structured agent actions.
 
 A unified event panel shows messages and actions from:
 
@@ -125,26 +129,35 @@ visible until the RN records a decision.
 The UI must not claim that the RN selection medically caused the scripted
 follow-up.
 
-### 5.2 Routine comfort request
+### 5.2 Routine support request
 
-1. The user speaks as the patient in Chair 4 and asks for a blanket.
-2. The Aide retrieves and delivers it.
+1. Daniel Kim at Chair 1 asks for his fictional pre-approved coffee.
+2. Atlas retrieves and delivers the item.
 3. Nurse AI records completion without interrupting the RN.
 
-The default routine story uses a blanket rather than water because fluid intake
-may carry clinical meaning for a dialysis patient.
+Atlas does not decide whether an item is clinically appropriate; the scenario
+preconfigures it as approved fictional support.
 
 ### 5.3 Request to end treatment early
 
-1. The user speaks as the patient in Chair 2 and requests early termination.
+1. James Carter at Chair 2 says he feels anxious and requests early termination.
 2. The Aide acknowledges and relays the exact request without acting on it.
 3. Nurse AI presents prescribed, elapsed, and remaining treatment time with the
    patient's reason.
 4. The RN records the decision before treatment state can change.
 
-### 5.4 Center status summary
+### 5.4 Non-IoT observation with uncertainty
 
-The RN asks Nurse AI for a center overview. Nurse AI summarizes all eight chairs,
+1. Priya Shah at Chair 4 reports that her access site feels sore, while the IoT
+   feed remains normal.
+2. Mira dispatches Atlas to observe the site and perform a scripted manual
+   BP/HR recheck.
+3. Atlas reports the observation to Mira without interpreting it.
+4. Mira states the uncertainty and escalates the case to Jordan for review.
+
+### 5.5 Center status summary
+
+The RN asks Nurse AI for a center overview. Nurse AI summarizes all four chairs,
 prioritizes exceptions, and distinguishes clinical status from workflow state.
 
 ## 6. Data model
@@ -153,7 +166,7 @@ The POC uses fully synthetic data created only for this concept demo.
 
 ### Patient context
 
-- Patient ID, display name, chair, and age
+- Patient ID, display name, chair, age, and support preferences
 - Primary condition
 - Dry weight
 - Vascular access type
@@ -178,13 +191,14 @@ The POC uses fully synthetic data created only for this concept demo.
 - Appearance and alertness
 - Patient-reported symptoms
 - Access-site appearance
+- Scripted manual BP/HR recheck
 - Observation time and observing agent
 
 The chair KPI shows BP, HR, BFR, UF rate, and time remaining. Secondary values
 remain available in expanded detail and agent context.
 
-Labs, medications, vaccines, longitudinal assessments, state rules, and
-facility administration are outside the POC runtime.
+Labs, medications, blood collection, vaccines, longitudinal assessments, state
+rules, and facility administration are outside the POC runtime.
 
 ## 7. Authority and safety model
 
@@ -215,12 +229,12 @@ The product maintains separate states:
 
 ### Clinic and simulation
 
-- Render eight chairs, a central nurse station, and one supply point.
+- Render four chairs, a central operation center, and one supply point.
 - Use Three.js with a top-down orthographic camera.
 - Display compact HTML KPI panels anchored to chairs.
 - Move one Aide AGV along predefined waypoints.
 - Simulate slow metric drift and deterministic scenario injections.
-- Provide controls for Chair 3 hypotension and full reset.
+- Provide controls for the four named scenarios and full reset.
 
 ### Conversation and identity
 
@@ -295,16 +309,18 @@ understand an escalation without reading the entire conversation history.
 
 The POC is complete when:
 
-- Eight chairs display plausible changing treatment data.
+- Four named patients display plausible changing treatment data.
 - Chair 3 hypotension immediately creates a critical RN escalation.
 - The Aide moves to Chair 3 and adds labelled chairside evidence to the existing
   incident.
 - Nurse AI visibly combines patient context, treatment data, and observation.
 - Neither AI agent can execute an RN-owned treatment decision.
 - The RN can record a decision and inspect the full incident timeline.
-- The blanket request closes without RN escalation.
+- Daniel's pre-approved coffee request closes without RN escalation.
 - The early-termination request cannot change treatment before RN action.
-- Nurse AI can summarize the current state of all eight chairs.
+- Priya's access-site concern is collected by Atlas and escalated as an
+  uncertainty, despite normal IoT values.
+- Nurse AI can summarize the current state of all four chairs.
 - Agent failures do not clear critical status or corrupt simulation state.
 - The complete flow is operable through visible controls in desktop Chrome.
 
@@ -313,14 +329,15 @@ The POC is complete when:
 - Clinical validation or real patient use
 - EHR, machine, IoT, or scheduling integrations
 - Real patient data, authentication, or persistent sessions
-- Medication, laboratory, vaccination, or longitudinal clinical workflows
+- Medication, blood collection, laboratory, vaccination, or longitudinal clinical workflows
 - Multiple AGVs, dynamic pathfinding, physics, voice, or computer vision
 - User-configurable clinical rules or a general-purpose agent platform
 - Production deployment, observability, or analytics
 
 ## 13. Source references
 
-- `poc-reference/data/clinic-seed.json` — synthetic eight-chair dataset
+- `poc-reference/data/clinic-seed.json` — synthetic four-chair dataset
 - `poc-reference/data-model.md` — field selection and traceability
+- `poc-reference/patient-scenarios.md` — patient and team story map
 - `poc-reference/workflows/realtime-response-chain.md` — product response
   workflow

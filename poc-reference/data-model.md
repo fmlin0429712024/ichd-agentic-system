@@ -19,6 +19,7 @@ Keep a field only when it helps answer one of four visible questions:
 | `accessType` | Supports a bounded chairside observation |
 | `dryWeightKg` | Connects patient context to the fluid-removal plan |
 | `riskFlags[]` | Explains why a signal may receive additional attention |
+| `supportPreferences[]` | Enables a pre-approved routine-support scenario |
 
 Risk flags are fictional scenario inputs, not computed diagnoses.
 
@@ -44,6 +45,7 @@ remain available to the detail view and agent world state.
 | `alertness` | Supports ambiguity and escalation |
 | `reportedSymptoms[]` | Preserves the fictional patient's statement |
 | `accessSite` | Gives the Aide AGV a bounded observation task |
+| `manualVitals` | Separates Atlas's scripted recheck from the IoT stream |
 | `observedAt`, `observedBy` | Makes evidence fresh and attributable |
 
 ## Excluded from the POC
