@@ -79,26 +79,39 @@ operable across a chain of centers. The primary cloud value proposition is
 ```mermaid
 flowchart LR
     subgraph POC[POC today · one virtual center]
-        direction TB
-        VP["Virtual patients +<br/>simulated treatment data"] --> VA["Virtual Atlas"]
-        VA --> VM["Virtual Mira"]
-        VM --> VH["Jordan + Casey<br/>demo workspace"]
+        direction BT
+        VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Atlas"]
+        VA --> VM["🧠 Virtual Mira"]
+        VM --> VH["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>demo workspace"]
     end
-
-    VM -. "same CareLoop roles,<br/>events, and authority boundaries" .-> SE
 
     subgraph FUTURE[Future vision · physical sites + enterprise]
-        direction TB
-        RS["On-site devices +<br/>local safety boundary"] --> AR["Atlas robot edge<br/>Jetson AGX Orin-class"]
-        AR <--> SE["Mira site edge gateway<br/>industrial-grade · IGX Orin-class"]
-        SE --> HS["Jordan, RN + Casey, PCT<br/>on-site human authority"]
-        SE <--> EC["Enterprise cloud<br/>fleet management across centers"]
+        direction BT
+        RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Atlas robot edge"]
+        AR <--> SE["🧠 Mira site edge gateway"]
+        SE --> HS["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>on-site human authority"]
+        SE <--> EC["☁️ Enterprise cloud<br/>fleet management across centers"]
+        AR -.- AJ["Example: Jetson AGX Orin-class"]
+        SE -.- MI["Example: industrial-grade<br/>IGX Orin-class"]
     end
+
+    classDef source fill:#FEF3C7,stroke:#D97706,color:#422006
+    classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
+    classDef cloud fill:#EDE9FE,stroke:#7C3AED,color:#2E1065
+    classDef example fill:#DCFCE7,stroke:#16A34A,color:#14532D,stroke-dasharray: 5 5
+    class VP,RS source
+    class VA,VM,AR,SE digital
+    class VH,HS human
+    class EC cloud
+    class AJ,MI example
 ```
 
-**The simple deployment story:** Atlas acts locally at the chair; Mira
-coordinates at the site; the enterprise cloud manages the fleet across many
-centers. Jordan Lee, RN remains the final clinical decision-maker at the site.
+**Read bottom to top:** patient and treatment data begin at the chair; digital
+employees collect and coordinate; human employees retain authority. The future
+vision uses the same CareLoop model at the site, while the enterprise cloud
+manages the fleet across many centers. Jordan Lee, RN remains the final
+clinical decision-maker at the site.
 
 ## Explore the project
 
