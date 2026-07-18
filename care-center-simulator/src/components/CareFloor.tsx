@@ -127,8 +127,8 @@ function FloorScene(props: CareFloorProps) {
       <color attach="background" args={["#07111f"]} />
       <fog attach="fog" args={["#07111f", 20, 35]} />
       <ambientLight intensity={1.3} />
-      <directionalLight position={[6, 14, 8]} intensity={2.2} castShadow shadow-mapSize={[2048, 2048]} />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <directionalLight position={[6, 14, 8]} intensity={2.2} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[18, 19]} />
         <meshStandardMaterial color="#122434" roughness={0.88} />
       </mesh>
@@ -143,8 +143,15 @@ function FloorScene(props: CareFloorProps) {
 }
 
 export function CareFloor(props: CareFloorProps) {
+  const sceneVersion = [
+    props.atlas.status,
+    props.atlas.location,
+    props.atlas.destination ?? "none",
+    props.atlas.item ?? "empty"
+  ].join(":");
+
   return (
-    <Canvas gl={{ preserveDrawingBuffer: true, antialias: true }} shadows orthographic camera={{ position: [13, 17, 18], zoom: 47, near: 0.1, far: 100 }}>
+    <Canvas key={sceneVersion} frameloop="always" dpr={1} gl={{ preserveDrawingBuffer: true, antialias: true, powerPreference: "high-performance" }} orthographic camera={{ position: [13, 17, 18], zoom: 47, near: 0.1, far: 100 }}>
       <FloorScene {...props} />
     </Canvas>
   );
