@@ -354,3 +354,12 @@ The POC is complete when:
 - `poc-reference/patient-scenarios.md` — patient and team story map
 - `poc-reference/workflows/realtime-response-chain.md` — product response
   workflow
+
+## 14. Project documentation
+
+- **README** is the public showcase: a concise story, cast, four scenarios, and
+  future interactive-demo entry point.
+- **This PRD** is the detailed product source of truth for scope, authority,
+  data, behavior, and acceptance criteria.
+- **Four-patient story map** is the scenario-level reference used to keep the
+  README, seed data, agent behavior, and future UI aligned.
