@@ -21,8 +21,14 @@ hemodialysis environment rather than any specific organization.
 
 ## Contents
 
-- `data/clinic-seed.json` — synthetic seed data for four chairs.
-- `data-model.md` — the deliberately small POC data model.
+- `data/patient-profiles.json` — four synthetic patient-domain profiles.
+- `data/treatment-history.json` — 12 weeks and 144 compact synthetic treatments.
+- `data/clinic-seed.json` — current synthetic seed data for four chairs.
+- `data/mira-context-fixtures.json` — bounded context shown to Mira per use case.
+- `data/generate-treatment-history.mjs` — deterministic history generator.
+- `data/generate-mira-context-fixtures.mjs` — deterministic context-fixture generator.
+- `data-model.md` — the deliberately bounded POC data model.
+- `use-case-catalog.md` — traceability from data evidence to each use case.
 - `patient-scenarios.md` — the four-patient story map and team roles.
 - `workflows/realtime-response-chain.md` — the product response workflow.
 

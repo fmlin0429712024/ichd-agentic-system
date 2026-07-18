@@ -178,9 +178,11 @@ The POC uses fully synthetic data created only for this concept demo.
 
 - Patient ID, display name, chair, age, and support preferences
 - Primary condition
+- Bounded comorbidity and allergy context
 - Dry weight
 - Vascular access type
 - Scenario-relevant risk flag
+- Read-only current medication context
 
 ### Treatment prescription
 
@@ -204,11 +206,24 @@ The POC uses fully synthetic data created only for this concept demo.
 - Scripted manual BP/HR recheck
 - Observation time and observing agent
 
+### Longitudinal treatment context
+
+- Twelve weeks of compact synthetic history
+- Thirty-six treatments per patient; 144 treatments in total
+- Treatment duration, weights, UF goal and removal, BP pattern, and mean BFR
+- Scenario-relevant historical events and a precomputed patient summary
+
+For a use case, Mira receives the current event, current treatment snapshot,
+relevant patient fields, the 12-week summary, and no more than three relevant
+historical treatments. The full history is not sent in every agent call.
+
 The chair KPI shows BP, HR, BFR, UF rate, and time remaining. Secondary values
 remain available in expanded detail and agent context.
 
-Labs, medications, blood collection, vaccines, longitudinal assessments, state
-rules, and facility administration are outside the POC runtime.
+Laboratory, blood collection, vaccination, medication-administration,
+longitudinal-assessment, state-rule, and facility-administration workflows are
+outside the POC runtime. Medication data is read-only context and cannot become
+an agent action.
 
 ## 7. Authority and safety model
 
@@ -313,6 +328,7 @@ understand an escalation without reading the entire conversation history.
 - Three.js floor with DOM-based data and conversation panels
 - Thin server boundary for OpenAI calls
 - In-memory state; no database
+- Static synthetic JSON fixtures for patient profiles and treatment history
 - No authentication or real clinical integrations
 - Separate simulator, renderer, agent orchestration, and UI modules
 - Stable action contracts between LLM “brains” and simulation “bodies”
@@ -334,6 +350,8 @@ The POC is complete when:
 - Priya's access-site concern is collected by Atlas and escalated as an
   uncertainty, despite normal IoT values.
 - Nurse AI can summarize the current state of all four chairs.
+- Nurse AI can retrieve a bounded 12-week summary and relevant historical
+  treatments without loading the complete history into every agent call.
 - Agent failures do not clear critical status or corrupt simulation state.
 - The complete flow is operable through visible controls in desktop Chrome.
 
@@ -342,7 +360,8 @@ The POC is complete when:
 - Clinical validation or real patient use
 - EHR, machine, IoT, or scheduling integrations
 - Real patient data, authentication, or persistent sessions
-- Medication, blood collection, laboratory, vaccination, or longitudinal clinical workflows
+- Medication decision/administration, blood collection, laboratory,
+  vaccination, or longitudinal clinical workflows
 - Multiple AGVs, dynamic pathfinding, physics, voice, or computer vision
 - User-configurable clinical rules or a general-purpose agent platform
 - Production deployment, observability, or analytics
@@ -350,7 +369,12 @@ The POC is complete when:
 ## 13. Source references
 
 - `poc-reference/data/clinic-seed.json` — synthetic four-chair dataset
+- `poc-reference/data/patient-profiles.json` — synthetic patient-domain context
+- `poc-reference/data/treatment-history.json` — compact 12-week history
+- `poc-reference/data/mira-context-fixtures.json` — bounded per-use-case agent
+  context
 - `poc-reference/data-model.md` — field selection and traceability
+- `poc-reference/use-case-catalog.md` — data-to-use-case evidence map
 - `poc-reference/patient-scenarios.md` — patient and team story map
 - `poc-reference/workflows/realtime-response-chain.md` — product response
   workflow
@@ -363,3 +387,5 @@ The POC is complete when:
   data, behavior, and acceptance criteria.
 - **Four-patient story map** is the scenario-level reference used to keep the
   README, seed data, agent behavior, and future UI aligned.
+- **Data-to-use-case map** defines which patient, historical, current, and
+  chairside evidence supports each visible scenario.

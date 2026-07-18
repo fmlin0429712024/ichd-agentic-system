@@ -1,0 +1,4438 @@
+{
+  "metadata": {
+    "dataset": "CareLoop Demo Center compact treatment history",
+    "version": "1.0",
+    "synthetic": true,
+    "fictional": true,
+    "clinicalUse": false,
+    "historyWindow": {
+      "startDate": "2026-04-27",
+      "endDate": "2026-07-17",
+      "weeks": 12,
+      "treatmentsPerPatient": 36,
+      "cadence": "Monday / Wednesday / Friday"
+    },
+    "granularity": "One compact record per treatment; no minute-level telemetry.",
+    "purpose": "Provide longitudinal context for Mira and visible traceability for the four POC scenarios."
+  },
+  "patientHistories": [
+    {
+      "patientId": "demo-p001",
+      "displayName": "Daniel Kim",
+      "summary": {
+        "scheduledTreatments": 36,
+        "completedAsPrescribed": 36,
+        "averageActualMinutes": 240,
+        "averageUfRemovedMl": 2061,
+        "averagePreSystolic": 132,
+        "averageMinimumSystolic": 112,
+        "hypotensionEvents": 0,
+        "earlyTerminationRequests": 0,
+        "accessDiscomfortReports": 0
+      },
+      "sessions": [
+        {
+          "treatmentId": "demo-p001-tx-001",
+          "treatmentDate": "2026-04-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.4,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1868,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-002",
+          "treatmentDate": "2026-04-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-003",
+          "treatmentDate": "2026-05-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-004",
+          "treatmentDate": "2026-05-04",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.8,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2300,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-005",
+          "treatmentDate": "2026-05-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-006",
+          "treatmentDate": "2026-05-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.3,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-007",
+          "treatmentDate": "2026-05-11",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-008",
+          "treatmentDate": "2026-05-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.8,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2170,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-009",
+          "treatmentDate": "2026-05-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2240,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-010",
+          "treatmentDate": "2026-05-18",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-011",
+          "treatmentDate": "2026-05-20",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-012",
+          "treatmentDate": "2026-05-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2005,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-013",
+          "treatmentDate": "2026-05-25",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2200,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-014",
+          "treatmentDate": "2026-05-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.9,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2270,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-015",
+          "treatmentDate": "2026-05-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.4,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-016",
+          "treatmentDate": "2026-06-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.4,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-017",
+          "treatmentDate": "2026-06-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-018",
+          "treatmentDate": "2026-06-05",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-019",
+          "treatmentDate": "2026-06-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.8,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2300,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-020",
+          "treatmentDate": "2026-06-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-021",
+          "treatmentDate": "2026-06-12",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.3,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-022",
+          "treatmentDate": "2026-06-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-023",
+          "treatmentDate": "2026-06-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.8,
+          "postWeightKg": 72.7,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2133,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-024",
+          "treatmentDate": "2026-06-19",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2240,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-025",
+          "treatmentDate": "2026-06-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-026",
+          "treatmentDate": "2026-06-24",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-027",
+          "treatmentDate": "2026-06-26",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.5,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2040,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-028",
+          "treatmentDate": "2026-06-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2200,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-029",
+          "treatmentDate": "2026-07-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.9,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2270,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-030",
+          "treatmentDate": "2026-07-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.4,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-031",
+          "treatmentDate": "2026-07-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.4,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-032",
+          "treatmentDate": "2026-07-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.7,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-033",
+          "treatmentDate": "2026-07-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 135,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 109,
+              "diastolic": 61
+            },
+            "post": {
+              "systolic": 121,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-034",
+          "treatmentDate": "2026-07-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.8,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2262,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 112,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-035",
+          "treatmentDate": "2026-07-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.6,
+          "postWeightKg": 72.6,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p001-tx-036",
+          "treatmentDate": "2026-07-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 74.3,
+          "postWeightKg": 72.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 126,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        }
+      ]
+    },
+    {
+      "patientId": "demo-p002",
+      "displayName": "Noah Carter",
+      "summary": {
+        "scheduledTreatments": 36,
+        "completedAsPrescribed": 35,
+        "averageActualMinutes": 238,
+        "averageUfRemovedMl": 1852,
+        "averagePreSystolic": 136,
+        "averageMinimumSystolic": 114,
+        "hypotensionEvents": 0,
+        "earlyTerminationRequests": 1,
+        "accessDiscomfortReports": 0
+      },
+      "sessions": [
+        {
+          "treatmentId": "demo-p002-tx-001",
+          "treatmentDate": "2026-04-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.9,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1672,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-002",
+          "treatmentDate": "2026-04-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-003",
+          "treatmentDate": "2026-05-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-004",
+          "treatmentDate": "2026-05-04",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.3,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-005",
+          "treatmentDate": "2026-05-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-006",
+          "treatmentDate": "2026-05-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.8,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1640,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-007",
+          "treatmentDate": "2026-05-11",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-008",
+          "treatmentDate": "2026-05-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.3,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-009",
+          "treatmentDate": "2026-05-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2040,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-010",
+          "treatmentDate": "2026-05-18",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1800,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-011",
+          "treatmentDate": "2026-05-20",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1670,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-012",
+          "treatmentDate": "2026-05-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1808,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-013",
+          "treatmentDate": "2026-05-25",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-014",
+          "treatmentDate": "2026-05-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.4,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-015",
+          "treatmentDate": "2026-05-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.9,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1740,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-016",
+          "treatmentDate": "2026-06-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.9,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1700,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-017",
+          "treatmentDate": "2026-06-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-018",
+          "treatmentDate": "2026-06-05",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-019",
+          "treatmentDate": "2026-06-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.3,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-020",
+          "treatmentDate": "2026-06-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-021",
+          "treatmentDate": "2026-06-12",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.8,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1640,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-022",
+          "treatmentDate": "2026-06-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-023",
+          "treatmentDate": "2026-06-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.3,
+          "postWeightKg": 78.4,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1937,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-024",
+          "treatmentDate": "2026-06-19",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2040,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-025",
+          "treatmentDate": "2026-06-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1800,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-026",
+          "treatmentDate": "2026-06-24",
+          "prescribedMinutes": 240,
+          "actualMinutes": 196,
+          "completedAsPrescribed": false,
+          "preWeightKg": 80,
+          "postWeightKg": 78.6,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1358,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "early_termination_request",
+              "note": "Anxiety reported; simulated RN decision and shortened treatment documented."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p002-tx-027",
+          "treatmentDate": "2026-06-26",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-028",
+          "treatmentDate": "2026-06-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-029",
+          "treatmentDate": "2026-07-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.4,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-030",
+          "treatmentDate": "2026-07-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.9,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1740,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-031",
+          "treatmentDate": "2026-07-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.9,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1700,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-032",
+          "treatmentDate": "2026-07-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.2,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 136,
+              "diastolic": 75
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-033",
+          "treatmentDate": "2026-07-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 139,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 111,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 125,
+              "diastolic": 69
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-034",
+          "treatmentDate": "2026-07-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.3,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2065,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 134,
+              "diastolic": 74
+            },
+            "minimum": {
+              "systolic": 114,
+              "diastolic": 64
+            },
+            "post": {
+              "systolic": 129,
+              "diastolic": 71
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-035",
+          "treatmentDate": "2026-07-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 80.1,
+          "postWeightKg": 78.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 138,
+              "diastolic": 76
+            },
+            "minimum": {
+              "systolic": 116,
+              "diastolic": 65
+            },
+            "post": {
+              "systolic": 128,
+              "diastolic": 70
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p002-tx-036",
+          "treatmentDate": "2026-07-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 79.8,
+          "postWeightKg": 78.2,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1640,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 113,
+              "diastolic": 63
+            },
+            "post": {
+              "systolic": 130,
+              "diastolic": 72
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        }
+      ]
+    },
+    {
+      "patientId": "demo-p003",
+      "displayName": "Emma Morgan",
+      "summary": {
+        "scheduledTreatments": 36,
+        "completedAsPrescribed": 36,
+        "averageActualMinutes": 240,
+        "averageUfRemovedMl": 2061,
+        "averagePreSystolic": 126,
+        "averageMinimumSystolic": 101,
+        "hypotensionEvents": 3,
+        "earlyTerminationRequests": 0,
+        "accessDiscomfortReports": 0
+      },
+      "sessions": [
+        {
+          "treatmentId": "demo-p003-tx-001",
+          "treatmentDate": "2026-04-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.7,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1868,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-002",
+          "treatmentDate": "2026-04-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-003",
+          "treatmentDate": "2026-05-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-004",
+          "treatmentDate": "2026-05-04",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.1,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2300,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-005",
+          "treatmentDate": "2026-05-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-006",
+          "treatmentDate": "2026-05-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.6,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-007",
+          "treatmentDate": "2026-05-11",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 88,
+              "diastolic": 49
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "hypotension",
+              "note": "Dizziness reported; simulated RN review recorded."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p003-tx-008",
+          "treatmentDate": "2026-05-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.1,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2170,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-009",
+          "treatmentDate": "2026-05-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2240,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-010",
+          "treatmentDate": "2026-05-18",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-011",
+          "treatmentDate": "2026-05-20",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-012",
+          "treatmentDate": "2026-05-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2005,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-013",
+          "treatmentDate": "2026-05-25",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2200,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-014",
+          "treatmentDate": "2026-05-27",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.2,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2270,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-015",
+          "treatmentDate": "2026-05-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.7,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-016",
+          "treatmentDate": "2026-06-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.7,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-017",
+          "treatmentDate": "2026-06-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-018",
+          "treatmentDate": "2026-06-05",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-019",
+          "treatmentDate": "2026-06-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.1,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2300,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-020",
+          "treatmentDate": "2026-06-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 86,
+              "diastolic": 48
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "hypotension",
+              "note": "Nausea and low BP reported; simulated RN review recorded."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p003-tx-021",
+          "treatmentDate": "2026-06-12",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.6,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-022",
+          "treatmentDate": "2026-06-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2100,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-023",
+          "treatmentDate": "2026-06-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.1,
+          "postWeightKg": 71,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2133,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-024",
+          "treatmentDate": "2026-06-19",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2240,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-025",
+          "treatmentDate": "2026-06-22",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-026",
+          "treatmentDate": "2026-06-24",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-027",
+          "treatmentDate": "2026-06-26",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.8,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2040,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-028",
+          "treatmentDate": "2026-06-29",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2200,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 390,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-029",
+          "treatmentDate": "2026-07-01",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.2,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2270,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-030",
+          "treatmentDate": "2026-07-03",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.7,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-031",
+          "treatmentDate": "2026-07-06",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.7,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-032",
+          "treatmentDate": "2026-07-08",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2100,
+          "ufRemovedMl": 2070,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 89,
+              "diastolic": 50
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "hypotension",
+              "note": "Low BP trend reported; simulated RN review recorded."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p003-tx-033",
+          "treatmentDate": "2026-07-10",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2200,
+          "ufRemovedMl": 2140,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 129,
+              "diastolic": 71
+            },
+            "minimum": {
+              "systolic": 100,
+              "diastolic": 56
+            },
+            "post": {
+              "systolic": 115,
+              "diastolic": 63
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-034",
+          "treatmentDate": "2026-07-13",
+          "prescribedMinutes": 240,
+          "actualMinutes": 236,
+          "completedAsPrescribed": true,
+          "preWeightKg": 73.1,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 2300,
+          "ufRemovedMl": 2262,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "minimum": {
+              "systolic": 103,
+              "diastolic": 58
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-035",
+          "treatmentDate": "2026-07-15",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.9,
+          "postWeightKg": 70.9,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 118,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p003-tx-036",
+          "treatmentDate": "2026-07-17",
+          "prescribedMinutes": 240,
+          "actualMinutes": 240,
+          "completedAsPrescribed": true,
+          "preWeightKg": 72.6,
+          "postWeightKg": 70.8,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 122,
+              "diastolic": 67
+            },
+            "minimum": {
+              "systolic": 102,
+              "diastolic": 57
+            },
+            "post": {
+              "systolic": 120,
+              "diastolic": 66
+            }
+          },
+          "meanBfrMlMin": 400,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        }
+      ]
+    },
+    {
+      "patientId": "demo-p004",
+      "displayName": "Priya Shah",
+      "summary": {
+        "scheduledTreatments": 36,
+        "completedAsPrescribed": 36,
+        "averageActualMinutes": 210,
+        "averageUfRemovedMl": 1761,
+        "averagePreSystolic": 130,
+        "averageMinimumSystolic": 108,
+        "hypotensionEvents": 0,
+        "earlyTerminationRequests": 0,
+        "accessDiscomfortReports": 2
+      },
+      "sessions": [
+        {
+          "treatmentId": "demo-p004-tx-001",
+          "treatmentDate": "2026-04-27",
+          "prescribedMinutes": 210,
+          "actualMinutes": 206,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.9,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1570,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-002",
+          "treatmentDate": "2026-04-29",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-003",
+          "treatmentDate": "2026-05-01",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-004",
+          "treatmentDate": "2026-05-04",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.3,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-005",
+          "treatmentDate": "2026-05-06",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1670,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-006",
+          "treatmentDate": "2026-05-08",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.8,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1540,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-007",
+          "treatmentDate": "2026-05-11",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1800,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-008",
+          "treatmentDate": "2026-05-13",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.3,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1870,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-009",
+          "treatmentDate": "2026-05-15",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-010",
+          "treatmentDate": "2026-05-18",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1700,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-011",
+          "treatmentDate": "2026-05-20",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1570,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-012",
+          "treatmentDate": "2026-05-22",
+          "prescribedMinutes": 210,
+          "actualMinutes": 206,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1706,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-013",
+          "treatmentDate": "2026-05-25",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-014",
+          "treatmentDate": "2026-05-27",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.4,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-015",
+          "treatmentDate": "2026-05-29",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.9,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1640,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-016",
+          "treatmentDate": "2026-06-01",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.9,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1600,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-017",
+          "treatmentDate": "2026-06-03",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-018",
+          "treatmentDate": "2026-06-05",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "access_discomfort",
+              "note": "Mild soreness reported; simulated RN review recorded."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p004-tx-019",
+          "treatmentDate": "2026-06-08",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.3,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 2000,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-020",
+          "treatmentDate": "2026-06-10",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1670,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-021",
+          "treatmentDate": "2026-06-12",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.8,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1540,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-022",
+          "treatmentDate": "2026-06-15",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1800,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-023",
+          "treatmentDate": "2026-06-17",
+          "prescribedMinutes": 210,
+          "actualMinutes": 206,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.3,
+          "postWeightKg": 64.5,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1834,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-024",
+          "treatmentDate": "2026-06-19",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1940,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-025",
+          "treatmentDate": "2026-06-22",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1700,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-026",
+          "treatmentDate": "2026-06-24",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1570,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-027",
+          "treatmentDate": "2026-06-26",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1740,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-028",
+          "treatmentDate": "2026-06-29",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1900,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 340,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-029",
+          "treatmentDate": "2026-07-01",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.4,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1970,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-030",
+          "treatmentDate": "2026-07-03",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.9,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1640,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-031",
+          "treatmentDate": "2026-07-06",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.9,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1600,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-032",
+          "treatmentDate": "2026-07-08",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.2,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1800,
+          "ufRemovedMl": 1770,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 130,
+              "diastolic": 72
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-033",
+          "treatmentDate": "2026-07-10",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1900,
+          "ufRemovedMl": 1840,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 133,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 105,
+              "diastolic": 59
+            },
+            "post": {
+              "systolic": 119,
+              "diastolic": 65
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": [
+            {
+              "eventType": "access_discomfort",
+              "note": "Tenderness reported with otherwise stable treatment data."
+            }
+          ]
+        },
+        {
+          "treatmentId": "demo-p004-tx-034",
+          "treatmentDate": "2026-07-13",
+          "prescribedMinutes": 210,
+          "actualMinutes": 206,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.3,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 2000,
+          "ufRemovedMl": 1962,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 128,
+              "diastolic": 70
+            },
+            "minimum": {
+              "systolic": 108,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 123,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-035",
+          "treatmentDate": "2026-07-15",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 66.1,
+          "postWeightKg": 64.4,
+          "ufGoalMl": 1700,
+          "ufRemovedMl": 1670,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 132,
+              "diastolic": 73
+            },
+            "minimum": {
+              "systolic": 110,
+              "diastolic": 62
+            },
+            "post": {
+              "systolic": 122,
+              "diastolic": 67
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        },
+        {
+          "treatmentId": "demo-p004-tx-036",
+          "treatmentDate": "2026-07-17",
+          "prescribedMinutes": 210,
+          "actualMinutes": 210,
+          "completedAsPrescribed": true,
+          "preWeightKg": 65.8,
+          "postWeightKg": 64.3,
+          "ufGoalMl": 1600,
+          "ufRemovedMl": 1540,
+          "bloodPressure": {
+            "pre": {
+              "systolic": 126,
+              "diastolic": 69
+            },
+            "minimum": {
+              "systolic": 107,
+              "diastolic": 60
+            },
+            "post": {
+              "systolic": 124,
+              "diastolic": 68
+            }
+          },
+          "meanBfrMlMin": 350,
+          "sessionMedicationContext": [
+            "heparin order present"
+          ],
+          "events": []
+        }
+      ]
+    }
+  ]
+}

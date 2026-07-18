@@ -1,10 +1,15 @@
 {
   "metadata": {
     "dataset": "Agentic CareLoop for In-Center Hemodialysis concept demo seed",
-    "version": "0.2-story-baseline",
+    "version": "0.3-data-linked",
     "synthetic": true,
     "fictional": true,
-    "clinicalUse": false
+    "clinicalUse": false,
+    "datasetRefs": {
+      "patientProfiles": "./patient-profiles.json",
+      "treatmentHistory": "./treatment-history.json",
+      "useCaseCatalog": "../use-case-catalog.md"
+    }
   },
   "clinic": {
     "clinicId": "careloop-demo-center",
@@ -43,8 +48,11 @@
   "chairs": [
     {
       "chairId": "chair-1",
+      "useCaseId": "UC-01",
       "patient": {
         "patientId": "demo-p001",
+        "profileRef": "patient-profiles.json#demo-p001",
+        "historyRef": "treatment-history.json#demo-p001",
         "displayName": "Daniel Kim",
         "age": 58,
         "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
@@ -52,6 +60,12 @@
         "dryWeightKg": 72.4,
         "riskFlags": [],
         "supportPreferences": ["prefers coffee during treatment"]
+      },
+      "currentTreatment": {
+        "treatmentId": "demo-p001-current-20260720",
+        "treatmentDate": "2026-07-20",
+        "scheduledStartTime": "07:00",
+        "phase": "in_progress"
       },
       "prescription": {
         "prescribedMinutes": 240,
@@ -79,8 +93,11 @@
     },
     {
       "chairId": "chair-2",
+      "useCaseId": "UC-02",
       "patient": {
         "patientId": "demo-p002",
+        "profileRef": "patient-profiles.json#demo-p002",
+        "historyRef": "treatment-history.json#demo-p002",
         "displayName": "Noah Carter",
         "age": 64,
         "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
@@ -88,6 +105,12 @@
         "dryWeightKg": 78.1,
         "riskFlags": [],
         "supportPreferences": ["prefers clear step-by-step explanations"]
+      },
+      "currentTreatment": {
+        "treatmentId": "demo-p002-current-20260720",
+        "treatmentDate": "2026-07-20",
+        "scheduledStartTime": "07:00",
+        "phase": "in_progress"
       },
       "prescription": {
         "prescribedMinutes": 240,
@@ -114,14 +137,23 @@
     },
     {
       "chairId": "chair-3",
+      "useCaseId": "UC-03",
       "patient": {
         "patientId": "demo-p003",
+        "profileRef": "patient-profiles.json#demo-p003",
+        "historyRef": "treatment-history.json#demo-p003",
         "displayName": "Emma Morgan",
         "age": 65,
         "primaryCondition": "Diabetic kidney disease",
         "accessType": "AVF — left upper arm",
         "dryWeightKg": 70.7,
         "riskFlags": ["simulated history of intradialytic hypotension"]
+      },
+      "currentTreatment": {
+        "treatmentId": "demo-p003-current-20260720",
+        "treatmentDate": "2026-07-20",
+        "scheduledStartTime": "07:00",
+        "phase": "in_progress"
       },
       "prescription": {
         "prescribedMinutes": 240,
@@ -161,14 +193,23 @@
     },
     {
       "chairId": "chair-4",
+      "useCaseId": "UC-04",
       "patient": {
         "patientId": "demo-p004",
+        "profileRef": "patient-profiles.json#demo-p004",
+        "historyRef": "treatment-history.json#demo-p004",
         "displayName": "Priya Shah",
         "age": 69,
         "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
         "accessType": "AVG — right forearm",
         "dryWeightKg": 64.2,
         "riskFlags": ["simulated intermittent access-site discomfort"]
+      },
+      "currentTreatment": {
+        "treatmentId": "demo-p004-current-20260720",
+        "treatmentDate": "2026-07-20",
+        "scheduledStartTime": "07:00",
+        "phase": "in_progress"
       },
       "prescription": {
         "prescribedMinutes": 210,

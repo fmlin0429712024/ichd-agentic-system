@@ -1,0 +1,824 @@
+{
+  "metadata": {
+    "dataset": "Mira bounded context fixtures",
+    "version": "1.0",
+    "synthetic": true,
+    "fictional": true,
+    "clinicalUse": false,
+    "purpose": "Show the exact bounded context shape available to Mira for each patient scenario."
+  },
+  "contexts": [
+    {
+      "useCaseId": "UC-01",
+      "actor": "mira",
+      "patient": {
+        "patientId": "demo-p001",
+        "displayName": "Daniel Kim",
+        "chairId": "chair-1",
+        "age": 58
+      },
+      "relevantProfile": {
+        "clinicalContext": {
+          "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+          "comorbidities": [
+            "hypertension"
+          ],
+          "allergies": [
+            {
+              "substance": "none documented in synthetic profile",
+              "reaction": null
+            }
+          ]
+        },
+        "vascularAccess": {
+          "type": "AVF",
+          "site": "left upper arm",
+          "statusAtDemoStart": "in use; no simulated concern"
+        },
+        "currentPrescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 400,
+          "prescribedDfrMlMin": 600,
+          "typicalUfGoalMl": 2100,
+          "dryWeightKg": 72.4
+        },
+        "medicationContext": {
+          "dialysisSessionOrders": [
+            {
+              "medication": "heparin",
+              "route": "dialysis circuit",
+              "timing": "per active treatment order",
+              "pocUse": "context only"
+            },
+            {
+              "medication": "epoetin alfa",
+              "route": "IV",
+              "timing": "selected treatment days per active order",
+              "pocUse": "context only"
+            }
+          ],
+          "homeMedications": [
+            {
+              "medication": "sevelamer carbonate",
+              "timing": "with meals",
+              "status": "active"
+            },
+            {
+              "medication": "amlodipine",
+              "timing": "daily",
+              "status": "active"
+            },
+            {
+              "medication": "renal multivitamin",
+              "timing": "daily",
+              "status": "active"
+            }
+          ]
+        },
+        "miraContext": {
+          "riskFlags": [],
+          "supportPreferences": [
+            "prefers coffee during treatment when pre-approved"
+          ],
+          "communicationPreferences": [
+            "brief status updates"
+          ],
+          "currentConcern": null,
+          "historySignal": "stable treatment pattern"
+        }
+      },
+      "historyContext": {
+        "window": {
+          "startDate": "2026-04-27",
+          "endDate": "2026-07-17",
+          "weeks": 12,
+          "treatmentsPerPatient": 36,
+          "cadence": "Monday / Wednesday / Friday"
+        },
+        "summary": {
+          "scheduledTreatments": 36,
+          "completedAsPrescribed": 36,
+          "averageActualMinutes": 240,
+          "averageUfRemovedMl": 2061,
+          "averagePreSystolic": 132,
+          "averageMinimumSystolic": 112,
+          "hypotensionEvents": 0,
+          "earlyTerminationRequests": 0,
+          "accessDiscomfortReports": 0
+        },
+        "relevantTreatments": []
+      },
+      "currentTreatment": {
+        "identity": {
+          "treatmentId": "demo-p001-current-20260720",
+          "treatmentDate": "2026-07-20",
+          "scheduledStartTime": "07:00",
+          "phase": "in_progress"
+        },
+        "prescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 400,
+          "prescribedDfrMlMin": 600,
+          "ufGoalMl": 2100
+        },
+        "live": {
+          "elapsedMinutes": 90,
+          "bloodPressure": {
+            "systolic": 128,
+            "diastolic": 70
+          },
+          "heartRateBpm": 72,
+          "bfrMlMin": 400,
+          "dfrMlMin": 600,
+          "ufRateMlHr": 525,
+          "volumeRemovedMl": 790
+        },
+        "status": "normal"
+      },
+      "currentTrigger": {
+        "name": "approved-coffee-request",
+        "patientMessage": "Could I have my coffee, please?",
+        "permittedItem": "coffee",
+        "constraint": "fictional pre-approved item; Atlas makes no dietary decision"
+      },
+      "authorityConstraints": [
+        "Mira may explain, coordinate, request evidence, and escalate.",
+        "Mira may not prescribe, administer, hold, or change medication.",
+        "Mira may not execute an RN-owned treatment decision.",
+        "A deterministic critical state cannot be suppressed or downgraded by an agent."
+      ]
+    },
+    {
+      "useCaseId": "UC-02",
+      "actor": "mira",
+      "patient": {
+        "patientId": "demo-p002",
+        "displayName": "Noah Carter",
+        "chairId": "chair-2",
+        "age": 64
+      },
+      "relevantProfile": {
+        "clinicalContext": {
+          "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+          "comorbidities": [
+            "hypertension",
+            "anxiety documented in synthetic profile"
+          ],
+          "allergies": [
+            {
+              "substance": "penicillin",
+              "reaction": "rash"
+            }
+          ]
+        },
+        "vascularAccess": {
+          "type": "AVF",
+          "site": "right upper arm",
+          "statusAtDemoStart": "in use; no simulated concern"
+        },
+        "currentPrescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 350,
+          "prescribedDfrMlMin": 600,
+          "typicalUfGoalMl": 1900,
+          "dryWeightKg": 78.1
+        },
+        "medicationContext": {
+          "dialysisSessionOrders": [
+            {
+              "medication": "heparin",
+              "route": "dialysis circuit",
+              "timing": "per active treatment order",
+              "pocUse": "context only"
+            },
+            {
+              "medication": "iron sucrose",
+              "route": "IV",
+              "timing": "weekly per active order",
+              "pocUse": "context only"
+            }
+          ],
+          "homeMedications": [
+            {
+              "medication": "sevelamer carbonate",
+              "timing": "with meals",
+              "status": "active"
+            },
+            {
+              "medication": "carvedilol",
+              "timing": "twice daily",
+              "status": "active"
+            },
+            {
+              "medication": "sertraline",
+              "timing": "daily",
+              "status": "active"
+            }
+          ]
+        },
+        "miraContext": {
+          "riskFlags": [
+            "one simulated shortened treatment in the 12-week history"
+          ],
+          "supportPreferences": [],
+          "communicationPreferences": [
+            "prefers clear step-by-step explanations"
+          ],
+          "currentConcern": "may request early treatment termination when anxious",
+          "historySignal": "one prior anxiety-associated shortened treatment"
+        }
+      },
+      "historyContext": {
+        "window": {
+          "startDate": "2026-04-27",
+          "endDate": "2026-07-17",
+          "weeks": 12,
+          "treatmentsPerPatient": 36,
+          "cadence": "Monday / Wednesday / Friday"
+        },
+        "summary": {
+          "scheduledTreatments": 36,
+          "completedAsPrescribed": 35,
+          "averageActualMinutes": 238,
+          "averageUfRemovedMl": 1852,
+          "averagePreSystolic": 136,
+          "averageMinimumSystolic": 114,
+          "hypotensionEvents": 0,
+          "earlyTerminationRequests": 1,
+          "accessDiscomfortReports": 0
+        },
+        "relevantTreatments": [
+          {
+            "treatmentId": "demo-p002-tx-026",
+            "treatmentDate": "2026-06-24",
+            "prescribedMinutes": 240,
+            "actualMinutes": 196,
+            "completedAsPrescribed": false,
+            "preWeightKg": 80,
+            "postWeightKg": 78.6,
+            "ufGoalMl": 1700,
+            "ufRemovedMl": 1358,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 132,
+                "diastolic": 73
+              },
+              "minimum": {
+                "systolic": 114,
+                "diastolic": 64
+              },
+              "post": {
+                "systolic": 129,
+                "diastolic": 71
+              }
+            },
+            "meanBfrMlMin": 350,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "early_termination_request",
+                "note": "Anxiety reported; simulated RN decision and shortened treatment documented."
+              }
+            ]
+          }
+        ]
+      },
+      "currentTreatment": {
+        "identity": {
+          "treatmentId": "demo-p002-current-20260720",
+          "treatmentDate": "2026-07-20",
+          "scheduledStartTime": "07:00",
+          "phase": "in_progress"
+        },
+        "prescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 350,
+          "prescribedDfrMlMin": 600,
+          "ufGoalMl": 1900
+        },
+        "live": {
+          "elapsedMinutes": 165,
+          "bloodPressure": {
+            "systolic": 132,
+            "diastolic": 72
+          },
+          "heartRateBpm": 76,
+          "bfrMlMin": 350,
+          "dfrMlMin": 600,
+          "ufRateMlHr": 475,
+          "volumeRemovedMl": 1306
+        },
+        "status": "normal"
+      },
+      "currentTrigger": {
+        "name": "early-termination-request",
+        "patientMessage": "I'm feeling anxious. I would like to end treatment early.",
+        "requiredRoute": "Atlas → Mira → Jordan Lee, RN"
+      },
+      "authorityConstraints": [
+        "Mira may explain, coordinate, request evidence, and escalate.",
+        "Mira may not prescribe, administer, hold, or change medication.",
+        "Mira may not execute an RN-owned treatment decision.",
+        "A deterministic critical state cannot be suppressed or downgraded by an agent."
+      ]
+    },
+    {
+      "useCaseId": "UC-03",
+      "actor": "mira",
+      "patient": {
+        "patientId": "demo-p003",
+        "displayName": "Emma Morgan",
+        "chairId": "chair-3",
+        "age": 65
+      },
+      "relevantProfile": {
+        "clinicalContext": {
+          "primaryCondition": "Diabetic kidney disease",
+          "comorbidities": [
+            "type 2 diabetes",
+            "hypertension",
+            "simulated intradialytic hypotension history"
+          ],
+          "allergies": [
+            {
+              "substance": "sulfonamide antibiotics",
+              "reaction": "hives"
+            }
+          ]
+        },
+        "vascularAccess": {
+          "type": "AVF",
+          "site": "left upper arm",
+          "statusAtDemoStart": "in use; no simulated concern"
+        },
+        "currentPrescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 400,
+          "prescribedDfrMlMin": 600,
+          "typicalUfGoalMl": 2100,
+          "dryWeightKg": 70.7
+        },
+        "medicationContext": {
+          "dialysisSessionOrders": [
+            {
+              "medication": "heparin",
+              "route": "dialysis circuit",
+              "timing": "per active treatment order",
+              "pocUse": "context only"
+            },
+            {
+              "medication": "midodrine",
+              "route": "oral",
+              "timing": "before selected treatments per active order",
+              "pocUse": "relevant history context; never an autonomous action"
+            }
+          ],
+          "homeMedications": [
+            {
+              "medication": "insulin glargine",
+              "timing": "daily per home plan",
+              "status": "active"
+            },
+            {
+              "medication": "sevelamer carbonate",
+              "timing": "with meals",
+              "status": "active"
+            },
+            {
+              "medication": "atorvastatin",
+              "timing": "daily",
+              "status": "active"
+            }
+          ]
+        },
+        "miraContext": {
+          "riskFlags": [
+            "simulated history of intradialytic hypotension"
+          ],
+          "supportPreferences": [
+            "prefers a warm blanket"
+          ],
+          "communicationPreferences": [
+            "ask one question at a time when symptomatic"
+          ],
+          "currentConcern": "current scenario injects a critical hypotension event",
+          "historySignal": "three hypotension events in the 12-week history"
+        }
+      },
+      "historyContext": {
+        "window": {
+          "startDate": "2026-04-27",
+          "endDate": "2026-07-17",
+          "weeks": 12,
+          "treatmentsPerPatient": 36,
+          "cadence": "Monday / Wednesday / Friday"
+        },
+        "summary": {
+          "scheduledTreatments": 36,
+          "completedAsPrescribed": 36,
+          "averageActualMinutes": 240,
+          "averageUfRemovedMl": 2061,
+          "averagePreSystolic": 126,
+          "averageMinimumSystolic": 101,
+          "hypotensionEvents": 3,
+          "earlyTerminationRequests": 0,
+          "accessDiscomfortReports": 0
+        },
+        "relevantTreatments": [
+          {
+            "treatmentId": "demo-p003-tx-007",
+            "treatmentDate": "2026-05-11",
+            "prescribedMinutes": 240,
+            "actualMinutes": 240,
+            "completedAsPrescribed": true,
+            "preWeightKg": 72.9,
+            "postWeightKg": 70.8,
+            "ufGoalMl": 2100,
+            "ufRemovedMl": 2100,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 126,
+                "diastolic": 69
+              },
+              "minimum": {
+                "systolic": 88,
+                "diastolic": 49
+              },
+              "post": {
+                "systolic": 118,
+                "diastolic": 65
+              }
+            },
+            "meanBfrMlMin": 400,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "hypotension",
+                "note": "Dizziness reported; simulated RN review recorded."
+              }
+            ]
+          },
+          {
+            "treatmentId": "demo-p003-tx-020",
+            "treatmentDate": "2026-06-10",
+            "prescribedMinutes": 240,
+            "actualMinutes": 240,
+            "completedAsPrescribed": true,
+            "preWeightKg": 72.9,
+            "postWeightKg": 70.9,
+            "ufGoalMl": 2000,
+            "ufRemovedMl": 1970,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 128,
+                "diastolic": 70
+              },
+              "minimum": {
+                "systolic": 86,
+                "diastolic": 48
+              },
+              "post": {
+                "systolic": 120,
+                "diastolic": 66
+              }
+            },
+            "meanBfrMlMin": 400,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "hypotension",
+                "note": "Nausea and low BP reported; simulated RN review recorded."
+              }
+            ]
+          },
+          {
+            "treatmentId": "demo-p003-tx-032",
+            "treatmentDate": "2026-07-08",
+            "prescribedMinutes": 240,
+            "actualMinutes": 240,
+            "completedAsPrescribed": true,
+            "preWeightKg": 73,
+            "postWeightKg": 70.9,
+            "ufGoalMl": 2100,
+            "ufRemovedMl": 2070,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 126,
+                "diastolic": 69
+              },
+              "minimum": {
+                "systolic": 89,
+                "diastolic": 50
+              },
+              "post": {
+                "systolic": 120,
+                "diastolic": 66
+              }
+            },
+            "meanBfrMlMin": 400,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "hypotension",
+                "note": "Low BP trend reported; simulated RN review recorded."
+              }
+            ]
+          }
+        ]
+      },
+      "currentTreatment": {
+        "identity": {
+          "treatmentId": "demo-p003-current-20260720",
+          "treatmentDate": "2026-07-20",
+          "scheduledStartTime": "07:00",
+          "phase": "in_progress"
+        },
+        "prescription": {
+          "prescribedMinutes": 240,
+          "prescribedBfrMlMin": 400,
+          "prescribedDfrMlMin": 600,
+          "ufGoalMl": 2100
+        },
+        "live": {
+          "elapsedMinutes": 60,
+          "bloodPressure": {
+            "systolic": 118,
+            "diastolic": 68
+          },
+          "heartRateBpm": 72,
+          "bfrMlMin": 400,
+          "dfrMlMin": 600,
+          "ufRateMlHr": 525,
+          "volumeRemovedMl": 525
+        },
+        "status": "normal"
+      },
+      "currentTrigger": {
+        "name": "hypotension",
+        "iotChange": {
+          "bloodPressure": {
+            "systolic": 85,
+            "diastolic": 48
+          },
+          "heartRateBpm": 58
+        },
+        "atlasObservation": {
+          "manualVitals": {
+            "bloodPressure": {
+              "systolic": 84,
+              "diastolic": 46
+            },
+            "heartRateBpm": 58
+          },
+          "appearance": "pale and clammy",
+          "alertness": "awake and responsive",
+          "reportedSymptoms": [
+            "dizziness",
+            "nausea"
+          ],
+          "accessSite": "visible; no simulated abnormality",
+          "observedBy": "atlas"
+        }
+      },
+      "authorityConstraints": [
+        "Mira may explain, coordinate, request evidence, and escalate.",
+        "Mira may not prescribe, administer, hold, or change medication.",
+        "Mira may not execute an RN-owned treatment decision.",
+        "A deterministic critical state cannot be suppressed or downgraded by an agent."
+      ]
+    },
+    {
+      "useCaseId": "UC-04",
+      "actor": "mira",
+      "patient": {
+        "patientId": "demo-p004",
+        "displayName": "Priya Shah",
+        "chairId": "chair-4",
+        "age": 69
+      },
+      "relevantProfile": {
+        "clinicalContext": {
+          "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+          "comorbidities": [
+            "hypertension",
+            "peripheral vascular disease"
+          ],
+          "allergies": [
+            {
+              "substance": "latex",
+              "reaction": "contact irritation"
+            }
+          ]
+        },
+        "vascularAccess": {
+          "type": "AVG",
+          "site": "right forearm",
+          "statusAtDemoStart": "in use; simulated intermittent soreness"
+        },
+        "currentPrescription": {
+          "prescribedMinutes": 210,
+          "prescribedBfrMlMin": 350,
+          "prescribedDfrMlMin": 600,
+          "typicalUfGoalMl": 1800,
+          "dryWeightKg": 64.2
+        },
+        "medicationContext": {
+          "dialysisSessionOrders": [
+            {
+              "medication": "heparin",
+              "route": "dialysis circuit",
+              "timing": "per active treatment order",
+              "pocUse": "context only"
+            },
+            {
+              "medication": "epoetin alfa",
+              "route": "IV",
+              "timing": "selected treatment days per active order",
+              "pocUse": "context only"
+            }
+          ],
+          "homeMedications": [
+            {
+              "medication": "sevelamer carbonate",
+              "timing": "with meals",
+              "status": "active"
+            },
+            {
+              "medication": "cinacalcet",
+              "timing": "daily",
+              "status": "active"
+            },
+            {
+              "medication": "carvedilol",
+              "timing": "twice daily",
+              "status": "active"
+            }
+          ]
+        },
+        "miraContext": {
+          "riskFlags": [
+            "simulated intermittent access-site discomfort"
+          ],
+          "supportPreferences": [
+            "prefers the chairside explanation before movement"
+          ],
+          "communicationPreferences": [
+            "speaks softly; confirm what was heard"
+          ],
+          "currentConcern": "current scenario reports access-site soreness despite normal IoT values",
+          "historySignal": "two access discomfort reports in the 12-week history"
+        }
+      },
+      "historyContext": {
+        "window": {
+          "startDate": "2026-04-27",
+          "endDate": "2026-07-17",
+          "weeks": 12,
+          "treatmentsPerPatient": 36,
+          "cadence": "Monday / Wednesday / Friday"
+        },
+        "summary": {
+          "scheduledTreatments": 36,
+          "completedAsPrescribed": 36,
+          "averageActualMinutes": 210,
+          "averageUfRemovedMl": 1761,
+          "averagePreSystolic": 130,
+          "averageMinimumSystolic": 108,
+          "hypotensionEvents": 0,
+          "earlyTerminationRequests": 0,
+          "accessDiscomfortReports": 2
+        },
+        "relevantTreatments": [
+          {
+            "treatmentId": "demo-p004-tx-018",
+            "treatmentDate": "2026-06-05",
+            "prescribedMinutes": 210,
+            "actualMinutes": 210,
+            "completedAsPrescribed": true,
+            "preWeightKg": 66.1,
+            "postWeightKg": 64.3,
+            "ufGoalMl": 1900,
+            "ufRemovedMl": 1840,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 133,
+                "diastolic": 73
+              },
+              "minimum": {
+                "systolic": 108,
+                "diastolic": 60
+              },
+              "post": {
+                "systolic": 123,
+                "diastolic": 68
+              }
+            },
+            "meanBfrMlMin": 350,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "access_discomfort",
+                "note": "Mild soreness reported; simulated RN review recorded."
+              }
+            ]
+          },
+          {
+            "treatmentId": "demo-p004-tx-033",
+            "treatmentDate": "2026-07-10",
+            "prescribedMinutes": 210,
+            "actualMinutes": 210,
+            "completedAsPrescribed": true,
+            "preWeightKg": 66.1,
+            "postWeightKg": 64.3,
+            "ufGoalMl": 1900,
+            "ufRemovedMl": 1840,
+            "bloodPressure": {
+              "pre": {
+                "systolic": 133,
+                "diastolic": 73
+              },
+              "minimum": {
+                "systolic": 105,
+                "diastolic": 59
+              },
+              "post": {
+                "systolic": 119,
+                "diastolic": 65
+              }
+            },
+            "meanBfrMlMin": 350,
+            "sessionMedicationContext": [
+              "heparin order present"
+            ],
+            "events": [
+              {
+                "eventType": "access_discomfort",
+                "note": "Tenderness reported with otherwise stable treatment data."
+              }
+            ]
+          }
+        ]
+      },
+      "currentTreatment": {
+        "identity": {
+          "treatmentId": "demo-p004-current-20260720",
+          "treatmentDate": "2026-07-20",
+          "scheduledStartTime": "07:00",
+          "phase": "in_progress"
+        },
+        "prescription": {
+          "prescribedMinutes": 210,
+          "prescribedBfrMlMin": 350,
+          "prescribedDfrMlMin": 600,
+          "ufGoalMl": 1800
+        },
+        "live": {
+          "elapsedMinutes": 125,
+          "bloodPressure": {
+            "systolic": 124,
+            "diastolic": 68
+          },
+          "heartRateBpm": 70,
+          "bfrMlMin": 350,
+          "dfrMlMin": 600,
+          "ufRateMlHr": 514,
+          "volumeRemovedMl": 1070
+        },
+        "status": "normal"
+      },
+      "currentTrigger": {
+        "name": "access-site-concern",
+        "patientMessage": "My access site feels sore today.",
+        "atlasObservation": {
+          "manualVitals": {
+            "bloodPressure": {
+              "systolic": 124,
+              "diastolic": 68
+            },
+            "heartRateBpm": 70
+          },
+          "appearance": "comfortable and alert",
+          "accessSite": "mild simulated redness; no active bleeding",
+          "observedBy": "atlas"
+        },
+        "requiredRoute": "Atlas → Mira → Jordan Lee, RN"
+      },
+      "authorityConstraints": [
+        "Mira may explain, coordinate, request evidence, and escalate.",
+        "Mira may not prescribe, administer, hold, or change medication.",
+        "Mira may not execute an RN-owned treatment decision.",
+        "A deterministic critical state cannot be suppressed or downgraded by an agent."
+      ]
+    }
+  ]
+}

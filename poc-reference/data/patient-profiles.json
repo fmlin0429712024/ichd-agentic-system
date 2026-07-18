@@ -1,0 +1,241 @@
+{
+  "metadata": {
+    "dataset": "CareLoop Demo Center synthetic patient profiles",
+    "version": "1.0",
+    "synthetic": true,
+    "fictional": true,
+    "clinicalUse": false,
+    "demoAnchorDate": "2026-07-20",
+    "medicationScope": "Read-only context for the POC; no agent may prescribe, administer, hold, or change medication."
+  },
+  "patients": [
+    {
+      "patientId": "demo-p001",
+      "displayName": "Daniel Kim",
+      "age": 58,
+      "chairId": "chair-1",
+      "dialysisProgram": {
+        "modality": "In-center hemodialysis",
+        "schedule": "Monday / Wednesday / Friday",
+        "shift": "morning",
+        "programStartDate": "2022-09-12"
+      },
+      "clinicalContext": {
+        "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+        "comorbidities": ["hypertension"],
+        "allergies": [{ "substance": "none documented in synthetic profile", "reaction": null }]
+      },
+      "vascularAccess": {
+        "type": "AVF",
+        "site": "left upper arm",
+        "statusAtDemoStart": "in use; no simulated concern"
+      },
+      "currentPrescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "typicalUfGoalMl": 2100,
+        "dryWeightKg": 72.4
+      },
+      "medicationContext": {
+        "dialysisSessionOrders": [
+          {
+            "medication": "heparin",
+            "route": "dialysis circuit",
+            "timing": "per active treatment order",
+            "pocUse": "context only"
+          },
+          {
+            "medication": "epoetin alfa",
+            "route": "IV",
+            "timing": "selected treatment days per active order",
+            "pocUse": "context only"
+          }
+        ],
+        "homeMedications": [
+          { "medication": "sevelamer carbonate", "timing": "with meals", "status": "active" },
+          { "medication": "amlodipine", "timing": "daily", "status": "active" },
+          { "medication": "renal multivitamin", "timing": "daily", "status": "active" }
+        ]
+      },
+      "miraContext": {
+        "riskFlags": [],
+        "supportPreferences": ["prefers coffee during treatment when pre-approved"],
+        "communicationPreferences": ["brief status updates"],
+        "currentConcern": null,
+        "historySignal": "stable treatment pattern"
+      }
+    },
+    {
+      "patientId": "demo-p002",
+      "displayName": "Noah Carter",
+      "age": 64,
+      "chairId": "chair-2",
+      "dialysisProgram": {
+        "modality": "In-center hemodialysis",
+        "schedule": "Monday / Wednesday / Friday",
+        "shift": "morning",
+        "programStartDate": "2021-03-08"
+      },
+      "clinicalContext": {
+        "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+        "comorbidities": ["hypertension", "anxiety documented in synthetic profile"],
+        "allergies": [{ "substance": "penicillin", "reaction": "rash" }]
+      },
+      "vascularAccess": {
+        "type": "AVF",
+        "site": "right upper arm",
+        "statusAtDemoStart": "in use; no simulated concern"
+      },
+      "currentPrescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "typicalUfGoalMl": 1900,
+        "dryWeightKg": 78.1
+      },
+      "medicationContext": {
+        "dialysisSessionOrders": [
+          {
+            "medication": "heparin",
+            "route": "dialysis circuit",
+            "timing": "per active treatment order",
+            "pocUse": "context only"
+          },
+          {
+            "medication": "iron sucrose",
+            "route": "IV",
+            "timing": "weekly per active order",
+            "pocUse": "context only"
+          }
+        ],
+        "homeMedications": [
+          { "medication": "sevelamer carbonate", "timing": "with meals", "status": "active" },
+          { "medication": "carvedilol", "timing": "twice daily", "status": "active" },
+          { "medication": "sertraline", "timing": "daily", "status": "active" }
+        ]
+      },
+      "miraContext": {
+        "riskFlags": ["one simulated shortened treatment in the 12-week history"],
+        "supportPreferences": [],
+        "communicationPreferences": ["prefers clear step-by-step explanations"],
+        "currentConcern": "may request early treatment termination when anxious",
+        "historySignal": "one prior anxiety-associated shortened treatment"
+      }
+    },
+    {
+      "patientId": "demo-p003",
+      "displayName": "Emma Morgan",
+      "age": 65,
+      "chairId": "chair-3",
+      "dialysisProgram": {
+        "modality": "In-center hemodialysis",
+        "schedule": "Monday / Wednesday / Friday",
+        "shift": "morning",
+        "programStartDate": "2020-11-16"
+      },
+      "clinicalContext": {
+        "primaryCondition": "Diabetic kidney disease",
+        "comorbidities": ["type 2 diabetes", "hypertension", "simulated intradialytic hypotension history"],
+        "allergies": [{ "substance": "sulfonamide antibiotics", "reaction": "hives" }]
+      },
+      "vascularAccess": {
+        "type": "AVF",
+        "site": "left upper arm",
+        "statusAtDemoStart": "in use; no simulated concern"
+      },
+      "currentPrescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "typicalUfGoalMl": 2100,
+        "dryWeightKg": 70.7
+      },
+      "medicationContext": {
+        "dialysisSessionOrders": [
+          {
+            "medication": "heparin",
+            "route": "dialysis circuit",
+            "timing": "per active treatment order",
+            "pocUse": "context only"
+          },
+          {
+            "medication": "midodrine",
+            "route": "oral",
+            "timing": "before selected treatments per active order",
+            "pocUse": "relevant history context; never an autonomous action"
+          }
+        ],
+        "homeMedications": [
+          { "medication": "insulin glargine", "timing": "daily per home plan", "status": "active" },
+          { "medication": "sevelamer carbonate", "timing": "with meals", "status": "active" },
+          { "medication": "atorvastatin", "timing": "daily", "status": "active" }
+        ]
+      },
+      "miraContext": {
+        "riskFlags": ["simulated history of intradialytic hypotension"],
+        "supportPreferences": ["prefers a warm blanket"],
+        "communicationPreferences": ["ask one question at a time when symptomatic"],
+        "currentConcern": "current scenario injects a critical hypotension event",
+        "historySignal": "three hypotension events in the 12-week history"
+      }
+    },
+    {
+      "patientId": "demo-p004",
+      "displayName": "Priya Shah",
+      "age": 69,
+      "chairId": "chair-4",
+      "dialysisProgram": {
+        "modality": "In-center hemodialysis",
+        "schedule": "Monday / Wednesday / Friday",
+        "shift": "morning",
+        "programStartDate": "2019-06-03"
+      },
+      "clinicalContext": {
+        "primaryCondition": "End-stage kidney disease on maintenance hemodialysis",
+        "comorbidities": ["hypertension", "peripheral vascular disease"],
+        "allergies": [{ "substance": "latex", "reaction": "contact irritation" }]
+      },
+      "vascularAccess": {
+        "type": "AVG",
+        "site": "right forearm",
+        "statusAtDemoStart": "in use; simulated intermittent soreness"
+      },
+      "currentPrescription": {
+        "prescribedMinutes": 210,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "typicalUfGoalMl": 1800,
+        "dryWeightKg": 64.2
+      },
+      "medicationContext": {
+        "dialysisSessionOrders": [
+          {
+            "medication": "heparin",
+            "route": "dialysis circuit",
+            "timing": "per active treatment order",
+            "pocUse": "context only"
+          },
+          {
+            "medication": "epoetin alfa",
+            "route": "IV",
+            "timing": "selected treatment days per active order",
+            "pocUse": "context only"
+          }
+        ],
+        "homeMedications": [
+          { "medication": "sevelamer carbonate", "timing": "with meals", "status": "active" },
+          { "medication": "cinacalcet", "timing": "daily", "status": "active" },
+          { "medication": "carvedilol", "timing": "twice daily", "status": "active" }
+        ]
+      },
+      "miraContext": {
+        "riskFlags": ["simulated intermittent access-site discomfort"],
+        "supportPreferences": ["prefers the chairside explanation before movement"],
+        "communicationPreferences": ["speaks softly; confirm what was heard"],
+        "currentConcern": "current scenario reports access-site soreness despite normal IoT values",
+        "historySignal": "two access discomfort reports in the 12-week history"
+      }
+    }
+  ]
+}

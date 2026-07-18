@@ -131,6 +131,8 @@ clinical decision-maker at the site.
 - [POC PRD](docs/PRD.md) — detailed product source of truth
 - [Four-patient story map](poc-reference/patient-scenarios.md) — roles,
   scenarios, communication model, and Atlas task boundary
+- [Data-to-use-case map](poc-reference/use-case-catalog.md) — how patient
+  profiles, 12-week history, live data, and observations support each story
 - [Synthetic clinic seed data](poc-reference/data/clinic-seed.json) — the
   fictional cast and starting treatment state
 
