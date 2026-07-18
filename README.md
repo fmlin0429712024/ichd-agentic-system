@@ -9,24 +9,31 @@ floor, and two digital employees help coordinate and support the work.
 
 ## The 30-second story
 
-Mira, the Nurse AI, continuously combines simulated treatment data with patient
-context. When information is missing, Mira dispatches Atlas, a mobile Aide AGV,
-to the chair. Atlas can collect limited chairside observations, perform a
-scripted manual BP/HR recheck, relay what the patient says, and complete
+A stationary **Nurse AI** continuously combines simulated treatment data with
+patient context. When information is missing, it dispatches a mobile **Aide
+AGV** to the chair. The AGV can collect limited chairside observations, perform
+a scripted manual BP/HR recheck, relay what the patient says, and complete
 pre-approved support tasks.
 
-Mira handles routine coordination. Jordan Lee, RN retains final authority over
-critical and medical decisions. Casey Torres, PCT remains the human safety and
-physical-assistance backstop when Atlas should not act.
+The two digital employees handle bounded observation and routine coordination.
+A **human RN** retains final authority over critical and medical decisions. A
+**human PCT** remains the safety and physical-assistance backstop when the AGV
+should not act.
 
 ```mermaid
 flowchart LR
-    P["Patient"] --> A["Atlas · Aide AGV"]
-    A --> M["Mira · Nurse AI"]
-    M --> J["Jordan Lee · RN"]
+    P["🧑 Patient"] --> A["🤖 Aide AGV<br/>digital employee"]
+    A --> M["🧠 Nurse AI<br/>digital employee"]
+    M --> J["👩‍⚕️ Human RN<br/>final clinical authority"]
     J --> M --> A
-    A -. "human assistance required" .-> C["Casey Torres · PCT"]
+    A -. "human assistance required" .-> C["🧑‍⚕️ Human PCT<br/>physical-assistance backstop"]
     M -. "human assistance required" .-> C
+    classDef patient fill:#FEF3C7,stroke:#D97706,color:#422006
+    classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
+    class P patient
+    class A,M digital
+    class J,C human
 ```
 
 The goal is not to replace clinicians. It is to show how digital workers can
@@ -84,17 +91,17 @@ flowchart TB
 
         subgraph POC[" "]
             direction BT
-            VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Atlas"]
-            VA --> VM["🧠 Virtual Mira"]
-            VM --> VH["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>demo workspace"]
+            VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Aide AGV"]
+            VA --> VM["🧠 Virtual Nurse AI"]
+            VM --> VH["👩‍⚕️ Human RN + 🧑‍⚕️ Human PCT<br/>demo workspace"]
             VH ~~~ PH["VIRTUAL POC<br/>ONE SIMULATED CENTER"]
         end
 
         subgraph FUTURE[" "]
             direction BT
-            RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Atlas AGV<br/>Jetson AGX Orin-class"]
-            AR <--> SE["🧠 Mira site edge gateway<br/>IGX Orin-class"]
-            SE --> HS["👩‍⚕️ Jordan, RN + 🧑‍⚕️ Casey, PCT<br/>on-site human authority"]
+            RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Aide AGV<br/>Jetson AGX Orin-class"]
+            AR <--> SE["🧠 Nurse AI site edge gateway<br/>IGX Orin-class"]
+            SE --> HS["👩‍⚕️ Human RN + 🧑‍⚕️ Human PCT<br/>on-site human authority"]
             SE <--> EC["☁️ Enterprise cloud<br/>fleet management across centers"]
             HS ~~~ FH["REAL-WORLD VISION<br/>PHYSICAL SITES + ENTERPRISE FLEET"]
             EC ~~~ FH
@@ -123,8 +130,8 @@ flowchart TB
 **Read bottom to top:** patient and treatment data begin at the chair; digital
 employees collect and coordinate; human employees retain authority. The future
 vision uses the same CareLoop model at the site, while the enterprise cloud
-manages the fleet across many centers. Jordan Lee, RN remains the final
-clinical decision-maker at the site.
+manages the fleet across many centers. The human RN remains the final clinical
+decision-maker at the site.
 
 ## Explore the project
 
