@@ -1,0 +1,11 @@
+{
+  "contractVersion": "1.0",
+  "taskId": "task-medication-001",
+  "incidentId": "incident-medication-001",
+  "chairId": "chair-01",
+  "capability": "administer_medication",
+  "priority": "urgent",
+  "parameters": { "medication": "example" },
+  "requestedEvidence": ["administration_confirmation"],
+  "requestedBy": "mira"
+}

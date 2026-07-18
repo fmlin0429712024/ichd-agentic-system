@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://careloop.example/contracts/atlas-task-artifact/1.0",
+  "title": "Atlas Task Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "taskId", "incidentId", "chairId", "capability", "status", "observations", "patientStatements", "evidenceRefs", "completedAt", "provenance"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+    "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
+    "chairId": { "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "capability": { "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
+    "status": { "enum": ["completed", "unable", "human_help_required"] },
+    "summary": { "type": "string", "maxLength": 500 },
+    "observations": { "type": "array", "items": { "type": "object" } },
+    "patientStatements": { "type": "array", "items": { "type": "string" } },
+    "evidenceRefs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "sourceType", "capturedAt"],
+      "properties": {
+        "source": { "const": "atlas-simulator" },
+        "sourceType": { "const": "simulated" },
+        "capturedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

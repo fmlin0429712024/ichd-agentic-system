@@ -24,10 +24,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [ ] `SKILL-M02` Implement concise Mira instructions and references.
   **Depends on:** `SKILL-M01`. **Validate:** Codex Skill validation passes and a
   fresh role test respects RN authority.
-- [ ] `SKILL-A01` Initialize the Atlas Skill under
+- [x] `SKILL-A01` Initialize the Atlas Skill under
   `aide-agv-agent/.agents/skills/`. **Validate:** standard Skill structure and
   `agents/openai.yaml` exist.
-- [ ] `SKILL-A02` Implement concise Atlas instructions and references.
+- [x] `SKILL-A02` Implement concise Atlas instructions and references.
   **Depends on:** `SKILL-A01`. **Validate:** Codex Skill validation passes and a
   fresh role test rejects medical judgment and unsupported physical work.
 - [ ] `SKILL-ISO1` Verify role discovery from each agent working directory.
@@ -36,10 +36,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 
 ## Provider-owned contracts
 
-- [ ] `CONTRACT-A01` Define and validate the Atlas Agent Card.
+- [x] `CONTRACT-A01` Define and validate the Atlas Agent Card.
   **Depends on:** `SKILL-A02`. **Validate:** declared skills match Atlas's actual
   accepted capability set.
-- [ ] `CONTRACT-A02` Define Atlas task-request and result-artifact JSON Schemas
+- [x] `CONTRACT-A02` Define Atlas task-request and result-artifact JSON Schemas
   with valid and invalid examples. **Validate:** required fields, enums, IDs,
   timestamps, units, version, and provenance fail closed.
 - [ ] `CONTRACT-M01` Define Mira event-input and RN-decision-request JSON Schemas

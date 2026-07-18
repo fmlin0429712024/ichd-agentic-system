@@ -1,0 +1,14 @@
+{
+  "contractVersion": "1.0",
+  "taskId": "task-deliver-coffee-001",
+  "incidentId": "incident-daniel-coffee-001",
+  "chairId": "chair-01",
+  "capability": "deliver_item",
+  "status": "completed",
+  "summary": "Pre-approved coffee delivered to Chair 1.",
+  "observations": [{ "type": "delivery", "item": "coffee", "outcome": "delivered" }],
+  "patientStatements": [],
+  "evidenceRefs": ["sim-event-delivery-001"],
+  "completedAt": "2026-07-18T15:55:00-05:00",
+  "provenance": { "source": "atlas-simulator", "sourceType": "simulated", "capturedAt": "2026-07-18T15:55:00-05:00" }
+}

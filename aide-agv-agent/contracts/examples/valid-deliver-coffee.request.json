@@ -1,0 +1,12 @@
+{
+  "contractVersion": "1.0",
+  "taskId": "task-deliver-coffee-001",
+  "incidentId": "incident-daniel-coffee-001",
+  "chairId": "chair-01",
+  "capability": "deliver_item",
+  "priority": "routine",
+  "parameters": { "item": "coffee", "preApproved": true },
+  "requestedEvidence": ["delivery_completion"],
+  "requestedBy": "mira",
+  "contextText": "Daniel requested his pre-approved coffee during a stable simulated treatment."
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atlas Chairside Support"
+  short_description: "Execute bounded dialysis chairside support tasks."
+  default_prompt: "Use $atlas-chairside-support to execute a validated routine support task and return traceable evidence."

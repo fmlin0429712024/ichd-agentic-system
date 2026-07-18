@@ -17,6 +17,9 @@ floor and manually test Atlas movement, delivery, patrol, stop, and reset.
 See [Frontend Design](docs/FRONTEND_DESIGN.md) for the simulator layout,
 deterministic routes, rendering boundary, and progressive role strategy.
 
+See [Atlas Agent](docs/ATLAS_AGENT.md) for the first role Skill, Agent Card,
+business contracts, authority boundary, and validation commands.
+
 **CareLoop Demo Center** is fully occupied: four fictional patients are in
 treatment, one human RN leads clinical decisions, one human PCT remains on the
 floor, and two digital employees help coordinate and support the work.

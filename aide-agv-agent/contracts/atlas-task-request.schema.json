@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://careloop.example/contracts/atlas-task-request/1.0",
+  "title": "Atlas Task Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "taskId", "incidentId", "chairId", "capability", "priority", "parameters", "requestedEvidence", "requestedBy"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+    "incidentId": { "type": "string", "pattern": "^incident-[a-z0-9-]+$" },
+    "chairId": { "enum": ["chair-01", "chair-02", "chair-03", "chair-04"] },
+    "capability": { "enum": ["deliver_item", "collect_vital_sign", "observe_patient", "ask_patient"] },
+    "priority": { "enum": ["routine", "urgent"] },
+    "requestedBy": { "const": "mira" },
+    "requestedEvidence": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
+    "contextText": { "type": "string", "maxLength": 500 },
+    "parameters": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "capability": { "const": "deliver_item" } }, "required": ["capability"] },
+      "then": {
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["item", "preApproved"],
+            "properties": {
+              "item": { "enum": ["water", "coffee", "blanket"] },
+              "preApproved": { "const": true }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

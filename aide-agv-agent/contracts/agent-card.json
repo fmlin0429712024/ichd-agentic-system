@@ -1,0 +1,39 @@
+{
+  "name": "Atlas Aide AGV Agent",
+  "description": "Executes bounded routine support and chairside evidence collection for a fictional dialysis-center POC; Atlas makes no medical judgment.",
+  "supportedInterfaces": [
+    {
+      "url": "http://127.0.0.1:8043/a2a",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "version": "0.1.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "routine-item-delivery",
+      "name": "Routine Item Delivery",
+      "description": "Deliver a pre-approved water, coffee, or blanket item to a known treatment chair.",
+      "tags": ["dialysis", "routine-support", "delivery"],
+      "examples": ["Deliver the pre-approved coffee to Chair 1."],
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json", "text/plain"]
+    },
+    {
+      "id": "chairside-evidence-collection",
+      "name": "Chairside Evidence Collection",
+      "description": "Ask a bounded question or collect simulator-provided vital signs and visible observations without clinical interpretation.",
+      "tags": ["dialysis", "chairside", "evidence"],
+      "examples": ["Ask the patient at Chair 3 whether they feel dizzy and report the exact statement."],
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json", "text/plain"]
+    }
+  ]
+}
