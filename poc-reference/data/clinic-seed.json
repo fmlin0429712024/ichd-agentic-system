@@ -1,0 +1,257 @@
+{
+  "metadata": {
+    "dataset": "Agentic CareLoop for In-Center Hemodialysis concept demo seed",
+    "version": "0.1-discussion",
+    "synthetic": true,
+    "clinicalUse": false,
+    "fictional": true
+  },
+  "clinic": {
+    "clinicId": "careloop-demo-center",
+    "displayName": "CareLoop Demo Center",
+    "chairCount": 8
+  },
+  "chairs": [
+    {
+      "chairId": "chair-1",
+      "patient": {
+        "patientId": "sim-p001",
+        "displayName": "Helen Brooks",
+        "age": 67,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVF — left upper arm",
+        "dryWeightKg": 70.7,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2100
+      },
+      "live": {
+        "elapsedMinutes": 92,
+        "bloodPressure": { "systolic": 128, "diastolic": 70 },
+        "heartRateBpm": 72,
+        "bfrMlMin": 400,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 525,
+        "volumeRemovedMl": 805
+      },
+      "status": "normal"
+    },
+    {
+      "chairId": "chair-2",
+      "patient": {
+        "patientId": "sim-p002",
+        "displayName": "Daniel Kim",
+        "age": 71,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVF — left upper arm",
+        "dryWeightKg": 72.7,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 1900
+      },
+      "live": {
+        "elapsedMinutes": 166,
+        "bloodPressure": { "systolic": 132, "diastolic": 72 },
+        "heartRateBpm": 76,
+        "bfrMlMin": 350,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 475,
+        "volumeRemovedMl": 1314
+      },
+      "status": "normal",
+      "scenarioRole": "patient may request early termination"
+    },
+    {
+      "chairId": "chair-3",
+      "patient": {
+        "patientId": "sim-p003",
+        "displayName": "Alice Morgan",
+        "age": 65,
+        "primaryCondition": "Diabetic kidney disease",
+        "accessType": "AVF — left upper arm",
+        "dryWeightKg": 70.7,
+        "riskFlags": ["simulated history of intradialytic hypotension"]
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2100
+      },
+      "live": {
+        "elapsedMinutes": 60,
+        "bloodPressure": { "systolic": 118, "diastolic": 68 },
+        "heartRateBpm": 72,
+        "bfrMlMin": 400,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 525,
+        "volumeRemovedMl": 525
+      },
+      "status": "normal",
+      "scenarioRole": "UC1 primary incident target",
+      "scenarioInjection": {
+        "name": "hypotension",
+        "iotChange": {
+          "bloodPressure": { "systolic": 85, "diastolic": 48 },
+          "heartRateBpm": 58
+        },
+        "onSiteObservation": {
+          "appearance": "pale and clammy",
+          "alertness": "awake and responsive",
+          "reportedSymptoms": ["dizziness", "nausea"],
+          "accessSite": "visible; no simulated abnormality",
+          "observedBy": "aide-1"
+        }
+      }
+    },
+    {
+      "chairId": "chair-4",
+      "patient": {
+        "patientId": "sim-p004",
+        "displayName": "James Carter",
+        "age": 63,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "CVC — right internal jugular",
+        "dryWeightKg": 82.5,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2500
+      },
+      "live": {
+        "elapsedMinutes": 74,
+        "bloodPressure": { "systolic": 136, "diastolic": 76 },
+        "heartRateBpm": 74,
+        "bfrMlMin": 350,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 625,
+        "volumeRemovedMl": 771
+      },
+      "status": "normal",
+      "scenarioRole": "routine comfort request"
+    },
+    {
+      "chairId": "chair-5",
+      "patient": {
+        "patientId": "sim-p005",
+        "displayName": "Priya Shah",
+        "age": 58,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVG — right forearm",
+        "dryWeightKg": 64.2,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 210,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 1800
+      },
+      "live": {
+        "elapsedMinutes": 126,
+        "bloodPressure": { "systolic": 124, "diastolic": 68 },
+        "heartRateBpm": 70,
+        "bfrMlMin": 350,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 514,
+        "volumeRemovedMl": 1080
+      },
+      "status": "normal"
+    },
+    {
+      "chairId": "chair-6",
+      "patient": {
+        "patientId": "sim-p006",
+        "displayName": "Michael Reed",
+        "age": 74,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVF — right upper arm",
+        "dryWeightKg": 77.4,
+        "riskFlags": ["simulated fall risk"]
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2200
+      },
+      "live": {
+        "elapsedMinutes": 42,
+        "bloodPressure": { "systolic": 144, "diastolic": 80 },
+        "heartRateBpm": 78,
+        "bfrMlMin": 400,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 550,
+        "volumeRemovedMl": 385
+      },
+      "status": "normal"
+    },
+    {
+      "chairId": "chair-7",
+      "patient": {
+        "patientId": "sim-p007",
+        "displayName": "Rosa Bennett",
+        "age": 69,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVF — left forearm",
+        "dryWeightKg": 68.9,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 400,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2000
+      },
+      "live": {
+        "elapsedMinutes": 205,
+        "bloodPressure": { "systolic": 130, "diastolic": 72 },
+        "heartRateBpm": 74,
+        "bfrMlMin": 400,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 500,
+        "volumeRemovedMl": 1708
+      },
+      "status": "normal"
+    },
+    {
+      "chairId": "chair-8",
+      "patient": {
+        "patientId": "sim-p008",
+        "displayName": "Thomas Nguyen",
+        "age": 61,
+        "primaryCondition": "ESKD on maintenance hemodialysis",
+        "accessType": "AVG — left upper arm",
+        "dryWeightKg": 88.1,
+        "riskFlags": []
+      },
+      "prescription": {
+        "prescribedMinutes": 240,
+        "prescribedBfrMlMin": 350,
+        "prescribedDfrMlMin": 600,
+        "ufGoalMl": 2400
+      },
+      "live": {
+        "elapsedMinutes": 113,
+        "bloodPressure": { "systolic": 138, "diastolic": 76 },
+        "heartRateBpm": 76,
+        "bfrMlMin": 350,
+        "dfrMlMin": 600,
+        "ufRateMlHr": 600,
+        "volumeRemovedMl": 1130
+      },
+      "status": "normal"
+    }
+  ]
+}
