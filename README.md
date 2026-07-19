@@ -17,12 +17,11 @@
 1. [System Architecture](#2-system-architecture)
 2. [Data Architecture](#3-data-architecture)
 3. [Simulation & Digital Twin](#4-simulation--digital-twin)
-4. [One Complete Care Loop](#5-one-complete-care-loop)
-5. [Patient Scenarios](#6-patient-scenarios)
-6. [Technology Stack](#7-technology-stack)
-7. [Run It Locally](#8-run-it-locally)
-8. [Repository Layout](#9-repository-layout)
-9. [Read Next](#10-read-next)
+4. [Clinical Scenarios](#5-clinical-scenarios)
+5. [Technology Stack](#6-technology-stack)
+6. [Run It Locally](#7-run-it-locally)
+7. [Repository Layout](#8-repository-layout)
+8. [Read Next](#9-read-next)
 
 ---
 
@@ -242,35 +241,28 @@ See [ADR-001](docs/decisions/ADR-001-webots-physical-simulation.md).
 
 ---
 
-## 5. One Complete Care Loop
+## 5. Clinical Scenarios
 
-The working end-to-end slice is **Daniel Kim's pre-approved coffee request**:
+Four fictional patients cover the spectrum of situations a nurse faces in a
+single treatment session — from routine logistics to urgent clinical escalation.
+Each scenario requires a different data depth and a different coordination
+pattern, demonstrating how the same architecture supports progressively complex
+use cases.
 
-1. **Daniel** speaks to Mira from Chair 1.
-2. **Mira** validates the pre-approval from his patient domain data.
-3. **Mira** discovers the AGV via its Agent Card and sends a `deliver_item` A2A task.
-4. **Atlas** diverts from its routine patrol, visits the Operations Hub, picks up the item.
-5. **The AGV** navigates to Chair 1 and completes the delivery.
-6. The full trace — patient message → Mira decision → A2A task → AGV motion → artifact — is correlated by one mission ID and visible in the Operations Canvas.
-
----
-
-## 6. Patient Scenarios
-
-Four fictional patients cover the range of clinical situations a nurse faces
-during a single treatment session. Each scenario requires a different depth of
-data and a different coordination pattern:
-
-| Chair | Patient | Scenario | Data signals involved | Status |
+| Chair | Patient | Scenario | Data signals | Status |
 |---|---|---|---|---|
-| 1 | **Daniel Kim** | Stable; pre-approved coffee request | Support preferences, session state | ✅ Working end to end |
-| 2 | **Noah Carter** | Anxiety; wants to end treatment early | Session progress, RN escalation | Designed — needs RN decision flow |
-| 3 | **Emma Morgan** | Synthetic hypotension signal | Real-time BP, 12-week BP history | Designed — needs immediate RN alert flow |
-| 4 | **Priya Shah** | Access-site soreness; normal machine values | AGV observation, vascular access history | Designed — needs uncertainty + RN review |
+| 1 | **Daniel Kim** | Pre-approved comfort delivery | Support preferences · session state | ✅ End to end |
+| 2 | **Noah Carter** | Anxiety · wants to end treatment early | Session progress · RN escalation | Designed |
+| 3 | **Emma Morgan** | Hypotension signal during treatment | Real-time BP · 12-week BP history | Designed |
+| 4 | **Priya Shah** | Access-site soreness · normal machine values | AGV observation · vascular access history | Designed |
+
+Chair 1 is the current working slice — patient conversation → Mira decision →
+A2A task → AGV delivery → mission trace in the Canvas, all correlated by one
+mission ID.
 
 ---
 
-## 7. Technology Stack
+## 6. Technology Stack
 
 The language strategy is deliberately simple: **Python for all server-side
 logic, JavaScript/TypeScript only for the browser Canvas.** This keeps the
@@ -289,7 +281,7 @@ backend stack unified and avoids context-switching between languages.
 
 ---
 
-## 8. Run It Locally
+## 7. Run It Locally
 
 **Design target:** starting the Canvas starts the entire system. Three services
 run locally, each on its own port. The Canvas is the only external entry point
@@ -365,7 +357,7 @@ and as physical robot movement in Webots — connected by nothing more than the
 
 ---
 
-## 9. Repository Layout
+## 8. Repository Layout
 
 ```
 nurse-operator-agent/     Layer 2 · Mira coordinator (Agents SDK + A2A client)
@@ -388,7 +380,7 @@ docs/                     PRD, technical spec, agent designs, ADRs
 
 ---
 
-## 10. Read Next
+## 9. Read Next
 
 - [PRD](docs/PRD.md) — product scope, personas, safety, and acceptance criteria
 - [Technical Specification](docs/TECHNICAL_SPEC.md) — A2A, contracts, motion boundary
