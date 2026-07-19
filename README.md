@@ -20,39 +20,38 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 ## How it works — three decoupled layers
 
 ```mermaid
-flowchart BT
-    subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
-        direction LR
+flowchart TB
+    P["🧑 Patient"]
+    RN["👩‍⚕️ Human RN\nfinal clinical authority"]
 
-        subgraph CENTER["HD Center Environment"]
-            ENV["Four-chair treatment room\nNow: Webots R2025b digital twin\nFuture: real HD center"]
-        end
-
-        subgraph ROBOT["AGV Unit  (inseparable)"]
-            AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation\nFuture: real hardware"]
-            J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
-            AGV --- J
-        end
-
-        CENTER -.->|"physical space\nAGV operates inside"| ROBOT
+    subgraph CANVAS["🖥️  Layer 3 · Operations Canvas  (care-center-simulator/)"]
+        UI["Browser web app\nFloor map · Agent trace · Chat UI\nStreams CARELOOP_TELEMETRY — owns no logic"]
     end
 
-    subgraph AGENTS["🧠  Layer 2 · Coordinator"]
-        P["🧑 Patient"] -->|conversation| M
-        RN["👩‍⚕️ Human RN · final authority"] <-->|conversation + decision| M
-
+    subgraph AGENTS["🧠  Layer 2 · Agentic Coordinator"]
         subgraph MIRA["Mira · nurse coordinator  (nurse-operator-agent/)"]
             M["OpenAI Agents SDK\ncontext · coordination · escalation"]
         end
     end
 
-    subgraph CANVAS["🖥️  Layer 3 · Operations Canvas  (care-center-simulator/)"]
-        UI["Browser web app · Floor map · Agent trace · Chat UI\nStreams CARELOOP_TELEMETRY — owns no logic"]
+    subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
+        direction LR
+        subgraph CENTER["HD Center Environment"]
+            ENV["Four-chair treatment room\nNow: Webots R2025b digital twin\nFuture: real HD center"]
+        end
+        subgraph ROBOT["AGV Unit  (inseparable)"]
+            AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation\nFuture: real hardware"]
+            J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
+            AGV --- J
+        end
+        CENTER -.->|"AGV operates inside"| ROBOT
     end
 
-    J ==>|"A2A protocol\nAgent Card + JSON contract"| M
-    M -.->|"task + status"| J
-    AGENTS -->|"CARELOOP_TELEMETRY"| CANVAS
+    P -->|"conversation"| M
+    RN <-->|"conversation + decision"| M
+    CANVAS ---|"CARELOOP_TELEMETRY"| AGENTS
+    M ==>|"A2A protocol\nAgent Card + JSON contract"| J
+    J -.->|"status + artifact"| M
 
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
