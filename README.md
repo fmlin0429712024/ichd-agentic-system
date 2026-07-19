@@ -75,7 +75,7 @@ Each layer is **independently replaceable** — the contracts between them stay 
 |---|---|---|
 | **Layer 1 · HD Center** | Webots R2025b digital twin | Real hemodialysis center |
 | **Layer 1 · AGV** | Webots simulation + local Atlas agent | Real OEM AGV hardware + Atlas on Jetson |
-| **Layer 2 · Mira** | Local Node.js + OpenAI Agents SDK | Site-edge server or cloud |
+| **Layer 2 · Mira** | Python · OpenAI Agents SDK | Site-edge server or cloud |
 | **Layer 3 · Operations Canvas** | React/Vite web app | Native app; wall-mounted kiosk |
 
 The **A2A protocol** is the only interface between Mira (Layer 2) and the AGV
