@@ -36,10 +36,8 @@ flowchart TD
 
     subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
         ENV["HD Center Environment\nFour-chair treatment room\nNow: Webots R2025b digital twin · Future: real HD center"]
-        AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation · Future: real hardware"]
-        J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
+        AGV["🤖 AGV\nOEM body · Jetson onboard compute\nAtlas agent  (aide-agv-agent/)  ·  A2A task executor\nNow: Webots simulation · Future: real AGV hardware"]
         ENV -.->|"AGV operates inside"| AGV
-        AGV --- J
     end
 
     %% force strict top-to-bottom layer ordering
@@ -49,8 +47,8 @@ flowchart TD
     P -->|"conversation"| M
     RN <-->|"conversation + decision"| M
     UI -->|"CARELOOP_TELEMETRY"| M
-    M ==>|"A2A protocol\nAgent Card + JSON contract"| J
-    J -.->|"status + artifact"| M
+    M ==>|"A2A protocol\nAgent Card + JSON contract"| AGV
+    AGV -.->|"status + artifact"| M
 
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
@@ -61,7 +59,7 @@ flowchart TD
     class M digital
     class ENV sim
     class UI canvas
-    class J,AGV robot
+    class AGV robot
 ```
 
 Each layer is **independently replaceable** — the contracts between them stay stable:
