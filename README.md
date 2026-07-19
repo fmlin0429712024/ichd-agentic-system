@@ -277,15 +277,20 @@ data and a different coordination pattern:
 
 ## 7. Technology Stack
 
+The language strategy is deliberately simple: **Python for all server-side
+logic, JavaScript/TypeScript only for the browser Canvas.** This keeps the
+backend stack unified and avoids context-switching between languages.
+
 | Layer | Component | Technology |
 |---|---|---|
 | **Layer 1** | Physical simulation | Webots R2025b · Python controller |
-| **Layer 1** | AGV agent | Node.js A2A service · deterministic task executor |
-| **Layer 2** | Mira coordinator | OpenAI Agents SDK · Node.js |
-| **Layer 2** | Agent communication | `@a2a-js/sdk` · A2A v1.0 JSON-RPC · Agent Card discovery |
+| **Layer 1** | AGV agent | Python · A2A server · deterministic task executor |
+| **Layer 1** | Body Adapter | Python · bridges Atlas Agent to physical backend |
+| **Layer 2** | Mira coordinator | Python · OpenAI Agents SDK |
+| **Layer 2** | Agent communication | A2A v1.0 JSON-RPC · Agent Card discovery |
 | **Layer 3** | Operations Canvas | React · TypeScript · Vite · SVG/CSS |
 | — | Clinical data | Structured synthetic JSON — patient domain + treatment domain |
-| — | Tests | 49 automated tests + Webots mission acceptance |
+| — | Tests | Automated test suite + Webots mission acceptance |
 
 ---
 
@@ -317,7 +322,7 @@ Open `http://127.0.0.1:5173/`
 
 - **Atlas · AGV agent** · `localhost:4000` (internal)
   - Starts automatically with the Canvas
-  - Pure Node.js A2A server — no LLM, no API key, no external interface
+  - Python A2A server — no LLM, no API key, no external interface
   - Invisible from outside: only Mira sends tasks to it
   - Receives `deliver_item` tasks; emits `CARELOOP_TELEMETRY` back to Mira and Canvas
 
