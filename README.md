@@ -20,7 +20,7 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 ## How it works — three decoupled layers
 
 ```mermaid
-flowchart TB
+flowchart TD
     P["🧑 Patient"]
     RN["👩‍⚕️ Human RN\nfinal clinical authority"]
 
@@ -35,21 +35,20 @@ flowchart TB
     end
 
     subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
-        direction LR
-        subgraph CENTER["HD Center Environment"]
-            ENV["Four-chair treatment room\nNow: Webots R2025b digital twin\nFuture: real HD center"]
-        end
-        subgraph ROBOT["AGV Unit  (inseparable)"]
-            AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation\nFuture: real hardware"]
-            J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
-            AGV --- J
-        end
-        CENTER -.->|"AGV operates inside"| ROBOT
+        ENV["HD Center Environment\nFour-chair treatment room\nNow: Webots R2025b digital twin · Future: real HD center"]
+        AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation · Future: real hardware"]
+        J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
+        ENV -.->|"AGV operates inside"| AGV
+        AGV --- J
     end
+
+    %% force strict top-to-bottom layer ordering
+    CANVAS ~~~ AGENTS
+    AGENTS ~~~ PHYSICAL
 
     P -->|"conversation"| M
     RN <-->|"conversation + decision"| M
-    CANVAS ---|"CARELOOP_TELEMETRY"| AGENTS
+    UI -->|"CARELOOP_TELEMETRY"| M
     M ==>|"A2A protocol\nAgent Card + JSON contract"| J
     J -.->|"status + artifact"| M
 
