@@ -171,34 +171,45 @@ The architecture does not change — the data depth drives the use case depth.
 
 ### Design principle — Ports and Adapters
 
-The AGV layer is designed with a **Ports and Adapters** pattern (also known as
-Hexagonal Architecture). This is the key engineering decision that makes the
-system future-proof:
+The AGV layer uses a **Ports and Adapters** pattern (Hexagonal Architecture).
+Atlas Agent is self-contained and independent — it has no knowledge of the
+physical world below it. The Body Adapter is the only component that changes
+when the physical backend is swapped.
 
-```
-Atlas Agent  (aide-agv-agent/)
-· Receives A2A tasks from Mira
-· Executes task logic — where to go, what to carry, when to return
-· Knows nothing about the physical world below it
-        │
-        │  Body Adapter interface  ← the only stable contract
-        │  Commands down · CARELOOP_TELEMETRY up
-        ▼
-Body Adapter  (physical-simulator/adapters/)
-· Translates Atlas commands → physical execution instructions
-· Translates physical state → CARELOOP_TELEMETRY events
-· THIS is the only component that changes when the backend is swapped
-        │
-        ▼
-Physical Backend  (pluggable — swap without touching Atlas Agent or Mira)
-   Webots R2025b          ROS 2 Nav Stack       Real OEM AGV + Jetson
-   (now — digital twin)   (future — advanced)   (production — real world)
+```mermaid
+flowchart TD
+    subgraph ATLAS["⚙️  Atlas Agent  (aide-agv-agent/)"]
+        AG["Self-contained · No LLM · Deterministic\nReceives A2A tasks from Mira\nExecutes task logic — where · what · when\nNo external interface except Mira"]
+    end
+
+    subgraph ADAPTER["🔌  Body Adapter  (physical-simulator/adapters/)"]
+        AD["The only component swapped per backend\nTranslates Atlas commands → physical instructions\nTranslates physical state → CARELOOP_TELEMETRY"]
+    end
+
+    subgraph BACKEND["🏗️  Physical Backend  (pluggable)"]
+        direction LR
+        W["Webots R2025b\nNow · digital twin"]
+        R["ROS 2 Nav Stack\nFuture · advanced sim"]
+        H["Real OEM AGV\nProduction · Jetson"]
+    end
+
+    ATLAS -->|"Body Adapter interface\nstable contract"| ADAPTER
+    ADAPTER --> W
+    ADAPTER -.->|"swap adapter only"| R
+    ADAPTER -.->|"swap adapter only"| H
+
+    classDef agent fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef adapter fill:#F3F4F6,stroke:#6B7280,color:#111827
+    classDef backend fill:#CCFBF1,stroke:#0F766E,color:#134E4A
+    class AG agent
+    class AD adapter
+    class W,R,H backend
 ```
 
-**Atlas Agent is self-contained and independent.** It does not require a
-large language model — its task logic is fully deterministic. No API key,
-no inference cost, no latency. This is an intentional design choice: LLMs
-are used only where language understanding is genuinely needed (Mira).
+**Atlas Agent does not require a large language model.** Task logic is fully
+deterministic — no API key, no inference cost, no latency. LLMs are used only
+where language understanding is genuinely needed (Mira). This is an
+intentional design choice.
 
 ### What the simulation covers today
 
@@ -280,34 +291,38 @@ data and a different coordination pattern:
 
 ## 8. Run It Locally
 
-> ⚠️ **This section is being updated.** The application architecture is
-> actively evolving — the Operations Canvas and agent interfaces are being
-> unified. The instructions below reflect the current state; expect a simpler
-> single-command startup in a future update.
-
-**Prerequisites:** Node.js, npm, and an OpenAI API key (for Mira only).
+**Design target:** one command starts the entire system. The Operations Canvas
+is the single entry point — patient and nurse conversation interfaces are
+embedded in the Canvas. Atlas Agent runs as an internal background service with
+no external interface other than receiving tasks from Mira. The only external
+dependency is an OpenAI API key for Mira.
 
 ```bash
-# Terminal 1 — AGV agent (Atlas)
-cd aide-agv-agent && npm install && npm start
-
-# Terminal 2 — Mira coordinator
-cd nurse-operator-agent && npm install
+# Set the only required credential
 export OPENAI_API_KEY="sk-..."
-npm start
 
-# Terminal 3 — Operations Canvas
-cd care-center-simulator && npm install && npm run dev
+# Install and start everything
+npm install && npm start
 ```
 
-Open `http://127.0.0.1:5173/`, select **Daniel Kim · Chair 1**, and ask:
+Open `http://127.0.0.1:5173/` — select **Daniel Kim · Chair 1** and ask Mira
+to bring a coffee. Switch to the **RN panel** to request a chair status.
 
-> Hi Mira, please ask Atlas to bring me a cup of coffee.
+**Service startup order (automatic):**
 
-**To run the Webots physical simulation:** install Webots R2025b on Apple
-Silicon, open `physical-simulator/worlds/careloop_center.wbt`, and start the
-simulation. The AGV executes the same mission and emits `CARELOOP_TELEMETRY`
-to stdout.
+| Service | Role | Needs API key |
+|---|---|---|
+| Mira coordinator | Nurse + patient conversations; A2A task dispatch | Yes — OpenAI |
+| Atlas AGV agent | Background A2A service; receives tasks from Mira only | No |
+| Operations Canvas | Browser UI; streams telemetry from both agents | No |
+
+**To add Webots physical simulation** (optional engineering layer): install
+Webots R2025b on Apple Silicon and open
+`physical-simulator/worlds/careloop_center.wbt`. The Body Adapter bridges
+Webots to Atlas Agent automatically via the `CARELOOP_TELEMETRY` contract.
+
+> **Implementation note:** Single-command startup and automatic Atlas Agent
+> launch are the baseline design. Active implementation is in progress.
 
 ---
 
