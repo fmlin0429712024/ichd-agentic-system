@@ -22,54 +22,65 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 ```mermaid
 flowchart TB
     subgraph CANVAS["🖥️  Layer 3 · Operations Canvas  (care-center-simulator/)"]
-        UI["Browser web app\nFloor map · Agent trace · Chat UI\nReads CARELOOP_TELEMETRY — owns no simulation logic"]
+        UI["Browser web app · Floor map · Agent trace · Chat UI\nStreams CARELOOP_TELEMETRY — owns no logic"]
     end
 
-    subgraph AGENTS["🧠  Layer 2 · Agentic Systems"]
-        direction LR
+    subgraph AGENTS["🧠  Layer 2 · Coordinator"]
         P["🧑 Patient"] -->|conversation| M
-        RN["👩‍⚕️ Human RN\nfinal authority"] <-->|conversation + decision| M
+        RN["👩‍⚕️ Human RN · final authority"] <-->|conversation + decision| M
 
-        subgraph MIRA["Mira · coordinator  (nurse-operator-agent/)"]
+        subgraph MIRA["Mira · nurse coordinator  (nurse-operator-agent/)"]
             M["OpenAI Agents SDK\ncontext · coordination · escalation"]
         end
+    end
 
-        M ==>|"formal A2A\nAgent Card + JSON contract"| A
-        A -.->|"status + artifact"| M
+    subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
+        direction LR
 
-        subgraph ATLAS["Atlas · worker  (aide-agv-agent/)"]
-            A["A2A task executor\nno human chat · no medical judgment"]
+        subgraph CENTER["HD Center Environment"]
+            ENV["Four-chair treatment room\nNow: Webots R2025b digital twin\nFuture: real HD center"]
         end
+
+        subgraph ROBOT["AGV Unit  (inseparable)"]
+            J["Jetson · onboard compute\nAtlas agent  (aide-agv-agent/)\nA2A task executor · no human chat"]
+            AGV["OEM AGV body\nWheels · sensors · actuators\nNow: Webots simulation\nFuture: real hardware"]
+            J --- AGV
+        end
+
+        ENV -.->|"physical space\nAGV operates inside"| ROBOT
     end
 
-    subgraph SIM["🤖  Layer 1 · Simulation  (physical-simulator/)"]
-        W["Webots R2025b\nDifferential-drive AGV\nDigital twin of the four-chair HD center"]
-    end
-
-    CANVAS <-->|"mission telemetry · A2A status"| AGENTS
-    AGENTS <-->|"CARELOOP_TELEMETRY · waypoint commands"| SIM
+    CANVAS -->|"reads telemetry"| AGENTS
+    M ==>|"A2A protocol\nAgent Card + JSON contract"| J
+    J -.->|"status + artifact"| M
+    J -->|"CARELOOP_TELEMETRY"| CANVAS
 
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
     classDef sim fill:#CCFBF1,stroke:#0F766E,color:#134E4A
     classDef canvas fill:#F3F4F6,stroke:#6B7280,color:#111827
+    classDef robot fill:#FEF9C3,stroke:#CA8A04,color:#422006
     class RN,P human
-    class M,A digital
-    class W sim
+    class M digital
+    class ENV sim
     class UI canvas
+    class J,AGV robot
 ```
 
 Each layer is **independently replaceable** — the contracts between them stay stable:
 
-| Layer | Target design | Future direction |
+| Layer | Now (POC) | Future |
 |---|---|---|
-| **Layer 1 · Simulation** | Webots R2025b — digital twin of the HD center floor | Replace with real AGV hardware; add ROS 2 nav stack; swap to legged robots or arms |
-| **Layer 2 · Agentic Systems** | Local Mira + Atlas services (Node.js + OpenAI Agents SDK) | Site-edge deployment; enterprise fleet management |
-| **Layer 3 · Operations Canvas** | React/Vite web app streaming `CARELOOP_TELEMETRY` | Native app; wall-mounted kiosk; clinical dashboard |
+| **Layer 1 · HD Center Environment** | Webots R2025b digital twin | Real hemodialysis center |
+| **Layer 1 · AGV body** | Webots simulated robot | Real OEM AGV hardware |
+| **Layer 1 · Atlas agent** | Node.js service (local) | Deployed to onboard Jetson |
+| **Layer 2 · Mira coordinator** | Local Node.js + OpenAI Agents SDK | Site-edge server or cloud |
+| **Layer 3 · Operations Canvas** | React/Vite web app | Native app; wall-mounted kiosk |
 
-The **only coupling** between Layer 1 and Layer 2 is the `CARELOOP_TELEMETRY`
-JSON event stream. Swapping the simulation for real hardware requires only a
-thin Body Adapter that emits the same telemetry format — nothing else changes.
+The **A2A protocol** is the only interface between Mira (Layer 2) and Atlas on
+the AGV (Layer 1). In production, Mira sends an A2A task over the network to
+Atlas running on the Jetson — the physical AGV executes, emits
+`CARELOOP_TELEMETRY`, and the Canvas reflects reality.
 
 ---
 
