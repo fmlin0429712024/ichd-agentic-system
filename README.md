@@ -169,10 +169,36 @@ The architecture does not change — the data depth drives the use case depth.
 
 ## 4. Simulation & Digital Twin
 
-The physical layer of this system is a **self-contained digital twin** of a
-four-chair in-center hemodialysis unit, built in Webots R2025b. It is not a
-placeholder — it is a fully functional simulation that runs the same mission
-telemetry contract the real hardware will use.
+### Design principle — Ports and Adapters
+
+The AGV layer is designed with a **Ports and Adapters** pattern (also known as
+Hexagonal Architecture). This is the key engineering decision that makes the
+system future-proof:
+
+```
+Atlas Agent  (aide-agv-agent/)
+· Receives A2A tasks from Mira
+· Executes task logic — where to go, what to carry, when to return
+· Knows nothing about the physical world below it
+        │
+        │  Body Adapter interface  ← the only stable contract
+        │  Commands down · CARELOOP_TELEMETRY up
+        ▼
+Body Adapter  (physical-simulator/adapters/)
+· Translates Atlas commands → physical execution instructions
+· Translates physical state → CARELOOP_TELEMETRY events
+· THIS is the only component that changes when the backend is swapped
+        │
+        ▼
+Physical Backend  (pluggable — swap without touching Atlas Agent or Mira)
+   Webots R2025b          ROS 2 Nav Stack       Real OEM AGV + Jetson
+   (now — digital twin)   (future — advanced)   (production — real world)
+```
+
+**Atlas Agent is self-contained and independent.** It does not require a
+large language model — its task logic is fully deterministic. No API key,
+no inference cost, no latency. This is an intentional design choice: LLMs
+are used only where language understanding is genuinely needed (Mira).
 
 ### What the simulation covers today
 
@@ -181,35 +207,32 @@ telemetry contract the real hardware will use.
 | HD center environment | Four-chair treatment room with Operations Hub, waypoints, and spatial layout |
 | AGV platform | Differential-drive wheeled robot with fixed-waypoint navigation |
 | Mission execution | Full Daniel Kim coffee delivery — divert, hub pickup, chair delivery, resume patrol |
-| Telemetry output | `CARELOOP_TELEMETRY` JSON events streamed to stdout through `completed` |
+| Telemetry output | `CARELOOP_TELEMETRY` JSON events through `completed` |
 | Contract validation | Schema-validated mission and telemetry contracts in `physical-simulator/contracts/` |
+| Body Adapter | `physical-simulator/adapters/body_contract.py` — bridges Atlas Agent to Webots |
 
-The Webots simulation is **independent of the Operations Canvas** — it can be
-run as a standalone engineering environment without starting the web app.
+The Webots simulation runs as a **standalone engineering environment**,
+independent of the Operations Canvas.
 
-### The swap principle
+### The plug-in roadmap
 
-The `CARELOOP_TELEMETRY` event format is the only contract between Layer 1 and
-Layer 2. Any physical backend that emits this format is a valid replacement:
+When the physical backend changes, only the Body Adapter is rewritten:
 
-```
-Current   →  Webots R2025b digital twin
-Upgrade   →  NVIDIA Omniverse / Isaac Sim  (higher fidelity, same contract)
-Production →  Real OEM AGV + Jetson onboard compute  (same contract, real world)
-```
+| Backend | What changes | What stays the same |
+|---|---|---|
+| Webots → ROS 2 | Body Adapter for ROS topics/services | Atlas Agent, Mira, Canvas, all contracts |
+| Webots → Omniverse / Isaac Sim | Body Adapter for Omniverse API | Atlas Agent, Mira, Canvas, all contracts |
+| Webots → Real AGV + Jetson | Body Adapter as hardware driver; Atlas Agent deployed on Jetson | Mira, Canvas, A2A contract, telemetry schema |
 
-This means the agentic coordinator (Mira), the AGV agent (Atlas), and the
-Operations Canvas require **zero changes** when the physical layer is swapped.
-The upgrade path and the production path are both well-defined from day one.
+This means the upgrade path and the production path are both well-defined
+from day one — no architectural rework required.
 
 ### Why Webots now
 
-Webots was chosen as the simulation foundation because it provides real robot
-physics (collision, wheel kinematics, sensor models) with an open-source
-license and Apple Silicon compatibility. The current build is pinned to
-**Webots R2025b Nightly Build 17 Jul 2026** for Apple Silicon.
-See [ADR-001](docs/decisions/ADR-001-webots-physical-simulation.md) for the
-full decision record.
+Webots provides real robot physics (collision, wheel kinematics, sensor models)
+with an open-source license and Apple Silicon compatibility. Pinned to
+**Webots R2025b Nightly Build 17 Jul 2026**.
+See [ADR-001](docs/decisions/ADR-001-webots-physical-simulation.md).
 
 ---
 
@@ -291,14 +314,22 @@ to stdout.
 ## 9. Repository Layout
 
 ```
-nurse-operator-agent/   Layer 2 · Mira coordinator (Agents SDK + A2A client)
-aide-agv-agent/         Layer 1 · Atlas AGV agent (A2A server + task executor)
-                        Stable protocol layer — survives hardware swap
-care-center-simulator/  Layer 3 · Operations Canvas (React/Vite web app)
-physical-simulator/     Layer 1 · Webots world, Python controller, Body Adapter
-                        Replaceable physical layer — swap for real AGV hardware
-poc-reference/          Clinical data model: patient domain + treatment domain
-docs/                   PRD, technical spec, agent designs, ADRs
+nurse-operator-agent/     Layer 2 · Mira coordinator (Agents SDK + A2A client)
+
+aide-agv-agent/           Layer 1 · Atlas AGV agent — self-contained, no LLM
+                          A2A server · deterministic task logic · Body Adapter port
+                          Stable across all physical backends
+
+physical-simulator/       Layer 1 · Physical backend (currently Webots)
+  adapters/               Body Adapter — the only component swapped per backend
+  controllers/            Webots robot controller (wheels, navigation, physics)
+  contracts/              Mission and telemetry schema validation
+  worlds/                 Webots four-chair HD center world
+
+care-center-simulator/    Layer 3 · Operations Canvas (React/Vite web app)
+
+poc-reference/            Clinical data model: patient domain + treatment domain
+docs/                     PRD, technical spec, agent designs, ADRs
 ```
 
 ---
