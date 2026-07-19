@@ -1,0 +1,15 @@
+{
+  "contractVersion": "1.0",
+  "missionId": "mission-coffee-chair-01",
+  "taskId": "task-deliver-coffee-001",
+  "incidentId": "incident-daniel-coffee-001",
+  "capability": "deliver_item",
+  "pickup": {
+    "locationId": "operations-hub",
+    "payload": "coffee"
+  },
+  "destination": {
+    "locationId": "chair-01"
+  },
+  "createdAt": "2026-07-19T16:00:00Z"
+}

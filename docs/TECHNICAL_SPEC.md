@@ -8,9 +8,11 @@ between two independent digital employees in a fictional dialysis center:
 - **Mira**, a Nurse Operator Agent that coordinates work and escalates decisions.
 - **Atlas**, an Aide AGV Agent that performs bounded chairside support tasks.
 
-Both agents are black boxes. The POC demonstrates their external capabilities,
-formal A2A communication, business contracts, and human-governed workflow. It
-does not implement either agent's physical-AI internals.
+Both digital workers are operational black boxes. The POC demonstrates their
+external capabilities, formal A2A communication, business contracts, and
+human-governed workflow. A separate lightweight physical simulator models only
+the minimum external behavior of Atlas's synthetic body; it does not implement
+production physical-AI internals.
 
 ## 2. Architectural decisions
 
@@ -24,6 +26,9 @@ does not implement either agent's physical-AI internals.
 | Collaboration style | Structured task data plus optional natural-language context |
 | Treatment center | Browser-based SVG/CSS simulation |
 | Visual approach | Fixed-camera 2.5D scene; renderer-independent domain state |
+| Operations view | Manager-facing browser projection; not a physics engine |
+| Physical simulation | Webots R2025b compatibility build with a minimal wheeled AGV |
+| Body integration | Simulator-neutral mission commands and telemetry; mock or Webots adapter |
 | Runtime data | Static synthetic JSON; no database |
 | Repeatability | Deterministic scenarios and measurements |
 | Clinical authority | Human RN owns clinical and treatment decisions |
@@ -42,6 +47,18 @@ The current visual implementation and staged interaction are defined in
 
 ## 3. System boundary
 
+The system contains three intentionally separate worlds:
+
+| World | Runtime | Source of truth |
+|---|---|---|
+| Operations | Browser Operations Canvas | Projected center, mission, and treatment state |
+| Software | Mira service, Atlas A2A worker, contracts | Conversation, coordination, task lifecycle, and authority |
+| Physical | Local Webots desktop application | Synthetic pose, wheel motion, and collision state |
+
+They share correlation identifiers and telemetry, not implementation ownership.
+The Operations Canvas may display physical state but may not independently
+recalculate it while Webots is active.
+
 ```text
 Patient ───────────────┐
                       ▼
@@ -49,13 +66,19 @@ Human RN ───────────► Mira ◄──── simulated tre
                       │
                       │ official A2A task · status · artifact
                       ▼
-                     Atlas ─────► Care-center motion emulator
+                     Atlas ─────► Body Adapter ─────► Webots Physical Simulator
+                                      │                         │
+                                      └──── mission telemetry ──┘
+                                                   │
+                                                   ▼
+                                      Operations Canvas projection
 ```
 
-The POC observes only the agents' public capabilities and messages. It does not
-model Atlas navigation, actuators, sensors, robot middleware, or safety control.
-Future physical implementations may use ROS 2, DDS, or other technologies
-without changing the operational A2A contract.
+The POC observes the workers' public capabilities and messages. Atlas does not
+own navigation, actuator, sensor, or simulator code. Webots may model a minimal
+wheeled body, contacts, and pose so the execution seam can be tested. Production
+localization, autonomous navigation, robot middleware, and safety control remain
+out of scope and may change later without changing the operational A2A contract.
 
 ### 3.1 POC AGV motion boundary
 
@@ -71,6 +94,30 @@ sequence. Assigned tasks may interrupt at the next safe waypoint and use the
 deterministic shortest route. Only supply pickup, charging, or a completed round
 requires the hub. The emulator does not calculate autonomous paths,
 localization, collision avoidance, wheel dynamics, or safety behavior.
+
+### 3.2 Physical simulation boundary
+
+Webots is the selected physical simulator for the POC. It is a separate
+developer-facing application, not a replacement for the Operations Canvas.
+The target Apple Silicon machine pins R2025b Nightly Build 17/7/2026 because
+the R2025a stable Qt runtime does not start on its newer macOS version. This is
+a development compatibility pin, not a dependency exposed to either agent.
+The first Webots slice owns only:
+
+- a synthetic four-chair room and named service locations;
+- one simple differential-drive Atlas body;
+- fixed-waypoint motion, wheel dynamics, contact, and pose telemetry;
+- one delivery mission with `accepted`, `moving`, `arrived`, `delivered`, and
+  terminal status.
+
+A narrow Body Adapter accepts semantic missions from Atlas and returns
+structured telemetry. The existing browser Motion Emulator implements the same
+port as a deterministic mock. When Webots is active, the Operations Canvas
+renders its telemetry and must not calculate an independent competing route.
+
+Webots is not A2A. A2A remains the operational Mira-to-Atlas protocol; the Body
+Adapter is Atlas's execution seam. The initial adapter does not use ROS, DDS,
+SLAM, autonomous path planning, or hardware drivers.
 
 ## 4. Role boundaries
 
@@ -113,8 +160,10 @@ requiring human contact.
 
 - **Human RN:** owns clinical and treatment decisions and final authorization.
 - **Human PCT:** performs physical assistance outside Atlas's safe capability.
-- **Simulator:** owns synthetic measurements, scenario events, time, and the
-  visible treatment-floor state.
+- **Care-center simulator:** owns synthetic patient measurements, scenario
+  events, time, and the manager-facing treatment-floor projection.
+- **Physical simulator:** owns synthetic AGV pose, body motion, and collision
+  state; it makes no operational or clinical decisions.
 
 ## 5. A2A communication model
 
@@ -272,8 +321,10 @@ WORKFLOW.md                       # cross-role authority and workflow contract
 TASKS.md                          # dependency-ordered implementation queue
 ```
 
-The repository intentionally has no shared `src/agent` runtime and no robot,
-ROS, navigation, hardware, or body-adapter package.
+The repository intentionally has no shared `src/agent` runtime and no ROS,
+production navigation, hardware-driver, or production body-control package.
+The separate `physical-simulator/` package contains only synthetic geometry,
+fixed waypoints, a minimal controller, and simulator-neutral contracts.
 
 ## 9. Runtime and demonstration
 

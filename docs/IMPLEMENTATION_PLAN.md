@@ -28,8 +28,9 @@ back into one application pretending to be multiple agents.
 ### Exit criteria
 
 - Every future file has one unambiguous owner.
-- No shared custom agent runtime or robot internals are part of the baseline;
-  each role owns its independent server-side Agents SDK runtime.
+- No shared custom agent runtime or production robot internals are part of the
+  baseline. Mira owns the Agents SDK conversation runtime; Atlas owns a
+  deterministic A2A worker runtime.
 
 ## Slice 1 — Simulator playground
 
@@ -62,6 +63,35 @@ carry an item, patrol deterministically, stop, reset, and produce an event trace
 - Expose mission phase in the visible status and event trace.
 - Keep physics, autonomous path planning, localization, and collision handling
   out of scope.
+
+## Slice 1B — Lightweight physical simulation
+
+### Outcome
+
+Webots provides a separate engineering view of a minimal wheeled Atlas body in
+a four-chair world. The existing Operations Canvas can project Webots telemetry
+without becoming a robot simulator.
+
+### Scope
+
+- Pin the verified Webots R2025b Apple Silicon compatibility build and create
+  one minimal world with four chairs, an operations hub, a supply point, and a
+  differential-drive AGV.
+- Define a simulator-neutral mission command and telemetry contract.
+- Implement one fixed-waypoint delivery controller without ROS, SLAM,
+  autonomous path planning, or production safety logic.
+- Keep the browser Motion Emulator as the deterministic mock adapter for unit
+  tests and machines where Webots is not running.
+- Complete an Atlas A2A task only after the selected body adapter reports the
+  terminal mission state; do not replay motion after reporting completion.
+
+### Exit criteria
+
+- A developer can run one coffee-delivery mission in Webots on the target Mac.
+- The same mission identifiers and phases appear in Webots telemetry and the
+  Operations Canvas.
+- Switching between mock and Webots adapters changes configuration, not the
+  Mira-to-Atlas A2A contract.
 
 ## Slice 2 — Contracts and independent Skills
 

@@ -15,6 +15,10 @@ behavior, refactor while green, and run the relevant suite before completion.
   POC. **Validate:** Technical Spec contains no robot implementation package.
 - [x] `GOV-03` Assign provider-owned contracts and formal A2A boundaries.
   **Validate:** layout and workflow documents agree on ownership.
+- [x] `GOV-04` Select Webots for a separate lightweight physical
+  simulation layer and preserve the browser Operations Canvas as the
+  manager-facing projection. **Validate:** the Technical Spec and decision
+  record distinguish agent, body adapter, physics, and operations-view owners.
 
 ## Role Skills
 
@@ -103,6 +107,10 @@ behavior, refactor while green, and run the relevant suite before completion.
 
 ## Atlas capability integration
 
+- [x] `ATLAS-00` Confirm Atlas is a deterministic A2A worker with no OpenAI SDK,
+  model configuration, or human chat runtime. **Validate:** package and runtime
+  regression test plus architecture scan.
+
 - [ ] `ATLAS-01` Connect validated Atlas task requests to deterministic simulator
   capabilities. **Depends on:** `A2A-03`, `SIM-STATE-01`. **Validate:** Atlas
   never acts without an accepted A2A task.
@@ -112,6 +120,28 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [ ] `ATLAS-03` Implement unsupported-task rejection and human-PCT assistance
   routing. **Depends on:** `ATLAS-01`. **Validate:** clinical and human-contact
   work produces no Atlas execution.
+
+## Physical simulation
+
+- [x] `PHYS-01` Install and pin the compatible Webots R2025b nightly build for
+  Apple Silicon development. **Validate:** the application starts and the exact
+  build is recorded.
+- [x] `PHYS-02` Define simulator-neutral mission-command and telemetry schemas.
+  **Depends on:** `PHYS-01`. **Validate:** valid fixtures pass schema and
+  lifecycle tests; invalid phase transitions fail closed.
+- [x] `PHYS-03` Build the minimal four-chair Webots world and differential-drive
+  Atlas body. **Depends on:** `PHYS-01`. **Validate:** reset returns the same
+  initial pose and the body collides with fixed room geometry.
+- [x] `PHYS-04` Implement one fixed-waypoint coffee-delivery controller without
+  ROS, SLAM, or autonomous planning. **Depends on:** `PHYS-02`, `PHYS-03`.
+  **Validate:** the AGV visits hub and Chair 1 and reports terminal delivery.
+- [ ] `PHYS-05` Add the Webots Body Adapter and retain the browser Motion
+  Emulator as a mock adapter. **Depends on:** `PHYS-04`. **Validate:** adapter
+  selection is configuration-only and Atlas stays model-free.
+- [ ] `PHYS-06` Project Webots telemetry into the Operations Canvas and delay
+  A2A completion until physical execution completes. **Depends on:** `PHYS-05`.
+  **Validate:** one mission ID and phase sequence are visible in Webots, A2A,
+  and the browser without an independent browser route replay.
 
 ## Mira and human RN integration
 

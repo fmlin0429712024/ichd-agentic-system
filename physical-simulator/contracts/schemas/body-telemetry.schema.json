@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://careloop.example/schemas/body-telemetry.schema.json",
+  "title": "CareLoop Body Telemetry Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "missionId",
+    "sequence",
+    "timestamp",
+    "phase",
+    "pose",
+    "locationId",
+    "payloadState",
+    "source"
+  ],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "missionId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,63}$" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "phase": {
+      "enum": [
+        "accepted",
+        "moving_to_pickup",
+        "arrived_at_pickup",
+        "payload_loaded",
+        "moving_to_destination",
+        "arrived_at_destination",
+        "delivered",
+        "completed",
+        "failed"
+      ]
+    },
+    "pose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "yaw"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "yaw": { "type": "number" }
+      }
+    },
+    "locationId": {
+      "enum": [
+        "operations-hub",
+        "chair-01",
+        "chair-02",
+        "chair-03",
+        "chair-04",
+        "transit"
+      ]
+    },
+    "payloadState": { "enum": ["empty", "loaded", "delivered"] },
+    "source": { "enum": ["mock", "webots"] },
+    "message": { "type": "string", "maxLength": 200 }
+  }
+}

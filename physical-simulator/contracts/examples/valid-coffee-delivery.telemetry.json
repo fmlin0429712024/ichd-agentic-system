@@ -1,0 +1,10 @@
+[
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 0, "timestamp": "2026-07-19T16:00:00Z", "phase": "accepted", "pose": { "x": 0, "y": -1.5, "yaw": 0 }, "locationId": "transit", "payloadState": "empty", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 1, "timestamp": "2026-07-19T16:00:01Z", "phase": "moving_to_pickup", "pose": { "x": 0, "y": -1, "yaw": 1.57 }, "locationId": "transit", "payloadState": "empty", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 2, "timestamp": "2026-07-19T16:00:02Z", "phase": "arrived_at_pickup", "pose": { "x": 0, "y": 0, "yaw": 1.57 }, "locationId": "operations-hub", "payloadState": "empty", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 3, "timestamp": "2026-07-19T16:00:03Z", "phase": "payload_loaded", "pose": { "x": 0, "y": 0, "yaw": 1.57 }, "locationId": "operations-hub", "payloadState": "loaded", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 4, "timestamp": "2026-07-19T16:00:04Z", "phase": "moving_to_destination", "pose": { "x": -1, "y": 0.5, "yaw": 3.14 }, "locationId": "transit", "payloadState": "loaded", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 5, "timestamp": "2026-07-19T16:00:05Z", "phase": "arrived_at_destination", "pose": { "x": -2.2, "y": 1.8, "yaw": 3.14 }, "locationId": "chair-01", "payloadState": "loaded", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 6, "timestamp": "2026-07-19T16:00:06Z", "phase": "delivered", "pose": { "x": -2.2, "y": 1.8, "yaw": 3.14 }, "locationId": "chair-01", "payloadState": "delivered", "source": "webots" },
+  { "contractVersion": "1.0", "missionId": "mission-coffee-chair-01", "sequence": 7, "timestamp": "2026-07-19T16:00:07Z", "phase": "completed", "pose": { "x": -2.2, "y": 1.8, "yaw": 3.14 }, "locationId": "chair-01", "payloadState": "delivered", "source": "webots" }
+]

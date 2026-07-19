@@ -4,15 +4,16 @@
 
 **Version:** 1.0
 
-**Product type:** Browser-based concept demonstration
+**Product type:** Browser-based operations demonstration with an optional
+lightweight engineering simulation
 
 ## 1. Overview
 
-Agentic CareLoop for In-Center Hemodialysis demonstrates how multiple AI agents
-could support an in-center hemodialysis (ICHD) clinic by monitoring treatment
-data, collecting missing chairside context, handling bounded routine matters,
-and escalating critical or judgment-dependent situations to a human registered
-nurse.
+Agentic CareLoop for In-Center Hemodialysis demonstrates how one LLM-backed AI
+collaborator and one deterministic mobile worker could support an in-center
+hemodialysis (ICHD) clinic by monitoring treatment data, collecting missing
+chairside context, handling bounded routine matters, and escalating critical or
+judgment-dependent situations to a human registered nurse.
 
 The POC makes one idea tangible:
 
@@ -42,6 +43,8 @@ any real person or record.
   a live signal.
 - Keep every action inspectable from initial signal through final outcome.
 - Deliver a deterministic, repeatable browser demonstration.
+- Separate the manager-facing Operations Canvas from the developer-facing
+  physical simulation while preserving one traceable Atlas mission state.
 
 ## 3. Participants
 
