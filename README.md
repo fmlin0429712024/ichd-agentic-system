@@ -291,38 +291,44 @@ data and a different coordination pattern:
 
 ## 8. Run It Locally
 
-**Design target:** one command starts the entire system. The Operations Canvas
-is the single entry point — patient and nurse conversation interfaces are
-embedded in the Canvas. Atlas Agent runs as an internal background service with
-no external interface other than receiving tasks from Mira. The only external
-dependency is an OpenAI API key for Mira.
+**Design target:** starting the Canvas starts the entire system. Three services
+run locally, each on its own port. The Canvas is the only external entry point
+— everything else is internal.
 
 ```bash
-# Set the only required credential
 export OPENAI_API_KEY="sk-..."
-
-# Install and start everything
 npm install && npm start
 ```
 
-Open `http://127.0.0.1:5173/` — select **Daniel Kim · Chair 1** and ask Mira
-to bring a coffee. Switch to the **RN panel** to request a chair status.
+Open `http://127.0.0.1:5173/`
 
-**Service startup order (automatic):**
+**What starts automatically:**
 
-| Service | Role | Needs API key |
-|---|---|---|
-| Mira coordinator | Nurse + patient conversations; A2A task dispatch | Yes — OpenAI |
-| Atlas AGV agent | Background A2A service; receives tasks from Mira only | No |
-| Operations Canvas | Browser UI; streams telemetry from both agents | No |
+- **Operations Canvas** · `localhost:5173` · React/Vite web app
+  - The single external entry point — open this in a browser, nothing else
+  - Patient conversation panel and nurse conversation panel are both embedded here
+  - Streams floor map, agent trace, and mission telemetry in real time
+
+- **Mira · nurse coordinator** · `localhost:3000` (internal)
+  - Starts automatically with the Canvas
+  - Powers both conversation panels via the OpenAI Agents SDK
+  - Dispatches A2A tasks to Atlas; requires `OPENAI_API_KEY`
+  - Integrated with Canvas — not a separate UI
+
+- **Atlas · AGV agent** · `localhost:4000` (internal)
+  - Starts automatically with the Canvas
+  - Pure Node.js A2A server — no LLM, no API key, no external interface
+  - Invisible from outside: only Mira sends tasks to it
+  - Receives `deliver_item` tasks; emits `CARELOOP_TELEMETRY` back to Mira and Canvas
 
 **To add Webots physical simulation** (optional engineering layer): install
 Webots R2025b on Apple Silicon and open
-`physical-simulator/worlds/careloop_center.wbt`. The Body Adapter bridges
-Webots to Atlas Agent automatically via the `CARELOOP_TELEMETRY` contract.
+`physical-simulator/worlds/careloop_center.wbt`. The Body Adapter connects
+Webots to Atlas Agent via the `CARELOOP_TELEMETRY` contract — no other
+configuration needed.
 
-> **Implementation note:** Single-command startup and automatic Atlas Agent
-> launch are the baseline design. Active implementation is in progress.
+> **Implementation note:** Single-command startup and automatic service launch
+> are the baseline design. Active implementation is in progress.
 
 ---
 
