@@ -31,21 +31,21 @@
 ```mermaid
 flowchart TD
     P["🧑 Patient"]
-    RN["👩‍⚕️ Human RN\nfinal clinical authority"]
+    RN["👩‍⚕️ Human RN\nfinal authority"]
 
-    subgraph CANVAS["🖥️  Layer 3 · Operations Canvas  (care-center-simulator/)"]
-        UI["Browser web app\nFloor map · Agent trace · Chat UI\nStreams CARELOOP_TELEMETRY — owns no logic"]
+    subgraph CANVAS["🖥️ Layer 3 · Operations Canvas"]
+        UI["Floor map · Agent trace · Chat UI\nStreams CARELOOP_TELEMETRY"]
     end
 
-    subgraph AGENTS["🧠  Layer 2 · Agentic Coordinator"]
-        subgraph MIRA["Mira · nurse coordinator  (nurse-operator-agent/)"]
-            M["OpenAI Agents SDK\ncontext · coordination · escalation"]
+    subgraph AGENTS["🧠 Layer 2 · Agentic Coordinator"]
+        subgraph MIRA["Mira · nurse coordinator"]
+            M["OpenAI Agents SDK\ncoordination · escalation"]
         end
     end
 
-    subgraph PHYSICAL["🏥  Layer 1 · Physical World / Digital Twin  (physical-simulator/)"]
-        ENV["HD Center Environment\nFour-chair treatment room\nNow: Webots R2025b digital twin · Future: real HD center"]
-        AGV["🤖 AGV\nOEM body · Jetson onboard compute\nAtlas agent  (aide-agv-agent/)  ·  A2A task executor\nNow: Webots simulation · Future: real AGV hardware"]
+    subgraph PHYSICAL["🏥 Layer 1 · Physical World / Digital Twin"]
+        ENV["HD Center\nWebots R2025b → real center"]
+        AGV["🤖 AGV\nOEM body · Jetson · Atlas agent\nWebots → real hardware"]
         ENV -.->|"AGV operates inside"| AGV
     end
 
@@ -55,7 +55,7 @@ flowchart TD
     P -->|"conversation"| M
     RN <-->|"conversation + decision"| M
     UI -->|"CARELOOP_TELEMETRY"| M
-    M ==>|"A2A protocol\nAgent Card + JSON contract"| AGV
+    M ==>|"A2A · Agent Card"| AGV
     AGV -.->|"status + artifact"| M
 
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
@@ -173,22 +173,22 @@ when the physical backend is swapped.
 
 ```mermaid
 flowchart TD
-    subgraph ATLAS["⚙️  Atlas Agent  (aide-agv-agent/)"]
-        AG["Self-contained · No LLM · Deterministic\nReceives A2A tasks from Mira\nExecutes task logic — where · what · when\nNo external interface except Mira"]
+    subgraph ATLAS["⚙️ Atlas Agent  (aide-agv-agent/)"]
+        AG["No LLM · Deterministic\nA2A tasks from Mira only"]
     end
 
-    subgraph ADAPTER["🔌  Body Adapter  (physical-simulator/adapters/)"]
-        AD["The only component swapped per backend\nTranslates Atlas commands → physical instructions\nTranslates physical state → CARELOOP_TELEMETRY"]
+    subgraph ADAPTER["🔌 Body Adapter  (physical-simulator/adapters/)"]
+        AD["Swapped per backend\nAtlas ↔ physical translation"]
     end
 
-    subgraph BACKEND["🏗️  Physical Backend  (pluggable)"]
+    subgraph BACKEND["🏗️ Physical Backend  (pluggable)"]
         direction LR
-        W["Webots R2025b\nNow · digital twin"]
-        R["ROS 2 Nav Stack\nFuture · advanced sim"]
-        H["Real OEM AGV\nProduction · Jetson"]
+        W["Webots R2025b\nnow"]
+        R["ROS 2 Nav Stack\nfuture"]
+        H["Real OEM AGV\nproduction"]
     end
 
-    ATLAS -->|"Body Adapter interface\nstable contract"| ADAPTER
+    ATLAS -->|"stable contract"| ADAPTER
     ADAPTER --> W
     ADAPTER -.->|"swap adapter only"| R
     ADAPTER -.->|"swap adapter only"| H
