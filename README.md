@@ -21,12 +21,13 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 
 1. [System Architecture](#2-system-architecture)
 2. [Data Architecture](#3-data-architecture)
-3. [One Complete Care Loop](#4-one-complete-care-loop)
-4. [Patient Scenarios](#5-patient-scenarios)
-5. [Technology Stack](#6-technology-stack)
-6. [Run It Locally](#7-run-it-locally)
-7. [Repository Layout](#8-repository-layout)
-8. [Read Next](#9-read-next)
+3. [Simulation & Digital Twin](#4-simulation--digital-twin)
+4. [One Complete Care Loop](#5-one-complete-care-loop)
+5. [Patient Scenarios](#6-patient-scenarios)
+6. [Technology Stack](#7-technology-stack)
+7. [Run It Locally](#8-run-it-locally)
+8. [Repository Layout](#9-repository-layout)
+9. [Read Next](#10-read-next)
 
 ---
 
@@ -166,7 +167,53 @@ The architecture does not change — the data depth drives the use case depth.
 
 ---
 
-## 4. One Complete Care Loop
+## 4. Simulation & Digital Twin
+
+The physical layer of this system is a **self-contained digital twin** of a
+four-chair in-center hemodialysis unit, built in Webots R2025b. It is not a
+placeholder — it is a fully functional simulation that runs the same mission
+telemetry contract the real hardware will use.
+
+### What the simulation covers today
+
+| Component | Implementation |
+|---|---|
+| HD center environment | Four-chair treatment room with Operations Hub, waypoints, and spatial layout |
+| AGV platform | Differential-drive wheeled robot with fixed-waypoint navigation |
+| Mission execution | Full Daniel Kim coffee delivery — divert, hub pickup, chair delivery, resume patrol |
+| Telemetry output | `CARELOOP_TELEMETRY` JSON events streamed to stdout through `completed` |
+| Contract validation | Schema-validated mission and telemetry contracts in `physical-simulator/contracts/` |
+
+The Webots simulation is **independent of the Operations Canvas** — it can be
+run as a standalone engineering environment without starting the web app.
+
+### The swap principle
+
+The `CARELOOP_TELEMETRY` event format is the only contract between Layer 1 and
+Layer 2. Any physical backend that emits this format is a valid replacement:
+
+```
+Current   →  Webots R2025b digital twin
+Upgrade   →  NVIDIA Omniverse / Isaac Sim  (higher fidelity, same contract)
+Production →  Real OEM AGV + Jetson onboard compute  (same contract, real world)
+```
+
+This means the agentic coordinator (Mira), the AGV agent (Atlas), and the
+Operations Canvas require **zero changes** when the physical layer is swapped.
+The upgrade path and the production path are both well-defined from day one.
+
+### Why Webots now
+
+Webots was chosen as the simulation foundation because it provides real robot
+physics (collision, wheel kinematics, sensor models) with an open-source
+license and Apple Silicon compatibility. The current build is pinned to
+**Webots R2025b Nightly Build 17 Jul 2026** for Apple Silicon.
+See [ADR-001](docs/decisions/ADR-001-webots-physical-simulation.md) for the
+full decision record.
+
+---
+
+## 5. One Complete Care Loop
 
 The working end-to-end slice is **Daniel Kim's pre-approved coffee request**:
 
@@ -179,7 +226,7 @@ The working end-to-end slice is **Daniel Kim's pre-approved coffee request**:
 
 ---
 
-## 5. Patient Scenarios
+## 6. Patient Scenarios
 
 Four fictional patients cover the range of clinical situations a nurse faces
 during a single treatment session. Each scenario requires a different depth of
@@ -194,7 +241,7 @@ data and a different coordination pattern:
 
 ---
 
-## 6. Technology Stack
+## 7. Technology Stack
 
 | Layer | Component | Technology |
 |---|---|---|
@@ -208,7 +255,12 @@ data and a different coordination pattern:
 
 ---
 
-## 7. Run It Locally
+## 8. Run It Locally
+
+> ⚠️ **This section is being updated.** The application architecture is
+> actively evolving — the Operations Canvas and agent interfaces are being
+> unified. The instructions below reflect the current state; expect a simpler
+> single-command startup in a future update.
 
 **Prerequisites:** Node.js, npm, and an OpenAI API key (for Mira only).
 
@@ -236,7 +288,7 @@ to stdout.
 
 ---
 
-## 8. Repository Layout
+## 9. Repository Layout
 
 ```
 nurse-operator-agent/   Layer 2 · Mira coordinator (Agents SDK + A2A client)
@@ -251,7 +303,7 @@ docs/                   PRD, technical spec, agent designs, ADRs
 
 ---
 
-## 9. Read Next
+## 10. Read Next
 
 - [PRD](docs/PRD.md) — product scope, personas, safety, and acceptance criteria
 - [Technical Specification](docs/TECHNICAL_SPEC.md) — A2A, contracts, motion boundary
