@@ -22,13 +22,13 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 ```mermaid
 flowchart TB
     subgraph CANVAS["🖥️  Layer 3 · Operations Canvas  (care-center-simulator/)"]
-        UI["Browser web app\nFloor map · Agent trace · Chat UI\nReads state — owns no logic"]
+        UI["Browser web app\nFloor map · Agent trace · Chat UI\nReads CARELOOP_TELEMETRY — owns no simulation logic"]
     end
 
     subgraph AGENTS["🧠  Layer 2 · Agentic Systems"]
         direction LR
         P["🧑 Patient"] -->|conversation| M
-        RN["👩‍⚕️ Human RN\nfinal authority"] <-->|conversation\n+ decision| M
+        RN["👩‍⚕️ Human RN\nfinal authority"] <-->|conversation + decision| M
 
         subgraph MIRA["Mira · coordinator  (nurse-operator-agent/)"]
             M["OpenAI Agents SDK\ncontext · coordination · escalation"]
@@ -43,14 +43,11 @@ flowchart TB
     end
 
     subgraph SIM["🤖  Layer 1 · Simulation  (physical-simulator/)"]
-        W["Webots R2025b\nDifferential-drive AGV\nFour-chair synthetic room"]
-        E["2.5D Motion Emulator\n(browser fallback for dev)"]
+        W["Webots R2025b\nDifferential-drive AGV\nDigital twin of the four-chair HD center"]
     end
 
-    CANVAS <-->|"mission telemetry\nA2A status"| AGENTS
-    AGENTS <-->|"CARELOOP_TELEMETRY\nwaypoint commands"| SIM
-
-    note1["💡 Layer 1 is the swap point:\nReplace Webots → real AGV hardware\nAdd ROS 2 nav stack inside the robot\nScale to legged robots or arms\nThe A2A contract never changes."]
+    CANVAS <-->|"mission telemetry · A2A status"| AGENTS
+    AGENTS <-->|"CARELOOP_TELEMETRY · waypoint commands"| SIM
 
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
@@ -58,20 +55,27 @@ flowchart TB
     classDef canvas fill:#F3F4F6,stroke:#6B7280,color:#111827
     class RN,P human
     class M,A digital
-    class W,E sim
+    class W sim
     class UI canvas
 ```
 
-Each layer can be **replaced independently** without touching the others:
+Each layer is **independently replaceable** — the contracts between them stay stable:
 
-| Layer | POC today | Future direction |
+| Layer | Target design | Future direction |
 |---|---|---|
-| **Layer 1 · Simulation** | Webots R2025b + 2.5D browser emulator | Real AGV hardware; ROS 2 nav stack; legged robots |
-| **Layer 2 · Agentic Systems** | Local Mira + Atlas services (Node.js) | Site-edge deployment; enterprise fleet management |
-| **Layer 3 · Operations Canvas** | React/Vite web app | Native app; wall-mounted kiosk; clinical dashboard |
+| **Layer 1 · Simulation** | Webots R2025b — digital twin of the HD center floor | Replace with real AGV hardware; add ROS 2 nav stack; swap to legged robots or arms |
+| **Layer 2 · Agentic Systems** | Local Mira + Atlas services (Node.js + OpenAI Agents SDK) | Site-edge deployment; enterprise fleet management |
+| **Layer 3 · Operations Canvas** | React/Vite web app streaming `CARELOOP_TELEMETRY` | Native app; wall-mounted kiosk; clinical dashboard |
 
-The boundary between Layer 2 and Layer 1 is a single telemetry contract
-(`CARELOOP_TELEMETRY` JSON events). Nothing else couples them.
+The **only coupling** between Layer 1 and Layer 2 is the `CARELOOP_TELEMETRY`
+JSON event stream. Swapping the simulation for real hardware requires only a
+thin Body Adapter that emits the same telemetry format — nothing else changes.
+
+> **Current state note:** The 2.5D motion emulator is currently embedded inside
+> the Operations Canvas (`care-center-simulator/src/domain/`) as a temporary
+> development scaffold. As Webots establishes the simulation layer, the emulator
+> will be retired and the Canvas will consume Webots telemetry directly — giving
+> Layer 3 a clean read-only boundary with no simulation logic of its own.
 
 ---
 
