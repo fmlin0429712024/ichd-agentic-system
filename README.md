@@ -1,5 +1,7 @@
 # Agentic CareLoop for In-Center Hemodialysis
 
+## 1. Overview
+
 **CareLoop** is a full-stack physical AI system built for in-center hemodialysis operations — demonstrating how an AI coordinator, a formal agent protocol, and a mobile robot work together in a real clinical domain.
 
 - **Domain** — A hemodialysis center runs four patients in parallel under a single nurse, with time-sensitive logistics repeating every session. This system explores AI-assisted coordination and robotic execution while keeping the human RN as the final clinical authority.
@@ -14,14 +16,15 @@
 
 ## Contents
 
-1. [System Architecture](#2-system-architecture)
-2. [Data Architecture](#3-data-architecture)
-3. [Simulation & Digital Twin](#4-simulation--digital-twin)
-4. [Clinical Scenarios](#5-clinical-scenarios)
-5. [Technology Stack](#6-technology-stack)
-6. [Run It Locally](#7-run-it-locally)
-7. [Repository Layout](#8-repository-layout)
-8. [Read Next](#9-read-next)
+1. [Overview](#1-overview)
+2. [System Architecture](#2-system-architecture)
+3. [Data Architecture](#3-data-architecture)
+4. [Simulation & Digital Twin](#4-simulation--digital-twin)
+5. [Clinical Scenarios](#5-clinical-scenarios)
+6. [Technology Stack](#6-technology-stack)
+7. [Run It Locally](#7-run-it-locally)
+8. [Repository Layout](#8-repository-layout)
+9. [Read Next](#9-read-next)
 
 ---
 
