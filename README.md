@@ -71,12 +71,6 @@ The **only coupling** between Layer 1 and Layer 2 is the `CARELOOP_TELEMETRY`
 JSON event stream. Swapping the simulation for real hardware requires only a
 thin Body Adapter that emits the same telemetry format — nothing else changes.
 
-> **Current state note:** The 2.5D motion emulator is currently embedded inside
-> the Operations Canvas (`care-center-simulator/src/domain/`) as a temporary
-> development scaffold. As Webots establishes the simulation layer, the emulator
-> will be retired and the Canvas will consume Webots telemetry directly — giving
-> Layer 3 a clean read-only boundary with no simulation logic of its own.
-
 ---
 
 ## The cast
