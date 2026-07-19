@@ -17,13 +17,18 @@ implementation.
 
 ## Ownership
 
-- `nurse-operator-agent/`: Mira Skill, Mira-owned contracts, A2A client adapter.
-- `aide-agv-agent/`: Atlas Skill, Agent Card, Atlas-owned contracts, A2A server.
+- `nurse-operator-agent/`: Mira Skill, Agents SDK collaborator runtime, Mira-owned contracts,
+  and A2A client adapter.
+- `aide-agv-agent/`: Atlas Skill, Agents SDK runtime, Agent Card, Atlas-owned
+  contracts, and A2A server.
 - `care-center-simulator/`: synthetic environment, browser UI, scenarios, state.
 - `poc-reference/`: public-safe synthetic fixtures and source scenario notes.
 
-Do not create a shared custom agent runtime. Launch each Codex role from its own
-top-level agent directory so it discovers only its local `.agents/skills/`.
+Do not create a shared custom agent runtime. Mira owns the server-side OpenAI
+Agents SDK conversation surface. Atlas is an independent formal A2A worker with
+no human chat endpoint in the POC. Their local `.agents/skills/` remain the
+human-readable behavior baseline and Codex evaluation surface; runtime
+instructions, tools, guardrails, and tests must stay aligned with those Skills.
 
 ## Non-negotiable controls
 
@@ -48,5 +53,6 @@ top-level agent directory so it discovers only its local `.agents/skills/`.
 - Preserve unrelated user changes.
 - Keep Skills concise; put details in one-level `references/` resources.
 - Keep protocol adapters and schemas outside Skill folders.
-- Do not add ROS, DDS, navigation, hardware, body-adapter, or external model API
-  scope to the POC without revising the Technical Spec first.
+- Do not add ROS, DDS, navigation, hardware, or body-adapter scope to the POC.
+- Keep OpenAI API credentials server-side and never commit or expose them in
+  browser code, fixtures, logs, or documentation examples.

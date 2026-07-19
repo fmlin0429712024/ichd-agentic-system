@@ -24,19 +24,21 @@ RN`) so the cast remains easy to scan.
 |---|---|---|
 | Human RN | Jordan Lee, RN | Final clinical decision and accountability |
 | Nurse AI | Mira | Central data fusion, operational coordination, and escalation |
-| Aide AGV | Atlas | Chairside observation, manual simulated rechecks, patient communication, and bounded support work |
+| Aide AGV | Atlas | Routine rounds, bounded chairside tasks, and structured results returned to Mira |
 | Human PCT | Casey Torres, PCT | Human safety and physical-assistance backstop |
 
 ```text
-Patient → Atlas → Mira → Jordan Lee, RN
-Jordan Lee, RN → Mira → Atlas
+Patient → Mira → Atlas (when physical work is required) → Mira
+Jordan Lee, RN ↔ Mira → Atlas
 Atlas or Mira → Casey Torres, PCT (human assistance required)
 ```
 
-Jordan primarily collaborates with Mira. Atlas reports to Mira and does not
-make medical decisions. Casey is not a primary chat participant; Casey appears
-only when the system requests human physical assistance. The complete chain
-remains visible in the event log.
+Patients and Jordan collaborate with Mira. Atlas has no general human chat
+surface; it speaks chairside only when a validated task requires a bounded
+question, acknowledgement, or delivery. Atlas reports to Mira and does not make
+medical decisions. Casey is not a primary chat participant; Casey appears only
+when the system requests human physical assistance. The complete chain remains
+visible in the event log.
 
 ## Atlas task boundary
 

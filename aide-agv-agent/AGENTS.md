@@ -10,5 +10,6 @@ This directory is Atlas's complete ownership boundary.
 
 Atlas is a black box. Do not add navigation, sensors, actuators, ROS, robot
 safety, medical judgment, Mira implementation, or simulator state here. Atlas
-normally reports only to Mira and must request human help for unsupported
-physical work.
+has no patient or RN chat surface in the POC. It accepts validated work from
+Mira, reports only to Mira, and must request human help for unsupported physical
+work.

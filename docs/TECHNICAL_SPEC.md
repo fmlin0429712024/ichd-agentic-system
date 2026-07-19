@@ -16,8 +16,9 @@ does not implement either agent's physical-AI internals.
 
 | Decision | POC choice |
 |---|---|
-| Agent topology | Two independently launchable Codex agents |
-| Agent behavior | One role-specific Codex Skill per agent |
+| Agent topology | One Agents SDK collaborator (Mira) plus one formal A2A worker (Atlas) |
+| Agent behavior | Mira owns conversation and orchestration; Atlas owns bounded execution |
+| Behavior baseline | One role-specific Codex Skill per agent, mapped into runtime code and tests |
 | Inter-agent protocol | Official A2A protocol and SDK |
 | Business payloads | Versioned JSON Schema contracts carried by A2A messages |
 | Collaboration style | Structured task data plus optional natural-language context |
@@ -28,8 +29,13 @@ does not implement either agent's physical-AI internals.
 | Clinical authority | Human RN owns clinical and treatment decisions |
 | Robot internals | Out of scope and hidden behind the Atlas black-box boundary |
 
-No OpenAI API integration is assumed by this specification. Codex is the POC
-agent runtime and the browser is the visible simulation surface.
+OpenAI Agents SDK is Mira's POC conversational runtime. The Mira service keeps
+API credentials out of the browser and calls the OpenAI API. Atlas does not use
+an LLM for deterministic delivery execution in this slice; it is an independent
+A2A worker with an Agent Card, task lifecycle, validated contract, and artifact.
+API usage is billed separately from a ChatGPT or Codex subscription. The browser
+is the visible simulation and conversation surface; Codex remains the
+development and role-evaluation tool, not the demo runtime.
 
 The current visual implementation and staged interaction are defined in
 `docs/FRONTEND_DESIGN.md`.
@@ -37,15 +43,13 @@ The current visual implementation and staged interaction are defined in
 ## 3. System boundary
 
 ```text
-┌──────────────────────────┐       official A2A       ┌──────────────────────────┐
-│ Mira                     │◄────────────────────────►│ Atlas                    │
-│ Nurse Operator Agent     │ Task · Status · Artifact │ Aide AGV Agent           │
-│ independent black box    │ structured data + text   │ independent black box    │
-└─────────────┬────────────┘                           └─────────────┬────────────┘
-              │                                                      │
-              │ coordination, escalation                            │ capabilities
-              ▼                                                      ▼
-        Human RN interface                              Care-center simulator
+Patient ───────────────┐
+                      ▼
+Human RN ───────────► Mira ◄──── simulated treatment data
+                      │
+                      │ official A2A task · status · artifact
+                      ▼
+                     Atlas ─────► Care-center motion emulator
 ```
 
 The POC observes only the agents' public capabilities and messages. It does not
@@ -53,12 +57,28 @@ model Atlas navigation, actuators, sensors, robot middleware, or safety control.
 Future physical implementations may use ROS 2, DDS, or other technologies
 without changing the operational A2A contract.
 
+### 3.1 POC AGV motion boundary
+
+The care-center simulator owns a deterministic **AGV Motion Emulator** so Atlas
+can be seen executing a task. It accepts only semantic destinations such as the
+operations hub or a known chair, follows predefined waypoint routes, and emits
+synthetic movement and arrival state to the renderer.
+
+The emulator is not part of the Atlas agent and is not a physical model. It
+uses a fixed circulation graph: a ring around the hub, four chair service
+spurs, and one hub docking spur. Routine rounds follow a fixed clockwise chair
+sequence. Assigned tasks may interrupt at the next safe waypoint and use the
+deterministic shortest route. Only supply pickup, charging, or a completed round
+requires the hub. The emulator does not calculate autonomous paths,
+localization, collision avoidance, wheel dynamics, or safety behavior.
+
 ## 4. Role boundaries
 
 ### 4.1 Mira — Nurse Operator Agent
 
 Mira owns operational coordination:
 
+- Serve as the primary conversation point for patients and the human RN.
 - Receive simulated patient, treatment, and center events.
 - Assemble bounded patient and treatment context.
 - Request a supported Atlas capability.
@@ -81,10 +101,13 @@ Atlas exposes a small capability catalog:
 - `request_human_assistance`
 - `decline_unsupported_task`
 
-Atlas reports only to Mira in the normal workflow. It does not expose movement,
-sensor, actuator, or internal reasoning interfaces. It cannot make medical
-judgments, change treatment, administer medication, draw blood, manipulate an
-access site, lift a patient, or handle an emergency requiring human contact.
+Atlas has no general patient or RN chat surface. It accepts state-changing work
+only through the formal Mira-to-Atlas A2A route and reports results to Mira. A
+task may authorize a bounded chairside acknowledgement or question. Atlas does
+not expose movement, sensor, actuator, or internal reasoning interfaces. It
+cannot make medical judgments, change treatment, administer medication, draw
+blood, manipulate an access site, lift a patient, or handle an emergency
+requiring human contact.
 
 ### 4.3 Humans and simulator
 
@@ -189,27 +212,34 @@ type AtlasTaskArtifact = {
 Detailed schemas and examples belong to the provider agent's `contracts/`
 directory. The types above define scope, not the final schema implementation.
 
-## 7. Codex Skill model
+## 7. Agent runtime and Skill model
 
-Each top-level agent is independently launchable from its own directory. Codex
-discovers only that agent's local `.agents/skills/` tree, preserving role
-isolation.
+Mira owns the server-side Agents SDK conversational specialist. Atlas owns an
+independent, deterministic A2A worker. An SDK handoff never replaces the formal
+A2A seam: Mira interprets conversation and invokes bounded coordination tools;
+all Atlas work still crosses A2A.
 
 ```text
-Codex session + local AGENTS.md + local Skill + tools/context = POC agent
+Mira Skill → instructions + tools + guardrails → Agents SDK collaborator
+Atlas Skill → Agent Card + contracts + guardrails → A2A worker
 ```
 
-Skill rules:
+Runtime and Skill rules:
 
 - Use `.agents/skills/<skill-name>/SKILL.md`.
 - Keep `SKILL.md` concise, imperative, and role-specific.
 - Put detailed procedures and domain material in one-level `references/` files.
-- Keep A2A hosting, schemas, simulator state, and UI code outside the Skill.
+- Keep SDK runtime, A2A hosting, schemas, simulator state, and UI code outside
+  the Skill folder.
 - Do not duplicate patient fixtures in either Skill.
-- Validate each Skill with the Codex skill validation utility.
+- Map every state-changing runtime tool to a deterministic validator or
+  provider-owned contract; free text alone never authorizes an action.
+- Keep session state in memory for the POC and separate Mira patient sessions
+  from Mira RN sessions.
+- Validate each Skill with Codex and validate its runtime mapping with tests.
 
-A small `a2a/` adapter is permitted for each role. It hosts or consumes the
-formal protocol; it is not a second custom agent runtime.
+Mira's small `runtime/` module owns conversation and coordination tools. Each
+role's `a2a/` adapter owns its side of the formal provider seam.
 
 ## 8. Repository layout
 
@@ -218,6 +248,7 @@ nurse-operator-agent/
 ├── AGENTS.md
 ├── .agents/
 │   └── skills/                   # Mira role Skill
+├── runtime/                      # Mira Agents SDK conversation and tools
 ├── contracts/                    # Mira-owned schemas and examples
 └── a2a/                          # thin A2A client adapter
 
@@ -229,7 +260,7 @@ aide-agv-agent/
 └── a2a/                          # thin A2A server adapter
 
 care-center-simulator/
-├── app/                          # browser and Three.js treatment floor
+├── app/                          # browser treatment floor
 ├── scenarios/                    # deterministic scenario definitions
 ├── contracts/                    # simulator-owned event/snapshot schemas
 └── tests/
@@ -248,13 +279,24 @@ ROS, navigation, hardware, or body-adapter package.
 
 The intended POC presentation uses three runtime processes:
 
-1. Atlas A2A server launched from `aide-agv-agent/` on port `8043`.
-2. Mira event adapter and A2A client launched from `nurse-operator-agent/` on
-   port `8042`.
+1. Atlas worker A2A server launched from `aide-agv-agent/` on port `8043`.
+2. Mira Agents SDK conversation, event adapter, and A2A client launched from
+   `nurse-operator-agent/` on port `8042`.
 3. Browser simulation launched from `care-center-simulator/` on port `5173`.
 
-Fresh Codex sessions launched from each agent directory independently discover
-only their local role Skill and are used for role-boundary evaluation.
+The browser exposes two identity-specific conversation surfaces: a selected
+fictional patient talks to Mira, and the fictional registered nurse talks to
+Mira. Atlas activity is visible through the event trace and motion emulator,
+not a general human chat. Codex sessions may still be launched independently
+for development-time Skill evaluation, but they are not part of the product
+demonstration.
+
+The first patient vertical slice is synchronous HTTP: Mira chat dispatches a
+validated A2A task and returns the correlated result plus a semantic
+`motionMission`. The browser then interrupts the routine round at a safe
+waypoint and executes that mission with its deterministic Motion Emulator.
+WebSocket, robot telemetry, and continuous digital-twin synchronization remain
+out of scope.
 
 The simulator produces deterministic events and measurements. Atlas treats it
 as the fictional physical environment but remains a black box to Mira. The A2A
@@ -280,10 +322,11 @@ devices.
 - Test A2A discovery, success, clarification, cancellation, rejection, and
   failure flows across two independently running processes.
 - Prove malformed or unsupported tasks fail closed.
-- Validate both role Skills independently from their own working directories.
+- Validate both role Skills and their SDK runtime mappings independently.
 - Test all four deterministic patient scenarios.
 - Run one Chrome smoke test for the complete critical-hypotension story.
-- Confirm the demo works with synthetic data and no external model API.
+- Confirm deterministic contracts and motion work without an API key; run
+  conversational browser acceptance when `OPENAI_API_KEY` is present.
 - Scan the public repository for client, patient, facility, secret, and local
   source-path leakage.
 

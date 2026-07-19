@@ -8,7 +8,7 @@ replace playground commands with validated agent tasks. Each slice must remain
 demonstrable and preserve human authority.
 
 Every implementation task follows Red → Green → Refactor. Domain behavior must
-be tested independently from Three.js rendering; Chrome tests validate the
+be tested independently from browser rendering; browser tests validate the
 integrated user experience.
 
 ## Slice 0 — Governance baseline
@@ -28,8 +28,8 @@ back into one application pretending to be multiple agents.
 ### Exit criteria
 
 - Every future file has one unambiguous owner.
-- No shared custom agent runtime, robot internals, or OpenAI API dependency is
-  part of the baseline.
+- No shared custom agent runtime or robot internals are part of the baseline;
+  each role owns its independent server-side Agents SDK runtime.
 
 ## Slice 1 — Simulator playground
 
@@ -49,7 +49,19 @@ carry an item, patrol deterministically, stop, reset, and produce an event trace
 
 - Unit tests and production build pass.
 - A user can complete one manual delivery and deterministic patrol.
-- No agent, A2A, or robot-internal logic is embedded in Three.js.
+- No agent, A2A, or robot-internal logic is embedded in the renderer.
+
+### Motion-emulator increment
+
+- Model one deterministic item-delivery mission independently from rendering.
+- If Atlas is away from the hub, return there before pickup.
+- Pick up the requested item, move to the selected chair, deliver it, and
+  resume the routine round from that chair.
+- Use a fixed ring with chair spurs so adjacent stops do not route through the
+  hub; visit the hub only for supplies, charging, or a completed round.
+- Expose mission phase in the visible status and event trace.
+- Keep physics, autonomous path planning, localization, and collision handling
+  out of scope.
 
 ## Slice 2 — Contracts and independent Skills
 
@@ -101,7 +113,7 @@ The browser shows a deterministic four-chair treatment center and event stream.
 
 ### Scope
 
-- Initialize React, TypeScript, Vite, Three.js, and tests under the simulator.
+- Initialize React, TypeScript, Vite, the 2.5D renderer, and tests under the simulator.
 - Load and validate the synthetic data pack.
 - Render four chairs, current treatment cards, and Atlas presence.
 - Implement deterministic clock, scenario injection, reset, and event timeline.
@@ -170,6 +182,7 @@ The POC tells one cohesive, interview-ready story across all four patients.
 ### Exit criteria
 
 - Every PRD acceptance criterion has an automated or recorded manual check.
-- The complete deterministic demo runs without external model APIs.
+- Deterministic domain, contract, and UI tests run without model API calls;
+  conversational browser acceptance uses the server-side OpenAI API.
 - The public build contains no real client, patient, organization, or source
   system information.

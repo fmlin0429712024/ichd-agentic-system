@@ -75,13 +75,20 @@ behavior, refactor while green, and run the relevant suite before completion.
 - [x] `SIM-TEST-01` Establish simulator unit and component test harness.
   **Validate:** an intentional missing-behavior test fails before production
   implementation begins.
-- [x] `SIM-FOUND-01` Initialize React, TypeScript, Vite, Three.js, and tests in
+- [x] `SIM-FOUND-01` Initialize React, TypeScript, Vite, the 2.5D renderer, and tests in
   `care-center-simulator/`. **Depends on:** `SIM-TEST-01`. **Validate:** local
   start, test, and production build.
 - [x] `SIM-PLAY-01` Build the central-hub four-chair playground, deterministic
   route overlay, patient request flow, and stable Atlas movement layer.
   **Depends on:** `SIM-FOUND-01`. **Validate:** route unit tests and the Daniel
-  coffee browser journey pass without clearing the static Three.js scene.
+  coffee browser journey pass without clearing the static treatment-floor scene.
+- [x] `SIM-MOTION-01` Implement a deterministic AGV delivery mission that moves
+  Atlas from its current known location to the operations hub when needed,
+  picks up one approved item, visits any selected chair, delivers it, and
+  resumes the routine round. **Depends on:** `SIM-PLAY-01`. **Validate:** reducer
+  tests cover hub and away-from-hub starts; browser acceptance shows pickup,
+  delivery, resumption, and visible mission phases without physics or
+  autonomous navigation.
 - [ ] `SIM-DATA-01` Define and validate simulator-owned profile, history,
   treatment-snapshot, and event contracts. **Depends on:** `SIM-FOUND-01`.
   **Validate:** four patients, four chairs, 144 treatments, four use cases.
@@ -107,6 +114,22 @@ behavior, refactor while green, and run the relevant suite before completion.
   work produces no Atlas execution.
 
 ## Mira and human RN integration
+
+- [x] `CHAT-01` Map the Mira Skill into an OpenAI Agents SDK collaborator and
+  Atlas into a deterministic formal A2A worker. **Validate:** missing API
+  credentials fail clearly for Mira and Atlas work remains contract-driven.
+- [x] `CHAT-02` Add Patient → Mira and RN → Mira conversation endpoints to the
+  coordinator service and remove Atlas's human chat endpoint. **Depends on:**
+  `CHAT-01`. **Validate:** endpoints cover identity, isolated sessions, A2A
+  dispatch, and safe failure.
+- [x] `CHAT-UI-01` Replace showcase Field Controls with patient and RN chat tabs,
+  retain a compact event trace, and start a verified motion mission from the
+  Mira response. **Depends on:** `CHAT-02`, `SIM-MOTION-01`. **Validate:** UI
+  tests and browser acceptance cover Daniel's natural-language coffee request.
+- [x] `SIM-PATROL-01` Add a fixed circulation ring, clockwise routine round,
+  safe-waypoint task interruption, supply-only hub visits, and post-task patrol
+  resumption. **Depends on:** `SIM-MOTION-01`. **Validate:** route, reducer, UI,
+  and browser tests show continuous purposeful movement without robot navigation.
 
 - [ ] `MIRA-01` Implement bounded context assembly from current event, treatment,
   profile summary, selected history, and Atlas artifact. **Depends on:**

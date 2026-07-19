@@ -17,3 +17,9 @@ test("Atlas configures a discoverable A2A v1.0 Agent Card", () => {
     "chairside-evidence-collection"
   ]);
 });
+
+test("Atlas exposes only worker-facing A2A and no patient chat", () => {
+  const app = createAtlasApp();
+  const route = app.router.stack.find((layer) => layer.route?.path === "/chat/patient");
+  assert.equal(route, undefined);
+});

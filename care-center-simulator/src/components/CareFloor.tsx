@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { floorLayout } from "../domain/floor-layout";
 import type { AtlasState } from "../domain/atlas-machine";
-import { getRoute, routeCoordinates, type RoutePointId } from "../domain/route-planner";
+import { getRoute, routeCoordinates, routeNetworkSegments, type RoutePointId } from "../domain/route-planner";
 
 type CareFloorProps = {
   atlas: AtlasState;
+  activityLabel: string;
+  motionPhase: string;
   selectedChair: string | null;
   onChairSelect: (chairId: string) => void;
   onAtlasArrive: () => void;
@@ -28,7 +30,7 @@ function ChairPod({ index, selected, onSelect }: { index: number; selected: bool
   );
 }
 
-function RouteAndAtlas({ atlas, onArrive }: { atlas: AtlasState; onArrive: () => void }) {
+function RouteAndAtlas({ atlas, activityLabel, motionPhase, onArrive }: { atlas: AtlasState; activityLabel: string; motionPhase: string; onArrive: () => void }) {
   const [point, setPoint] = useState<RoutePointId>(atlas.location);
   const activeRoute = useMemo(() => atlas.destination ? getRoute(atlas.location, atlas.destination) : [atlas.location], [atlas.destination, atlas.location]);
 
@@ -46,16 +48,19 @@ function RouteAndAtlas({ atlas, onArrive }: { atlas: AtlasState; onArrive: () =>
 
   const coordinate = routeCoordinates[point];
   const polyline = activeRoute.map((id) => `${routeCoordinates[id].x},${routeCoordinates[id].y}`).join(" ");
+  const network = routeNetworkSegments
+    .map(([from, to]) => `M${routeCoordinates[from].x} ${routeCoordinates[from].y} L${routeCoordinates[to].x} ${routeCoordinates[to].y}`)
+    .join(" ");
   return (
     <div className="route-layer" aria-label="Atlas route visualization">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path className="route-network" d="M50 52 L50 40 L31 40 L22 26 M50 40 L69 40 L78 26 M50 52 L50 64 L31 64 L22 77 M50 64 L69 64 L78 77" />
+        <path className="route-network" d={network} />
         {atlas.destination && <polyline className="active-route" points={polyline} />}
       </svg>
-      <div className={`atlas-sprite ${atlas.status}`} style={{ left: `${coordinate.x}%`, top: `${coordinate.y}%` }}>
+      <div className={`atlas-sprite ${atlas.status}`} data-testid="atlas-sprite" data-motion-phase={motionPhase} style={{ left: `${coordinate.x}%`, top: `${coordinate.y}%` }}>
         <div className="atlas-cargo">{atlas.item === "coffee" ? "☕" : atlas.item === "water" ? "●" : atlas.item === "blanket" ? "▰" : ""}</div>
         <div className="atlas-head"><i /><i /></div><div className="atlas-body">A</div><div className="atlas-wheels"><i /><i /></div>
-        <span><strong>ATLAS</strong>{atlas.item ? `Delivering ${atlas.item}` : atlas.status}</span>
+        <span><strong>ATLAS</strong>{activityLabel}</span>
       </div>
     </div>
   );
@@ -67,7 +72,7 @@ export function CareFloor(props: CareFloorProps) {
       <div className="floor-grid" />
       <div className="operations-hub"><div className="hub-surface"><i className="supply water" /><i className="supply coffee" /><i className="supply blanket" /></div><span>CARE OPERATIONS HUB<strong>Atlas Home · Supplies</strong></span></div>
       {floorLayout.chairs.map((chair, index) => <ChairPod key={chair.id} index={index} selected={props.selectedChair === chair.id} onSelect={() => props.onChairSelect(chair.id)} />)}
-      <RouteAndAtlas atlas={props.atlas} onArrive={props.onAtlasArrive} />
+      <RouteAndAtlas atlas={props.atlas} activityLabel={props.activityLabel} motionPhase={props.motionPhase} onArrive={props.onAtlasArrive} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { agentCardHandler, jsonRpcHandler, UserBuilder } from "@a2a-js/sdk/serve
 import { atlasAgentCard } from "./agent-card.mjs";
 import { AtlasAgentExecutor } from "./sdk-executor.mjs";
 
-export function createAtlasApp() {
+export function createAtlasApp(options = {}) {
   const requestHandler = new DefaultRequestHandler(
     atlasAgentCard,
     new InMemoryTaskStore(),
@@ -26,7 +26,8 @@ export function createAtlasApp() {
 }
 
 if (process.argv[1] === new URL(import.meta.url).pathname) {
-  createAtlasApp().listen(8043, "127.0.0.1", () => {
-    console.log("Atlas A2A v1.0 server listening on http://127.0.0.1:8043");
+  const server = createAtlasApp().listen(8043, "127.0.0.1", () => {
+    console.log("Atlas worker A2A v1.0 server listening on http://127.0.0.1:8043");
   });
+  server.ref();
 }

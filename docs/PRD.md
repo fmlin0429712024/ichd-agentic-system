@@ -72,7 +72,8 @@ The mobile observer and bounded execution layer.
 - Moves between the nurse station, supply point, and chairs.
 - Observes appearance, alertness, patient-reported symptoms, and access site.
 - Performs scripted manual BP/HR rechecks as chairside simulation data.
-- Relays observations and patient requests to Nurse AI.
+- Asks only task-bounded chairside questions and returns patient statements to
+  Nurse AI.
 - Delivers only pre-approved fictional support items.
 - Does not interpret clinical data or make treatment decisions.
 
@@ -103,7 +104,7 @@ The application presents a fully occupied four-chair treatment pod in a
 top-down browser view. Each chair displays a compact live treatment summary. A
 single Aide AGV moves through the center as directed by structured agent actions.
 
-A unified event panel shows messages and actions from:
+A compact event trace shows messages and actions from:
 
 - Human RN
 - Patient
@@ -111,8 +112,10 @@ A unified event panel shows messages and actions from:
 - Aide AGV
 - IoT simulator
 
-The user can switch between RN and Patient identities. The active identity is
-always visible.
+The right-side conversation surface has two explicit tabs: **Patient → Mira**
+with a fictional-patient selector, and **RN → Mira** with Jordan Lee, RN as the
+fixed identity. Mira is the central collaboration point. Atlas has no general
+human chat surface and appears through its A2A task trace and physical work.
 
 Critical incidents open a prominent escalation banner and evidence card. The
 card separates machine-measured evidence from chairside observations and stays
@@ -151,15 +154,15 @@ preconfigures it as approved fictional support.
 ### 5.3 Request to end treatment early
 
 1. Noah Carter at Chair 2 says he feels anxious and requests early termination.
-2. The Aide acknowledges and relays the exact request without acting on it.
-3. Nurse AI presents prescribed, elapsed, and remaining treatment time with the
+2. Mira acknowledges the exact request without acting on it.
+3. Mira presents prescribed, elapsed, and remaining treatment time with the
    patient's reason.
 4. The RN records the decision before treatment state can change.
 
 ### 5.4 Non-IoT observation with uncertainty
 
-1. Priya Shah at Chair 4 reports that her access site feels sore, while the IoT
-   feed remains normal.
+1. Priya Shah at Chair 4 reports to Mira that her access site feels sore, while
+   the IoT feed remains normal.
 2. Mira dispatches Atlas to observe the site and perform a scripted manual
    BP/HR recheck.
 3. Atlas reports the observation to Mira without interpreting it.
@@ -266,13 +269,14 @@ The product maintains separate states:
 - Show one ordered conversation and event stream.
 - Distinguish every actor by label, icon, and color.
 - Allow the user to speak as RN or as a selected patient.
-- Route patient messages to the Aide and RN messages to Nurse AI.
+- Route both patient and RN messages to Mira with separate identities and
+  sessions.
 - Show Casey only when a human-assistance handoff is created.
 
 ### Agents
 
-- Use server-side OpenAI API calls for Nurse AI and Aide AGV.
-- Keep separate system instructions and permitted action sets for each agent.
+- Use server-side OpenAI API calls for Mira's patient and RN conversations.
+- Keep Mira's permitted tools separate from Atlas's A2A worker capabilities.
 - Include bounded world state and relevant history in each call.
 - Validate every model action before it changes simulation state.
 - Keep API credentials outside browser code.
@@ -332,7 +336,8 @@ understand an escalation without reading the entire conversation history.
 - No authentication or real clinical integrations
 - Separate simulator, renderer, agent orchestration, and UI modules
 - Stable action contracts between LLM “brains” and simulation “bodies”
-- Predefined movement; no physics or pathfinding
+- Fixed circulation graph and deterministic route selection; no physics or
+  autonomous navigation
 
 ## 11. Acceptance criteria
 

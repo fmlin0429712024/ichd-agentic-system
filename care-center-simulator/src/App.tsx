@@ -1,121 +1,157 @@
-import { useCallback, useMemo, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { AgentChatPanel } from "./components/AgentChatPanel";
 import { CareFloor } from "./components/CareFloor";
-import { atlasReducer, createInitialAtlasState, createPatrolRoute, type CarryItem } from "./domain/atlas-machine";
-import { floorLayout, type WaypointId } from "./domain/floor-layout";
-import { requestDanielCoffee, type AtlasProviderArtifact } from "./integration/mira-simulator-client";
+import { atlasReducer, createInitialAtlasState, type CarryItem } from "./domain/atlas-machine";
+import { agvMotionReducer, createIdleMotionState, type AgvMotionPhase } from "./domain/agv-motion-emulator";
+import { getNextPatrolStop, getPatrolDwellMs } from "./domain/patrol-controller";
+import type { MiraChatResponse, MotionMission } from "./integration/agent-chat-client";
 import "./styles.css";
 
 type TimelineEvent = { id: number; time: string; actor: string; message: string; tone: "system" | "atlas" | "attention" };
+type PendingMission = { mission: MotionMission; item: CarryItem; missionId: string };
 
 const initialEvents: TimelineEvent[] = [
   { id: 1, time: "09:42:00", actor: "SYSTEM", message: "Four-chair treatment floor initialized", tone: "system" },
-  { id: 2, time: "09:42:01", actor: "ATLAS", message: "Standing by at operations center", tone: "atlas" }
+  { id: 2, time: "09:42:01", actor: "ATLAS", message: "Starting routine operational round", tone: "atlas" }
 ];
 
 function now() {
   return new Date().toLocaleTimeString("en-US", { hour12: false });
 }
 
+const motionLabels: Record<AgvMotionPhase, string> = {
+  idle: "idle",
+  "moving-to-hub": "moving to hub",
+  "picking-up": "picking up item",
+  "moving-to-chair": "moving to chair",
+  delivering: "delivering item",
+  completed: "mission complete"
+};
+
 export default function App() {
   const [atlas, dispatch] = useReducer(atlasReducer, undefined, createInitialAtlasState);
+  const [motion, motionDispatch] = useReducer(agvMotionReducer, undefined, createIdleMotionState);
   const [selectedChair, setSelectedChair] = useState<string | null>(null);
   const [events, setEvents] = useState(initialEvents);
-  const [patrol, setPatrol] = useState<WaypointId[]>([]);
-  const [a2aArtifact, setA2aArtifact] = useState<AtlasProviderArtifact | null>(null);
-  const [a2aStatus, setA2aStatus] = useState<"ready" | "dispatching" | "executing" | "error">("ready");
+  const [evidenceRef, setEvidenceRef] = useState<string | null>(null);
+  const [pendingMission, setPendingMission] = useState<PendingMission | null>(null);
   const eventId = useRef(3);
+  const motionActive = motion.phase !== "idle" && motion.phase !== "completed";
+  const taskBusy = motionActive || pendingMission !== null;
 
   const log = useCallback((actor: string, message: string, tone: TimelineEvent["tone"] = "system") => {
     setEvents((current) => [...current, { id: eventId.current++, time: now(), actor, message, tone }].slice(-12));
   }, []);
 
-  const moveTo = useCallback((destination: WaypointId) => {
-    setSelectedChair(destination === "nurse-station" ? null : destination);
-    dispatch({ type: "move", destination });
-    log("ATLAS", `Moving to ${destination === "nurse-station" ? "operations center" : destination.replace("chair-0", "Chair ")}`, "atlas");
-  }, [log]);
+  const beginDeliveryMission = useCallback((chairId: MotionMission["destination"], item: CarryItem, missionId: string) => {
+    setSelectedChair(chairId);
+    motionDispatch({
+      type: "start-delivery",
+      missionId,
+      chairId,
+      item,
+      currentLocation: atlas.location
+    });
+  }, [atlas.location]);
+
+  const startDeliveryMission = useCallback((mission: MotionMission) => {
+    if (atlas.destination && motion.phase === "idle") {
+      setPendingMission({ mission, item: mission.item, missionId: mission.missionId });
+      log("ATLAS", "Worker task received · diverting at the next safe waypoint", "atlas");
+      return;
+    }
+    beginDeliveryMission(mission.destination, mission.item, mission.missionId);
+  }, [atlas.destination, beginDeliveryMission, log, motion.phase]);
+
+  useEffect(() => {
+    if (!pendingMission || atlas.destination || motion.phase !== "idle") return;
+    const queued = pendingMission;
+    setPendingMission(null);
+    beginDeliveryMission(queued.mission.destination, queued.item, queued.missionId);
+  }, [atlas.destination, beginDeliveryMission, motion.phase, pendingMission]);
+
+  useEffect(() => {
+    if (motion.phase !== "idle" || atlas.destination || pendingMission) return;
+    const destination = getNextPatrolStop(atlas.location);
+    const timer = window.setTimeout(() => {
+      setSelectedChair(destination === "nurse-station" ? null : destination);
+      dispatch({ type: "move", destination });
+      log("ATLAS", `Routine round · moving to ${destination === "nurse-station" ? "operations hub" : destination.replace("chair-0", "Chair ")}`, "atlas");
+    }, getPatrolDwellMs(atlas.location));
+    return () => window.clearTimeout(timer);
+  }, [atlas.destination, atlas.location, log, motion.phase, pendingMission]);
+
+  useEffect(() => {
+    let timer: number | undefined;
+
+    if (motion.phase === "moving-to-hub" && motion.destination) {
+      dispatch({ type: "move", destination: motion.destination });
+      log("AGV MOTION", "Returning Atlas to the operations hub before pickup", "atlas");
+    }
+
+    if (motion.phase === "picking-up" && motion.requestedItem) {
+      log("AGV MOTION", `Picking up ${motion.requestedItem} at the operations hub`, "atlas");
+      timer = window.setTimeout(() => {
+        dispatch({ type: "carry", item: motion.requestedItem as CarryItem });
+        motionDispatch({ type: "pickup-complete" });
+      }, 700);
+    }
+
+    if (motion.phase === "moving-to-chair" && motion.destination) {
+      dispatch({ type: "move", destination: motion.destination });
+      log("AGV MOTION", `Moving to ${motion.destination.replace("chair-0", "Chair ")}`, "atlas");
+    }
+
+    if (motion.phase === "delivering" && motion.chairId && motion.requestedItem) {
+      log("AGV MOTION", `Delivering ${motion.requestedItem} at ${motion.chairId.replace("chair-0", "Chair ")}`, "atlas");
+      timer = window.setTimeout(() => {
+        dispatch({ type: "deliver" });
+        motionDispatch({ type: "delivery-complete" });
+      }, 850);
+    }
+
+    if (motion.phase === "completed") {
+      log("AGV MOTION", `Mission ${motion.missionId ?? "completed"} complete · routine round will resume`, "atlas");
+      if (evidenceRef) {
+        log("A2A", `Trace closed · ${evidenceRef}`, "system");
+      }
+      setEvidenceRef(null);
+      motionDispatch({ type: "clear", currentLocation: motion.currentLocation });
+    }
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [evidenceRef, log, motion.chairId, motion.currentLocation, motion.destination, motion.missionId, motion.phase, motion.requestedItem]);
 
   const onArrive = useCallback(() => {
     const destination = atlas.destination;
     dispatch({ type: "arrive" });
     if (destination) log("ATLAS", `Arrived at ${destination === "nurse-station" ? "operations center" : destination.replace("chair-0", "Chair ")}`, "atlas");
-    if (a2aArtifact && destination === a2aArtifact.chairId) {
-      dispatch({ type: "deliver" });
-      log("ATLAS", `A2A task completed · ${a2aArtifact.evidenceRefs[0]}`, "atlas");
-      setA2aArtifact(null);
-      setA2aStatus("ready");
+    if (destination && destination === motion.destination && ["moving-to-hub", "moving-to-chair"].includes(motion.phase)) {
+      motionDispatch({ type: "arrived" });
+      return;
     }
-    setPatrol((route) => {
-      if (route.length <= 1) return [];
-      const next = route.slice(1);
-      window.setTimeout(() => dispatch({ type: "move", destination: next[0] }), 500);
-      return next;
-    });
-  }, [a2aArtifact, atlas.destination, log]);
-
-  const runA2aDemo = async () => {
-    setPatrol([]);
-    setSelectedChair("chair-01");
-    setA2aStatus("dispatching");
-    log("MIRA", "Dispatching schema-valid coffee task through A2A", "attention");
-    try {
-      const coordination = await requestDanielCoffee();
-      const artifact = coordination.artifact;
-      setA2aArtifact(artifact);
-      setA2aStatus("executing");
-      log("MIRA", `Atlas completed ${coordination.a2aTaskId} · replaying verified execution`, "system");
-      dispatch({ type: "carry", item: "coffee" });
-      window.setTimeout(() => dispatch({ type: "move", destination: artifact.chairId }), 250);
-    } catch (error) {
-      setA2aStatus("error");
-      log("A2A", error instanceof Error ? error.message : "Atlas service unavailable", "attention");
+    if (destination) {
+      log("ATLAS", destination === "nurse-station" ? "Routine round complete · brief pause at operations hub" : `Routine round pause at ${destination.replace("chair-0", "Chair ")}`, "atlas");
     }
+  }, [atlas.destination, log, motion.destination, motion.phase]);
+
+  const handleAtlasMission = (mission: MotionMission, response: MiraChatResponse) => {
+    setEvidenceRef(response.coordination?.artifact?.evidenceRefs?.[0] ?? null);
+    log("MIRA", `Dispatched ${mission.item} to Atlas · A2A task verified`, "system");
+    startDeliveryMission(mission);
   };
 
-  const startPatrol = () => {
-    const route = createPatrolRoute(42);
-    setPatrol(route);
-    dispatch({ type: "move", destination: route[0] });
-    log("SYSTEM", "Deterministic patrol started · seed 42");
-  };
-
-  const stop = () => {
-    setPatrol([]);
-    dispatch({ type: "stop" });
-    log("ATLAS", "Movement stopped", "atlas");
-  };
-
-  const reset = () => {
-    setPatrol([]);
-    setSelectedChair(null);
-    dispatch({ type: "reset" });
-    setEvents(initialEvents);
-    log("SYSTEM", "Simulation reset to known initial state");
-  };
-
-  const carry = (item: CarryItem) => {
-    dispatch({ type: "carry", item });
-    log("ATLAS", `Picked up ${item} at operations center`, "atlas");
-  };
-
-  const requestSupport = (item: CarryItem) => {
-    if (!selectedPatient) return;
-    setPatrol([]);
-    log("PATIENT", `${selectedPatient.patient} requested ${item}`, "system");
-    dispatch({ type: "carry", item });
-    window.setTimeout(() => {
-      dispatch({ type: "move", destination: selectedPatient.id });
-      log("ATLAS", `Accepted ${item} delivery to Chair ${selectedPatient.number}`, "atlas");
-    }, 120);
-  };
-
-  const deliver = () => {
-    if (!atlas.item || atlas.location === "nurse-station") return;
-    log("ATLAS", `Delivered ${atlas.item} at ${atlas.location.replace("chair-0", "Chair ")}`, "atlas");
-    dispatch({ type: "deliver" });
-  };
-
-  const selectedPatient = useMemo(() => floorLayout.chairs.find((chair) => chair.id === selectedChair), [selectedChair]);
+  const activityLabel = motionActive
+    ? motionLabels[motion.phase]
+    : pendingMission
+      ? "task queued"
+      : atlas.destination
+        ? "routine round"
+        : atlas.location === "nurse-station"
+          ? "at hub"
+          : "round pause";
 
   return (
     <main className="app-shell">
@@ -128,48 +164,18 @@ export default function App() {
       <section className="workspace">
         <div className="scene-panel">
           <div className="scene-heading"><div><span>LIVE TREATMENT FLOOR</span><strong>Four-chair care pod</strong></div><div className="legend"><span><i className="stable" />Stable</span><span><i className="watch" />Watch</span><span><i className="attention" />Attention</span></div></div>
-          <div className="canvas-wrap"><CareFloor atlas={atlas} selectedChair={selectedChair} onChairSelect={setSelectedChair} onAtlasArrive={onArrive} /><div className="view-label">FIXED 2.5D VIEW</div></div>
+          <div className="canvas-wrap"><CareFloor atlas={atlas} activityLabel={activityLabel} motionPhase={motion.phase} selectedChair={selectedChair} onChairSelect={setSelectedChair} onAtlasArrive={onArrive} /><div className="view-label">FIXED 2.5D VIEW · ROUTINE ROUND</div></div>
         </div>
 
-        <aside className="control-panel">
-          <div className="panel-title"><div><span>ATLAS PLAYGROUND</span><h2>Field controls</h2></div><div className={`status-pill ${atlas.status}`}><i />{atlas.status}</div></div>
+        <aside className="control-panel conversation-panel">
+          <div className="panel-title"><div><span>DIGITAL CARE TEAM</span><h2>Mira Coordination</h2></div><div className={`status-pill ${atlas.status}`} data-testid="motion-phase"><i />{activityLabel}</div></div>
 
-          <section className="a2a-demo">
-            <span>THREE-PROCESS CARELOOP</span>
-            <strong>Daniel requests coffee</strong>
-            <button disabled={a2aStatus === "dispatching" || a2aStatus === "executing"} onClick={runA2aDemo}>
-              {a2aStatus === "dispatching" ? "Mira is dispatching…" : a2aStatus === "executing" ? "Atlas is delivering…" : a2aStatus === "error" ? "Retry A2A demo" : "Run Mira → Atlas"}
-            </button>
-          </section>
-
-          <section className="control-section">
-            <label>DESTINATION</label>
-            <div className="destination-grid">
-              <button onClick={() => moveTo("nurse-station")}>⌂<span>Home</span></button>
-              {floorLayout.chairs.map((chair) => <button key={chair.id} className={selectedChair === chair.id ? "active" : ""} onClick={() => moveTo(chair.id)}>{chair.number}<span>Chair</span></button>)}
-            </div>
-          </section>
-
-          <section className="control-section">
-            <label>CARRY FROM OPERATIONS CENTER</label>
-            <div className="item-grid">
-              <button className={atlas.item === "water" ? "active" : ""} onClick={() => carry("water")}>◒<span>Water</span></button>
-              <button className={atlas.item === "coffee" ? "active" : ""} onClick={() => carry("coffee")}>◉<span>Coffee</span></button>
-              <button className={atlas.item === "blanket" ? "active" : ""} onClick={() => carry("blanket")}>▰<span>Blanket</span></button>
-            </div>
-            <button className="primary-action" disabled={!atlas.item || atlas.location === "nurse-station"} onClick={deliver}>Complete delivery</button>
-          </section>
-
-          <section className="control-section actions">
-            <button onClick={startPatrol}>↻ Start patrol</button><button onClick={stop}>■ Stop</button><button onClick={reset}>↺ Reset</button>
-          </section>
-
-          {selectedPatient && <section className={`patient-focus ${selectedPatient.status}`}><span>PATIENT REQUEST</span><strong>{selectedPatient.patient} · Chair {selectedPatient.number}</strong><div><b>{selectedPatient.bp}</b><small>BP mmHg</small><b>{selectedPatient.heartRate}</b><small>Heart rate</small></div><div className="request-actions"><button onClick={() => requestSupport("water")}>Water</button><button onClick={() => requestSupport("coffee")}>Coffee</button><button onClick={() => requestSupport("blanket")}>Blanket</button></div></section>}
+          <AgentChatPanel disabled={taskBusy} onAtlasMission={handleAtlasMission} onTrace={log} />
 
           <section className="timeline"><div className="timeline-heading"><span>LIVE EVENT TRACE</span><small>{events.length} events</small></div><div className="event-list">{events.map((event) => <div className={`event ${event.tone}`} key={event.id}><time>{event.time}</time><div><strong>{event.actor}</strong><p>{event.message}</p></div></div>)}</div></section>
         </aside>
       </section>
-      <footer><span>FICTIONAL · SYNTHETIC DATA · NON-CLINICAL POC</span><span>PLAYGROUND MODE · ROUTINE SUPPORT</span></footer>
+      <footer><span>FICTIONAL · SYNTHETIC DATA · NON-CLINICAL POC</span><span>MIRA ORCHESTRATION · FORMAL A2A · ATLAS WORKER</span></footer>
     </main>
   );
 }

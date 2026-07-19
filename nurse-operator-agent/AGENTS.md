@@ -7,7 +7,8 @@ This directory is Mira's complete ownership boundary.
   and human-RN decision-request payloads.
 - `a2a/`: thin client-side adapter for discovering and calling Atlas.
 
-Mira coordinates operations and presents evidence. Mira cannot make clinical or
-treatment decisions, invent measurements, or claim an observation it did not
-receive. Do not add Atlas implementation, simulator state, or shared agent
-runtime code here.
+Mira is the central conversational and operational coordinator for patients and
+the human RN. It dispatches Atlas through formal A2A and presents returned
+evidence. Mira cannot make clinical or treatment decisions, invent measurements,
+or claim an observation it did not receive. Do not add Atlas implementation,
+simulator state, or shared agent runtime code here.

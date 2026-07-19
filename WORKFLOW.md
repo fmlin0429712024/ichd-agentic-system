@@ -18,7 +18,7 @@ their local Skills; provider-owned payload schemas belong in their local
 ## Communication topology
 
 ```text
-Simulator / patient event → Mira
+Patient / Human RN / simulator event → Mira
 Mira ── official A2A task ──► Atlas
 Mira ◄── A2A status/artifact ─ Atlas
 Mira ── evidence/request ────► Human RN
@@ -57,9 +57,9 @@ work. Validate every structured payload before it changes state.
 | Use case | Required route | Terminal condition |
 |---|---|---|
 | Routine support | Event → Mira → Atlas → Mira | Pre-approved task completed and logged |
-| Early termination | Patient → Atlas/Mira → Mira → Human RN | RN decision recorded |
+| Early termination | Patient → Mira → Human RN | RN decision recorded |
 | Critical hypotension | Simulator → immediate RN alert + Mira; Mira → Atlas in parallel | RN decision and follow-up recorded |
-| Access concern | Patient → Atlas → Mira → Human RN | RN review recorded |
+| Access concern | Patient → Mira → Atlas → Mira → Human RN | RN review recorded |
 | Center summary | Human RN → Mira | Traceable four-chair summary returned |
 
 ## Critical-event rule

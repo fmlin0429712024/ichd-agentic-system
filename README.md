@@ -1,128 +1,170 @@
 # Agentic CareLoop for In-Center Hemodialysis
 
-> A human-in-the-loop, multi-agent simulation for a fictional in-center
-> hemodialysis treatment pod.
+A runnable, public-safe POC showing how a central AI collaborator coordinates
+patients, a human RN, treatment context, and a mobile AGV worker through formal
+agent-to-agent communication.
 
-## Run the first end-to-end journey
+> **Interaction boundary:** Patients and the human RN talk only to **Mira**.
+> **Atlas is not a chat endpoint**; it receives bounded work from Mira through
+> formal A2A tasks and returns structured status and evidence.
+
+![CareLoop live simulation: routine round, Mira coordination, Atlas delivery, and patrol resumption](docs/assets/careloop-demo.gif)
+
+*Real application capture—not a concept render.* Atlas performs a routine round,
+Mira receives Daniel's request, formal A2A dispatches the delivery, and Atlas
+resumes its round after Chair 1. [Open the static screenshot.](docs/assets/careloop-operations.jpg)
+
+## The idea in 30 seconds
+
+| Role | Product responsibility |
+|---|---|
+| **Mira · collaborator** | The only conversational center for patients and the RN; assembles context, coordinates work, and escalates decisions. |
+| **Atlas · worker** | A mobile AGV with no general human chat; accepts bounded A2A tasks, performs visible work, and returns structured evidence. |
+| **Human RN · authority** | Retains every clinical and treatment decision. Mira coordinates; it does not replace accountable judgment. |
+
+The design intentionally does not copy a human staffing hierarchy. Mira has no
+floor avatar or physical “home.” Its presence is the coordination service and
+right-side console. Atlas is the spatial actor, so it alone has a dock, route,
+location, and movement state.
+
+## What works today
+
+- **Two identity-aware Mira conversations:** a selected fictional patient and
+  Jordan Lee, RN have separate sessions and context.
+- **Real coordinator → worker delegation:** Mira discovers Atlas through its
+  Agent Card and sends a schema-validated A2A v1.0 JSON-RPC task.
+- **Purposeful AGV behavior:** Atlas follows a clockwise routine round, diverts
+  at the next safe waypoint, visits the hub for supplies or after a full round,
+  and resumes from the completed task location.
+- **Traceable execution:** patient message, Mira decision, A2A task, worker
+  state, motion phases, artifact, and evidence reference appear in one trace.
+- **Synthetic treatment context:** four fictional patients, current chair
+  values, bounded profiles, and 12 weeks of compact treatment history.
+
+The first complete autonomous slice is intentionally narrow: **Daniel Kim's
+pre-approved coffee request**. The RN can also ask Mira for a synthetic chair or
+center status. Other clinical stories remain designed but are not represented
+as completed runtime behavior.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    P["🧑 Patient<br/>selected chair identity"] -->|"conversation"| M
+    R["👩‍⚕️ Human RN<br/>final clinical authority"] <-->|"conversation + decision"| M
+    D["📈 Synthetic treatment context"] --> M
+
+    subgraph COORDINATOR["Mira · central collaborator"]
+        M["OpenAI Agents SDK<br/>context · coordination · escalation"]
+    end
+
+    M ==>|"formal A2A<br/>Agent Card + JSON contract"| A
+    A -. "status + artifact" .-> M
+
+    subgraph WORKER["Atlas · bounded worker"]
+        A["A2A task executor<br/>no human chat · no medical judgment"]
+    end
+
+    A --> S["AGV Motion Emulator<br/>fixed ring + chair service points"]
+    S --> V["2.5D operations view<br/>route + task trace"]
+
+    classDef source fill:#FEF3C7,stroke:#D97706,color:#422006
+    classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
+    classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef visual fill:#CCFBF1,stroke:#0F766E,color:#134E4A
+    class P,D source
+    class R human
+    class M,A digital
+    class S,V visual
+```
+
+The LLM is used where language and bounded context matter: Mira's conversations
+and coordination. Atlas's current delivery execution is deterministic, so it
+does not spend model tokens pretending to reason about a fixed task.
+
+## One visible CareLoop
+
+1. Daniel speaks to **Mira** from Chair 1; Atlas can be anywhere on its round.
+2. Mira validates that coffee is pre-approved in this synthetic scenario.
+3. Mira discovers Atlas and sends `deliver_item` through formal A2A.
+4. Atlas diverts at a safe waypoint, visits the Operations Hub, and picks up the
+   item.
+5. The Motion Emulator shows delivery to Chair 1 and resumes the routine round.
+6. Mira and the event trace retain the correlated task and evidence reference.
+
+Communication and physical presence are deliberately decoupled. Conversation
+is immediate; movement is required only for delivery, bounded chairside
+questions, observations, or simulated measurements.
+
+## Four-chair story map
+
+| Chair | Fictional patient | Scenario | Runtime status |
+|---|---|---|---|
+| 1 | **Daniel Kim** | Stable treatment; pre-approved coffee request | **Working end to end** |
+| 2 | **Noah Carter** | Anxiety and request to end treatment early | Designed; requires RN decision flow |
+| 3 | **Emma Morgan** | Synthetic hypotension signal and chairside evidence | Designed; requires immediate RN alert flow |
+| 4 | **Priya Shah** | Access-site soreness despite normal machine values | Designed; requires uncertainty and RN review flow |
+
+The scenarios reuse the same patient, prescription, live-treatment, historical,
+conversation, A2A, motion, and evidence boundaries. Richer stories add task
+types; they do not require a new architecture.
+
+## Implementation
+
+| Layer | Current POC choice |
+|---|---|
+| Mira conversation | OpenAI Agents SDK; isolated patient and RN in-memory sessions |
+| Agent collaboration | Official `@a2a-js/sdk`, A2A v1.0 JSON-RPC, Agent Card discovery |
+| Business contracts | Provider-owned JSON Schema request and artifact contracts |
+| Atlas worker | Independent deterministic Node.js A2A service |
+| Simulation | React, TypeScript, Vite, SVG/CSS fixed-camera 2.5D view |
+| Motion | Fixed waypoint graph; clockwise round; deterministic shortest task route |
+| Data | Static, fictional JSON; no database and no client data |
+| Verification | 39 automated tests plus real-browser conversational acceptance |
+
+```text
+nurse-operator-agent/     Mira Skill · Agents SDK runtime · A2A client
+aide-agv-agent/           Atlas Skill · Agent Card · contracts · A2A worker
+care-center-simulator/    synthetic floor · chat UI · motion emulator · trace
+poc-reference/            fictional profiles · treatment history · story map
+docs/                     PRD · technical spec · frontend and agent designs
+```
+
+## Run locally
+
+Prerequisites: Node.js, npm, and an OpenAI API key for Mira. API usage is billed
+separately from ChatGPT or Codex. Atlas does not require an API key.
 
 ```bash
+# Terminal 1 — Atlas worker
 cd aide-agv-agent
 npm install
 npm start
 ```
 
-In a second terminal:
-
 ```bash
+# Terminal 2 — Mira coordinator
 cd nurse-operator-agent
 npm install
+export OPENAI_API_KEY="..."
+export OPENAI_MODEL="gpt-5.6-luna"
 npm start
 ```
 
-In a third terminal:
-
 ```bash
+# Terminal 3 — browser simulation
 cd care-center-simulator
 npm install
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/` and select **Run Mira → Atlas**. The simulator
-sends Daniel's synthetic patient event to the independent Mira process. Mira
-validates it, discovers Atlas through its Agent Card, sends the coffee task
-through official A2A v1.0 JSON-RPC, validates the returned provider artifact,
-and returns the trace to the simulator for visual replay. Manual movement,
-delivery, patrol, stop, and reset remain available as playground controls.
+Open `http://127.0.0.1:5173/`, select **Daniel Kim · Chair 1**, and ask:
 
-See [Frontend Design](docs/FRONTEND_DESIGN.md) for the simulator layout,
-deterministic routes, rendering boundary, and progressive role strategy.
+> Hi Mira, please ask Atlas to bring me a cup of coffee.
 
-See [Atlas Agent](docs/ATLAS_AGENT.md) for the first role Skill, Agent Card,
-business contracts, authority boundary, and validation commands.
+Then switch to **RN → Mira** and request a concise synthetic Chair 1 status.
 
-See [Mira Agent](docs/MIRA_AGENT.md) for the coordinating Skill, simulator event
-contract, RN decision boundary, and independent Atlas A2A client.
-
-**CareLoop Demo Center** is fully occupied: four fictional patients are in
-treatment, one human RN leads clinical decisions, one human PCT remains on the
-floor, and two digital employees help coordinate and support the work.
-
-## The 30-second story
-
-A stationary **Nurse AI** continuously combines simulated treatment data with
-patient context. When information is missing, it dispatches a mobile **Aide
-AGV** to the chair. The AGV can collect limited chairside observations, perform
-a scripted manual BP/HR recheck, relay what the patient says, and complete
-pre-approved support tasks.
-
-The two digital employees handle bounded observation and routine coordination.
-A **human RN** retains final authority over critical and medical decisions. A
-**human PCT** remains the safety and physical-assistance backstop when the AGV
-should not act.
-
-```mermaid
-flowchart LR
-    P["🧑 Patient"] --> A["🤖 Aide AGV<br/>digital employee"]
-    A --> M["🧠 Nurse AI<br/>digital employee"]
-    M --> J["👩‍⚕️ Human RN<br/>final clinical authority"]
-    J --> M --> A
-    A -. "human assistance required" .-> C["🧑‍⚕️ Human PCT<br/>physical-assistance backstop"]
-    M -. "human assistance required" .-> C
-    classDef patient fill:#FEF3C7,stroke:#D97706,color:#422006
-    classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
-    classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
-    class P patient
-    class A,M digital
-    class J,C human
-```
-
-The goal is not to replace clinicians. It is to show how digital workers can
-absorb bounded routine work, collect better context, and make human decisions
-more informed and traceable.
-
-## Four chairs, four stories
-
-| Chair | Patient | What happens | What it demonstrates |
-|---|---|---|---|
-| 1 | **Daniel Kim** | Requests his pre-approved coffee during a stable treatment | Atlas completes a routine support task without interrupting the RN |
-| 2 | **Noah Carter** | Feels anxious and asks to end treatment early | Atlas relays; Mira prepares context; Jordan makes the decision |
-| 3 | **Emma Morgan** | Simulated IoT BP drops to 85/48 | Mira dispatches Atlas, fuses manual recheck and symptoms, and immediately escalates to Jordan |
-| 4 | **Priya Shah** | IoT values look normal, but she reports access-site soreness | Atlas observes; Mira states uncertainty; Jordan reviews the concern |
-
-Together, these four scenarios show normal support, a patient-led medical
-request, a critical data event, and a concern that only chairside observation
-can reveal.
-
-## Cast
-
-| Person or agent | Role | Responsibility |
-|---|---|---|
-| **Jordan Lee, RN** | Human RN | Final clinical decision-maker and accountable supervisor |
-| **Casey Torres, PCT** | Human PCT | Human safety and physical-assistance backstop |
-| **Mira** | Nurse AI | Data fusion, coordination, explanation, and escalation |
-| **Atlas** | Aide AGV | Chairside observation, patient communication, and bounded support work |
-
-Patients and humans use formal names; the two digital employees use short fixed
-nicknames. The interface uses simple labels such as `Emma · Chair 3` and
-`Mira · Nurse AI` so the story is easy to scan.
-
-## Interactive demo
-
-The current browser experience combines a fixed 2.5D treatment-floor view,
-patient KPIs, routed Atlas movement, and an A2A event trace. Daniel's routine
-coffee journey is operational; the RN escalation stories remain planned. The
-complete demo will make two evidence streams visible:
-
-- **Simulated IoT data:** current treatment values and trends.
-- **Chairside observation:** Atlas's manual recheck, patient report, and
-  scripted physical observations.
-
-## From virtual POC to fleet-ready vision
-
-The POC validates the CareLoop collaboration model in a virtual center. The
-future vision keeps that model, places it at the care site, and makes it
-operable across a chain of centers. The primary cloud value proposition is
-**fleet management at enterprise scale**—not remote clinical control.
+## POC today → production direction
 
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "curve": "linear"}}}%%
@@ -130,64 +172,50 @@ flowchart TB
     subgraph COMPARISON[" "]
         direction LR
 
-        subgraph POC[" "]
+        subgraph POC["VIRTUAL POC · ONE SYNTHETIC CENTER"]
             direction BT
-            VP["🧑 Virtual patient +<br/>simulated treatment data"] --> VA["🤖 Virtual Aide AGV"]
-            VA --> VM["🧠 Virtual Nurse AI"]
-            VM --> VH["👩‍⚕️ Human RN + 🧑‍⚕️ Human PCT<br/>demo workspace"]
-            VH ~~~ PH["VIRTUAL POC<br/>ONE SIMULATED CENTER"]
+            PS["🧑 Virtual chairs +<br/>synthetic treatment data"] --> PM["🧠 Local Mira service<br/>conversation + coordination"]
+            PM <--> PA["🤖 Local Atlas worker<br/>formal A2A"]
+            PA --> PV["🖥️ Motion emulator<br/>operations view"]
         end
 
-        subgraph FUTURE[" "]
+        subgraph FUTURE["PHYSICAL SITES · ENTERPRISE FLEET"]
             direction BT
-            RS["🧑 Patient + on-site devices<br/>local safety boundary"] --> AR["🤖 Aide AGV<br/>Jetson AGX Orin-class"]
-            AR <--> SE["🧠 Nurse AI site edge gateway<br/>IGX Orin-class"]
-            SE --> HS["👩‍⚕️ Human RN + 🧑‍⚕️ Human PCT<br/>on-site human authority"]
-            SE <--> EC["☁️ Enterprise cloud<br/>fleet management across centers"]
-            HS ~~~ FH["REAL-WORLD VISION<br/>PHYSICAL SITES + ENTERPRISE FLEET"]
-            EC ~~~ FH
+            FS["🧑 Patients + on-site devices"] --> FM["🧠 Site-edge Mira coordinator<br/>industrial edge gateway"]
+            FM <--> FA["🤖 Physical AGV worker<br/>device-local execution"]
+            FM --> FH["👩‍⚕️ Human RN<br/>on-site authority"]
+            FM <--> FC["☁️ Enterprise cloud<br/>fleet management"]
         end
-
-        POC ~~~ FUTURE
     end
 
     classDef source fill:#FEF3C7,stroke:#D97706,color:#422006
     classDef digital fill:#DBEAFE,stroke:#2563EB,color:#172554
     classDef human fill:#FCE7F3,stroke:#DB2777,color:#500724
     classDef cloud fill:#EDE9FE,stroke:#7C3AED,color:#2E1065
-    classDef pocHeader fill:#0F766E,stroke:#0F766E,color:#FFFFFF,font-size:18px,font-weight:bold
-    classDef futureHeader fill:#1D4ED8,stroke:#1D4ED8,color:#FFFFFF,font-size:18px,font-weight:bold
-    class VP,RS source
-    class VA,VM,AR,SE digital
-    class VH,HS human
-    class EC cloud
-    class PH pocHeader
-    class FH futureHeader
+    class PS,FS source
+    class PM,PA,PV,FM,FA digital
+    class FH human
+    class FC cloud
     style POC fill:#F0FDFA,stroke:#0F766E,stroke-width:2px
     style FUTURE fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px
     style COMPARISON fill:transparent,stroke:transparent
 ```
 
-**Read bottom to top:** patient and treatment data begin at the chair; digital
-employees collect and coordinate; human employees retain authority. The future
-vision uses the same CareLoop model at the site, while the enterprise cloud
-manages the fleet across many centers. The human RN remains the final clinical
-decision-maker at the site.
+The production direction preserves the operational contract: Mira coordinates,
+Atlas works, and the human RN decides. Physical navigation and safety remain
+inside the future AGV boundary; enterprise cloud services manage fleets rather
+than remotely controlling clinical work.
 
-## Explore the project
+## Read next
 
-- [POC PRD](docs/PRD.md) — detailed product source of truth
-- [Technical specification](docs/TECHNICAL_SPEC.md) — runtime, Skills,
-  multi-agent contracts, state, and safety design
-- [Implementation plan](docs/IMPLEMENTATION_PLAN.md) — vertical delivery slices
-- [Task queue](TASKS.md) — dependency-ordered implementation checklist
-- [Four-patient story map](poc-reference/patient-scenarios.md) — roles,
-  scenarios, communication model, and Atlas task boundary
-- [Data-to-use-case map](poc-reference/use-case-catalog.md) — how patient
-  profiles, 12-week history, live data, and observations support each story
-- [Synthetic clinic seed data](poc-reference/data/clinic-seed.json) — the
-  fictional cast and starting treatment state
+- [POC PRD](docs/PRD.md) — product scope, personas, data, safety, and acceptance
+- [Technical specification](docs/TECHNICAL_SPEC.md) — coordinator/worker runtime,
+  A2A, contracts, and motion boundary
+- [Mira agent](docs/MIRA_AGENT.md) and [Atlas agent](docs/ATLAS_AGENT.md) — role
+  Skills, authority, and validation
+- [Four-patient story map](poc-reference/patient-scenarios.md) and
+  [data-to-use-case map](poc-reference/use-case-catalog.md)
 
 > All people, organizations, values, and events are fictional and synthetic.
-> This is a concept demonstration, not a medical device or clinical
-> decision-support system, and is not intended for clinical use.
+> This is a concept demonstration—not a medical device, clinical decision
+> support system, or workflow for patient care.

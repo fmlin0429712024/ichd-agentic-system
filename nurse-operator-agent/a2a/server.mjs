@@ -1,9 +1,15 @@
 import express from "express";
 import { AtlasA2AClient } from "./atlas-client.mjs";
 import { coordinateRoutineEvent } from "./mira-coordinator.mjs";
+import { createMiraChatRuntime } from "../runtime/mira-chat.mjs";
 
 export function createMiraApp(options = {}) {
   const atlasClient = options.atlasClient ?? new AtlasA2AClient(options.atlasBaseUrl);
+  const coordinateRoutine = (event) => coordinateRoutineEvent(event, {
+    discoverAtlas: () => atlasClient.discover(),
+    dispatchAtlas: (task) => atlasClient.dispatch(task)
+  });
+  const chatRuntime = options.chatRuntime ?? createMiraChatRuntime({ coordinateRoutine });
   const app = express();
   app.use(express.json({ limit: "32kb" }));
   app.use((request, response, next) => {
@@ -14,12 +20,23 @@ export function createMiraApp(options = {}) {
     next();
   });
   app.get("/health", (_request, response) => response.json({ status: "ok", agent: "mira" }));
+  app.post("/chat/patient", async (request, response) => {
+    try {
+      response.json(await chatRuntime.chatPatient(request.body));
+    } catch (error) {
+      response.status(error.status ?? 502).json({ code: error.code ?? "MIRA_CHAT_FAILED", message: error.message });
+    }
+  });
+  app.post("/chat/rn", async (request, response) => {
+    try {
+      response.json(await chatRuntime.chatRn(request.body));
+    } catch (error) {
+      response.status(error.status ?? 502).json({ code: error.code ?? "MIRA_CHAT_FAILED", message: error.message });
+    }
+  });
   app.post("/poc/events", async (request, response) => {
     try {
-      const result = await coordinateRoutineEvent(request.body, {
-        discoverAtlas: () => atlasClient.discover(),
-        dispatchAtlas: (task) => atlasClient.dispatch(task)
-      });
+      const result = await coordinateRoutine(request.body);
       response.json(result);
     } catch (error) {
       const status = error.code === "INVALID_MIRA_EVENT" ? 400 : 502;
@@ -30,7 +47,8 @@ export function createMiraApp(options = {}) {
 }
 
 if (process.argv[1] === new URL(import.meta.url).pathname) {
-  createMiraApp().listen(8042, "127.0.0.1", () => {
-    console.log("Mira simulator-event adapter listening on http://127.0.0.1:8042");
+  const server = createMiraApp().listen(8042, "127.0.0.1", () => {
+    console.log("Mira collaboration service listening on http://127.0.0.1:8042");
   });
+  server.ref();
 }

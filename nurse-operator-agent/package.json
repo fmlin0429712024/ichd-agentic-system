@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@a2a-js/sdk": "1.0.0-beta.0",
+    "@openai/agents": "^0.13.5",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
-    "express": "5.1.0"
+    "express": "5.1.0",
+    "zod": "^4.4.3"
   }
 }
