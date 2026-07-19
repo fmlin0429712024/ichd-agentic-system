@@ -1,8 +1,8 @@
 # Agentic CareLoop for In-Center Hemodialysis
 
-A POC that wires a conversational AI coordinator, a formal agent-to-agent
-protocol, and a mobile AGV worker into one traceable care loop — running in
-a synthetic four-chair hemodialysis center.
+A domain-specific agentic system for in-center hemodialysis operations — wiring
+a conversational AI coordinator, a formal agent-to-agent protocol, and a mobile
+AGV worker into one traceable care loop, driven by structured clinical data.
 
 > **Why this matters:** Hemodialysis centers run on repetitive, time-sensitive
 > logistics while a single nurse manages four patients in parallel. This system
@@ -17,7 +17,20 @@ Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations
 
 ---
 
-## How it works — three decoupled layers
+## Contents
+
+1. [System Architecture](#2-system-architecture)
+2. [Data Architecture](#3-data-architecture)
+3. [One Complete Care Loop](#4-one-complete-care-loop)
+4. [Patient Scenarios](#5-patient-scenarios)
+5. [Technology Stack](#6-technology-stack)
+6. [Run It Locally](#7-run-it-locally)
+7. [Repository Layout](#8-repository-layout)
+8. [Read Next](#9-read-next)
+
+---
+
+## 2. System Architecture
 
 ```mermaid
 flowchart TD
@@ -40,7 +53,6 @@ flowchart TD
         ENV -.->|"AGV operates inside"| AGV
     end
 
-    %% force strict top-to-bottom layer ordering
     CANVAS ~~~ AGENTS
     AGENTS ~~~ PHYSICAL
 
@@ -77,12 +89,89 @@ emits the same `CARELOOP_TELEMETRY` format — nothing else changes.
 
 ---
 
-## One complete care loop
+## 3. Data Architecture
+
+This is not a toy POC. The agentic system is grounded in a structured clinical
+data model that mirrors real hemodialysis operations. Every agent decision,
+escalation, and AGV task is traceable back to a specific data signal.
+
+```mermaid
+flowchart LR
+    subgraph PD["👤 Patient Domain"]
+        P1["Demographics\nDialysis program\nComorbidities · Allergies"]
+        P2["Vascular access\nTreatment prescription\nMedication context  (read-only)"]
+        P3["Risk flags\nSupport preferences\nCommunication preferences"]
+    end
+
+    subgraph TD["📋 Treatment Domain"]
+        T1["Current session\nBlood pressure · Heart rate\nBFR · UF rate · Volume removed"]
+        T2["12-week history\n36 sessions per patient\n144 records total"]
+        T3["Chairside observations\nAGV on-site evidence\nManual vitals recheck"]
+    end
+
+    subgraph FUTURE["📡 Future · IoT & Streaming  (roadmap)"]
+        F1["Real-time machine stream\nDialysis machine telemetry"]
+        F2["On-site IoT devices\nEnvironmental + patient sensors"]
+        F3["AGV sensor feed\nProximity · Visual observation"]
+    end
+
+    PD --> MIRA["🧠 Mira\nDecision context"]
+    TD --> MIRA
+    FUTURE -.->|"same agent architecture\ndeeper use cases"| MIRA
+```
+
+### Patient Domain
+
+Static clinical background that Mira loads as context for every conversation
+and coordination decision:
+
+| Data | Purpose |
+|---|---|
+| Demographics, dialysis program, schedule | Identifies the patient and their treatment plan |
+| Primary condition, comorbidities, allergies | Gives Mira bounded clinical background |
+| Vascular access type and status | Supports chairside observation tasks |
+| Treatment prescription (time, BFR, DFR, UF goal, dry weight) | Grounds all treatment progress signals |
+| Medication context | Read-only background — no agent may prescribe, administer, or modify orders |
+| Risk flags, support preferences | Explains why a signal receives attention; enables pre-approved routines |
+
+### Treatment Domain
+
+Dynamic data that reflects what is happening on the floor right now and over
+the past 12 weeks:
+
+| Data | Purpose |
+|---|---|
+| Current session: BP, HR, BFR, UF rate, volume removed, elapsed time | Primary signals for status assessment and escalation routing |
+| 12-week history (36 sessions × 4 patients = 144 records) | Longitudinal context — prior hypotension events, completion patterns, access issues |
+| Session summary per patient | Compact 12-week view Mira loads without reading every record |
+| Chairside observation artifact | On-site evidence collected by Atlas during a task |
+
+### From coffee to clinical — the data roadmap
+
+The current working use case (coffee delivery) is the simplest possible
+data-driven decision: patient preference flag → pre-approval check → AGV task.
+
+As the IoT and streaming layer is added, the same agent architecture supports
+progressively deeper use cases:
+
+| Use case | Data required |
+|---|---|
+| Pre-approved comfort delivery | Support preferences + current session state |
+| Hypotension response | Real-time BP stream + 12-week BP history |
+| Early termination request | Session progress + RN decision escalation |
+| Access-site concern | AGV chairside observation + vascular access history |
+| Predictive fluid management | Streaming UF rate + longitudinal weight and UF patterns |
+
+The architecture does not change — the data depth drives the use case depth.
+
+---
+
+## 4. One Complete Care Loop
 
 The working end-to-end slice is **Daniel Kim's pre-approved coffee request**:
 
 1. **Daniel** speaks to Mira from Chair 1.
-2. **Mira** validates the pre-approval from his synthetic treatment context.
+2. **Mira** validates the pre-approval from his patient domain data.
 3. **Mira** discovers the AGV via its Agent Card and sends a `deliver_item` A2A task.
 4. **Atlas** diverts from its routine patrol, visits the Operations Hub, picks up the item.
 5. **The AGV** navigates to Chair 1 and completes the delivery.
@@ -90,21 +179,22 @@ The working end-to-end slice is **Daniel Kim's pre-approved coffee request**:
 
 ---
 
-## Patient scenarios
+## 5. Patient Scenarios
 
 Four fictional patients cover the range of clinical situations a nurse faces
-during a single treatment session:
+during a single treatment session. Each scenario requires a different depth of
+data and a different coordination pattern:
 
-| Chair | Patient | Scenario | Status |
-|---|---|---|---|
-| 1 | **Daniel Kim** | Stable; pre-approved coffee request | ✅ Working end to end |
-| 2 | **Noah Carter** | Anxiety; wants to end treatment early | Designed — needs RN decision flow |
-| 3 | **Emma Morgan** | Synthetic hypotension signal | Designed — needs immediate RN alert flow |
-| 4 | **Priya Shah** | Access-site soreness; normal machine values | Designed — needs uncertainty + RN review |
+| Chair | Patient | Scenario | Data signals involved | Status |
+|---|---|---|---|---|
+| 1 | **Daniel Kim** | Stable; pre-approved coffee request | Support preferences, session state | ✅ Working end to end |
+| 2 | **Noah Carter** | Anxiety; wants to end treatment early | Session progress, RN escalation | Designed — needs RN decision flow |
+| 3 | **Emma Morgan** | Synthetic hypotension signal | Real-time BP, 12-week BP history | Designed — needs immediate RN alert flow |
+| 4 | **Priya Shah** | Access-site soreness; normal machine values | AGV observation, vascular access history | Designed — needs uncertainty + RN review |
 
 ---
 
-## Technology stack
+## 6. Technology Stack
 
 | Layer | Component | Technology |
 |---|---|---|
@@ -113,12 +203,12 @@ during a single treatment session:
 | **Layer 2** | Mira coordinator | OpenAI Agents SDK · Node.js |
 | **Layer 2** | Agent communication | `@a2a-js/sdk` · A2A v1.0 JSON-RPC · Agent Card discovery |
 | **Layer 3** | Operations Canvas | React · TypeScript · Vite · SVG/CSS |
-| — | Data | Static fictional JSON — no database, no real patient data |
+| — | Clinical data | Structured synthetic JSON — patient domain + treatment domain |
 | — | Tests | 49 automated tests + Webots mission acceptance |
 
 ---
 
-## Run it locally
+## 7. Run It Locally
 
 **Prerequisites:** Node.js, npm, and an OpenAI API key (for Mira only).
 
@@ -146,23 +236,26 @@ to stdout.
 
 ---
 
-## Repository layout
+## 8. Repository Layout
 
 ```
 nurse-operator-agent/   Layer 2 · Mira coordinator (Agents SDK + A2A client)
 aide-agv-agent/         Layer 1 · Atlas AGV agent (A2A server + task executor)
+                        Stable protocol layer — survives hardware swap
 care-center-simulator/  Layer 3 · Operations Canvas (React/Vite web app)
 physical-simulator/     Layer 1 · Webots world, Python controller, Body Adapter
-poc-reference/          Synthetic patient profiles and treatment history
+                        Replaceable physical layer — swap for real AGV hardware
+poc-reference/          Clinical data model: patient domain + treatment domain
 docs/                   PRD, technical spec, agent designs, ADRs
 ```
 
 ---
 
-## Read next
+## 9. Read Next
 
 - [PRD](docs/PRD.md) — product scope, personas, safety, and acceptance criteria
 - [Technical Specification](docs/TECHNICAL_SPEC.md) — A2A, contracts, motion boundary
+- [Data Model](poc-reference/data-model.md) — field-level decisions and exclusions
 - [ADR-001 · Why Webots](docs/decisions/ADR-001-webots-physical-simulation.md)
 - [Patient story map](poc-reference/patient-scenarios.md)
 
