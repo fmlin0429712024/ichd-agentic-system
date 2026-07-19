@@ -356,8 +356,7 @@ below it.
 **Window 2 · Webots Digital Twin** *(desktop application)*
 *(Layer 1 — for the engineer and developer)*
 
-> 📸 *Screenshot coming — will show the Webots 3D view of the four-chair HD
-> center with the AGV navigating between chairs.*
+![Webots digital twin: four-chair HD center with AGV navigating the floor](docs/assets/webots-digital-twin.png)
 
 The Webots window shows the physical world: the actual room geometry, the
 differential-drive AGV moving through waypoints, wheel motion, and spatial
