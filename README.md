@@ -337,6 +337,40 @@ configuration needed.
 
 ---
 
+### What you should see — two windows, two perspectives
+
+Running the full system opens two simultaneous views that together demonstrate
+the complete architecture:
+
+**Window 1 · Operations Canvas** `http://127.0.0.1:5173/`
+*(Layer 3 — for the center manager and the interviewer)*
+
+![Operations Canvas screenshot](docs/assets/careloop-operations.jpg)
+
+The browser dashboard shows the floor from a management perspective: chair
+status, Atlas position projected from telemetry, patient and nurse conversation
+panels, and a correlated mission trace. This is what a center manager sees —
+business-level visibility with no awareness of the physical simulation running
+below it.
+
+**Window 2 · Webots Digital Twin** *(desktop application)*
+*(Layer 1 — for the engineer and developer)*
+
+> 📸 *Screenshot coming — will show the Webots 3D view of the four-chair HD
+> center with the AGV navigating between chairs.*
+
+The Webots window shows the physical world: the actual room geometry, the
+differential-drive AGV moving through waypoints, wheel motion, and spatial
+position. This is what the engineer sees — the physical reality that the
+Operations Canvas reflects as abstracted telemetry.
+
+**Together, these two windows make the layer separation tangible:**
+the same coffee delivery mission appears as a business event in the Canvas
+and as physical robot movement in Webots — connected by nothing more than the
+`CARELOOP_TELEMETRY` contract.
+
+---
+
 ## 9. Repository Layout
 
 ```
