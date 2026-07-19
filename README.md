@@ -1,19 +1,14 @@
 # Agentic CareLoop for In-Center Hemodialysis
 
-A domain-specific agentic system for in-center hemodialysis operations — wiring
-a conversational AI coordinator, a formal agent-to-agent protocol, and a mobile
-AGV worker into one traceable care loop, driven by structured clinical data.
+**CareLoop** is a full-stack physical AI system built for in-center hemodialysis operations — demonstrating how an AI coordinator, a formal agent protocol, and a mobile robot work together in a real clinical domain.
 
-> **Why this matters:** Hemodialysis centers run on repetitive, time-sensitive
-> logistics while a single nurse manages four patients in parallel. This system
-> explores what it looks like when AI handles coordination and a robot handles
-> the physical work — while the human RN retains every clinical decision.
+- **Domain** — A hemodialysis center runs four patients in parallel under a single nurse, with time-sensitive logistics repeating every session. This system explores AI-assisted coordination and robotic execution while keeping the human RN as the final clinical authority.
 
-![CareLoop live simulation: routine round, Mira coordination, Atlas delivery, and patrol resumption](docs/assets/careloop-demo.gif)
+- **Architecture** — Three independent layers: a Webots digital twin (simulation → real AGV hardware), an agentic tier with Mira as coordinator and Atlas as AGV worker connected via A2A protocol, and an Operations Canvas for real-time management visibility. Every layer is replaceable without touching the others.
 
-*Real application capture — not a concept render.* Atlas performs a routine
-round, Mira receives Daniel's request, formal A2A dispatches the delivery, and
-Atlas resumes its round. [Static screenshot →](docs/assets/careloop-operations.jpg)
+- **Data** — Grounded in structured clinical data: patient domain (prescriptions, comorbidities, medications) and treatment domain (live session signals, 12-week history). Designed to support progressively deeper use cases as IoT and streaming data are added.
+
+- **Scalability** — From one AGV in one center today, to a fleet of agents across multiple sites — same architecture, deeper data, more complex scenarios.
 
 ---
 
@@ -345,7 +340,7 @@ the complete architecture:
 **Window 1 · Operations Canvas** `http://127.0.0.1:5173/`
 *(Layer 3 — for the center manager and the interviewer)*
 
-![Operations Canvas screenshot](docs/assets/careloop-operations.jpg)
+![CareLoop live simulation: routine round, Mira coordination, Atlas delivery, and patrol resumption](docs/assets/careloop-demo.gif)
 
 The browser dashboard shows the floor from a management perspective: chair
 status, Atlas position projected from telemetry, patient and nurse conversation
